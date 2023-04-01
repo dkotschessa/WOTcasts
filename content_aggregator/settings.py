@@ -27,7 +27,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'podcasts.apps.PodcastsConfig'
+    'podcasts.apps.PodcastsConfig',
+    # Third party apps
+    'django_apscheduler'
 ]
 
 MIDDLEWARE = [
