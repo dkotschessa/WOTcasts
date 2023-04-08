@@ -2,7 +2,11 @@ from django.db import models
 
 
 class Podcast(models.Model):
+    
     podcast_name = models.CharField(max_length = 100)
+
+    def __str__(self) -> str:
+        return f"{self.podcast_name}"
 
 # Create your models here.
 class Episode(models.Model):
