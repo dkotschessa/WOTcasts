@@ -44,7 +44,10 @@
               <div class="col-md-10">
                 <div class="card-body ml-3">
                   <h3 class="card-title">{{ episode.episode_title }}</h3>
+                  {% autoescape off %}
                   <p class="card-text">{{ episode.episode_description }}</p>
+
+                  {% endautoescape %}
                   <a href="{{ episode.episode_link }}">
                     <p class="card-text">🎧 Listen to this episode</p>
                   </a>
