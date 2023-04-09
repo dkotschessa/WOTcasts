@@ -1,6 +1,7 @@
 
 import logging
 from typing import List
+from django.test import TestCase
 
 import feedparser
 from podcasts.parser.episode_parser import populate_missing_fields
