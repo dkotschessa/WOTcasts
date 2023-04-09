@@ -1,18 +1,22 @@
 from django.test import TestCase
 from django.utils import timezone
 from django.urls.base import reverse
-from .models import Episode
+from podcasts.models import Episode, Podcast
 from datetime import datetime
 
 class PodcastTests(TestCase):
     def setUp(self):
+        self.podcast = Podcast.objects.create(podcast_name = "My Python Podcast",
+                                              feed_href = "http://something.rss/",
+                                              podcast_summary = "this is a summary",
+                                              podcast_image = "this is a link to an image")
         self.episode = Episode.objects.create(
             title = "My Awesome Podcast Episode",
             description = "hahah look",
             pub_date = timezone.now(),
             link = "http://hahaha.com",
             image = "https://image.something.com",
-            podcast_name = "My Python Podcast",
+            podcast_name = self.podcast,
             guid = "de194720-7b4c-49e2-a05f-432436d3fetr")
         
     
@@ -36,6 +40,6 @@ class PodcastTests(TestCase):
 
     def test_homepage_list_contents(self):
         response = self.client.get(reverse("homepage"))
-        self.assertContains(response, "My Awesome Podcast")
+        self.assertContains(response, "My Python Podcast")
 
     

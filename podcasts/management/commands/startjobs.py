@@ -35,16 +35,6 @@ class Command(BaseCommand):
         )
         logger.info("Added job: Fetch new episodes")
 
-        # scheduler.add_job(
-        #     fetch_the_dragon_reread,
-        #     trigger="interval",
-        #     minutes=2,
-        #     id="The Dragon Rereads",
-        #     max_instances=1,
-        #     replace_existing=True,
-        # )
-        # logger.info("Added job: The Dragon Rereads")
-
         try:
             logger.info("Starting Scheduler")
             scheduler.start()
