@@ -8,7 +8,7 @@ from django_apscheduler.models import DjangoJobExecution
 from django.conf import settings
 from podcasts.models import Episode
 from django.core.management import BaseCommand
-from podcasts.parser.episode_parser import fetch_the_wheel_weaves, fetch_the_dragon_reread
+from podcasts.parser.episode_parser import fetch_new_episodes
 
 
 logger = logging.getLogger(__name__)
@@ -26,24 +26,14 @@ class Command(BaseCommand):
         scheduler.add_jobstore(DjangoJobStore(), "default")
 
         scheduler.add_job(
-            fetch_the_wheel_weaves,
+            fetch_new_episodes,
             trigger = "interval",
             minutes = 2,
-            id = "The Wheel Weaves",
+            id = "Fetch New Podcast Episodes",
             max_instances = 1,
             replace_existing=True
         )
-        logger.info("Added job: The Wheel Weaves")
-
-        scheduler.add_job(
-            fetch_the_dragon_reread,
-            trigger="interval",
-            minutes=2,
-            id="The Dragon Rereads",
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added job: The Dragon Rereads")
+        logger.info("Added job: Fetch new episodes")
 
         try:
             logger.info("Starting Scheduler")

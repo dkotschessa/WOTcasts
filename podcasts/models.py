@@ -2,7 +2,14 @@ from django.db import models
 
 
 class Podcast(models.Model):
+    feed_href = models.URLField(unique=True)
     podcast_name = models.CharField(max_length = 100)
+    podcast_summary = models.TextField()
+    podcast_image = models.URLField()
+
+
+    def __str__(self) -> str:
+        return f"{self.podcast_name}"
 
 # Create your models here.
 class Episode(models.Model):

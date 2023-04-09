@@ -1,11 +1,11 @@
 
 import logging
+from typing import List
 
 import feedparser
 from dateutil import parser
 
 from podcasts.models import Episode, Podcast
-from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,26 @@ logger = logging.getLogger(__name__)
 
 
 
-def save_new_episodes_raw_data(feed):
+
+def populate_missing_fields():
+    """
+    Populate fields that are missing
+    mostly used when new podcast is added
+    """
+
+    for podcast in Podcast.objects.all():
+         if podcast.feed_href is not None: 
+            rss_link = podcast.feed_href
+            _feed = feedparser.parse(rss_link)
+            if not podcast.podcast_name:
+                    podcast.podcast_name = _feed.channel.title
+            if not podcast.podcast_summary:
+                 podcast.podcast_summary = _feed.channel.summary
+            if not podcast.podcast_image:
+                podcast.podcast_image = _feed.channel.image["href"]
+            podcast.save()
+
+def save_new_episodes(feed):
     """ Saves New episodes to database
     checks if the wpisode GUID against the episodes currently stored
     in the datebase. If not found, then a new Episode is added 
@@ -21,33 +40,35 @@ def save_new_episodes_raw_data(feed):
     Args: 
     feed: requires a feedparser object"""
 
-    podcast_title = feed.channel.title
-    podcast_image = feed.channel.image["href"]
     logger.info("Checking for new episodes...")
 
-          
+    podcast, created =  Podcast.objects.get_or_create(feed_href = feed.href)
+   
     for item in feed.entries:
+             
         if not Episode.objects.filter(guid = item.guid).exists():
-            logger.info(f"New episodes found for Podcast {podcast_title}")
-            podcast = Podcast(podcast_name = podcast_title)
-            podcast.save()
+            logger.info(f"New episodes found for Podcast {feed.channel.title}")
             episode = Episode(title = item.title, 
                                 description = item.description,
                                 pub_date = parser.parse(item.published),
                                 link = item.link,
                                 podcast_name = podcast,
-                                image = podcast_image,
+                                image = item.image['href'],
                                 guid = item.guid)
             episode.save()
 
 
+def get_rss_feed_list() -> List:
+     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
+     return [p.feed_href for p in podcast_list]
+     
 
-def fetch_the_wheel_weaves():
-        """ Fetches new episodes from RSS for the Wheel Weaves podcast"""
-        _feed = feedparser.parse("https://www.spreaker.com/show/5482260/episodes/feed")
-        save_new_episodes_raw_data(_feed)
 
-def fetch_the_dragon_reread():
-        """ Fetches new episodes from RSS for The Dragon ReRead podcast"""
-        _feed = feedparser.parse("https://thedragonreread.com/rss")
-        save_new_episodes_raw_data(_feed)
+def fetch_new_episodes():
+      populate_missing_fields()
+      """ Fetches new episodes from RSS feed"""
+      feeds = get_rss_feed_list()
+      for feed in feeds:
+            _feed = feedparser.parse(feed)
+            save_new_episodes(_feed)
+      

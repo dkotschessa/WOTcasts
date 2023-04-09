@@ -17,7 +17,7 @@ class HomePageView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        episodes = Episode.objects.filter().order_by("-pub_date")[:10]
+        episodes = Episode.objects.filter().order_by("-pub_date")[:50]
         episode_list = []
         for episode in episodes:
             context_dict = {}
