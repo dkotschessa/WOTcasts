@@ -1,0 +1,23 @@
+[run]
+# measure branch coverage
+branch = True
+# don't measure python standard library (this is the default)
+cover_pylib = False
+# omit 
+omit =
+    __init__.py
+    content_aggregator/asgi.py
+    content_aggregator/wsgi.py
+    manage.py
+    */migrations/* # omit migrations  
+    */tests/* # omit unit test files and directories
+# explicitly include the main app
+include =
+    wotcasts/*
+    content_aggregator/*
+
+# exclude some methods we don't test from the report and stats
+[report]
+exclude_lines =
+    def __str__    # example
+    def __repr__   # example

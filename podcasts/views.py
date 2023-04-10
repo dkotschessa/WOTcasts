@@ -1,12 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Episode
-from bs4 import BeautifulSoup
-
-def get_description(description):
-    soup = BeautifulSoup(description, features = "html.parser")
-    texts = soup.findAll(text = True)
-    return ''.join(texts)
 
 class HomePageView(ListView):
     template_name = "homepage.html"
