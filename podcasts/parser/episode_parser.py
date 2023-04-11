@@ -1,18 +1,16 @@
 
 import logging
 from typing import List
-
-import feedparser
 from dateutil import parser
+import feedparser
 
 from podcasts.models import Episode, Podcast
 
 logger = logging.getLogger(__name__)
 
 
-
-
-
+        
+    
 
 def populate_missing_fields():
     """
