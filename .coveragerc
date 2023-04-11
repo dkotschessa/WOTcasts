@@ -11,10 +11,6 @@ omit =
     manage.py
     */migrations/* # omit migrations  
     */tests/* # omit unit test files and directories
-# explicitly include the main app
-include =
-    wotcasts/*
-    content_aggregator/*
 
 # exclude some methods we don't test from the report and stats
 [report]

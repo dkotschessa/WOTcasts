@@ -51,7 +51,7 @@ def save_new_episodes(feed):
                                 pub_date = parser.parse(item.published),
                                 link = item.link,
                                 podcast_name = podcast,
-                                image = item.image['href'],
+                                image = podcast.podcast_image,
                                 guid = item.guid)
             episode.save()
 
