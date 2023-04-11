@@ -32,7 +32,7 @@ def test_save_new_episodes():
         with patch("podcasts.parser.episode_parser.feedparser.parse") as mock_parse:
 
             mock_parse.return_value = mock_feed
-            Podcast.objects.get_or_create(feed_href = mock_feed.href, podcast_name = mock_feed.channel.title)
+            podcast = Podcast.objects.get_or_create(feed_href = mock_feed.href, podcast_name = mock_feed.channel.title)
 
             save_new_episodes(mock_feed)
             episode = Episode.objects.last()
@@ -53,15 +53,17 @@ def test_get_rss_feed_list():
 
 
 @pytest.mark.django_db
-
 def test_fetch_new_episodes():
      with patch("podcasts.parser.episode_parser.populate_missing_fields") as populate:
           with patch("podcasts.parser.episode_parser.get_rss_feed_list") as feed_list_mock:
                feed_list_mock.return_value = ["http://podcast1.com","http://podcast2.com" ]
                with patch("podcasts.parser.episode_parser.save_new_episodes") as save_new_episodes_mock:
-                fetch_new_episodes()
-                populate.assert_called()
-                feed_list_mock.assert_called()
-                assert save_new_episodes_mock.call_count == 2
+                with patch("podcasts.parser.episode_parser.feedparser.parse") as feedparser_mock:
+                    fetch_new_episodes()
+                    populate.assert_called()
+                    feed_list_mock.assert_called()
+                    assert save_new_episodes_mock.call_count == 2
+                    assert feedparser_mock.call_count == 2
+                    feedparser_mock.assert_called_with('http://podcast2.com')
 
 
