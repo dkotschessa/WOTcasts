@@ -31,37 +31,33 @@
     <main class="container flex-grow-1">
       <div class="row">
         <div class="col">
-          {% for episode in episodes %}
+{#          {% for episode in episodes %}#}
           <section class="card mb-3">
             <div class="row no-gutters">
               <div class="col-md-2 my-auto">
                 <img
-                  src="{{ episode.episode_image }}"
+                  src="{{ podcast.podcast_image }}"
                   class="img-fluid ml-3 my-3"
-                  alt="{{ episode.podcast_name}}"
+                  alt="{{ podcast.podcast_name}}"
                 />
               </div>
               <div class="col-md-10">
                 <div class="card-body ml-3">
-                <a href="{% url 'podcast_info' episode.podcast_id %}">
-                  <h3 class="card-title">{{ episode.podcast_name }}</h3>
-                </a>
+                  <h3 class="card-title">{{ podcast.podcast_name }}</h3>
 
-
-
-                  <h3 class="card-title">{{ episode.episode_title }}</h3>
                   {% autoescape off %}
-                  <p class="card-text">{{ episode.episode_description }}</p>
+                      <h3 class="card-title">{{ podcast.podcast_summary }}</h3>
+                  <p class="card-text">{{ podcast.episode_description }}</p>
 
                   {% endautoescape %}
-                  <a href="{{ episode.episode_link }}">
+                  <a href="{{ podcast.feed_href }}">
                     <p class="card-text">🎧 Listen to this episode</p>
                   </a>
                 </div>
               </div>
             </div>
           </section>
-          {% endfor %}
+{#          {% endfor %}#}
         </div>
       </div>
     </main>
