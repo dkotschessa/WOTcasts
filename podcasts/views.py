@@ -36,13 +36,4 @@ def podcast_info_view(request, podcast_id):
     return render(
         request, "podcast_info.html", {"podcast" : podcast}
     )
-        #
-        #
-        # context = {}
-        # context['podcast_href'] = podcast.feed_href
-        # context['podcast_name'] = podcast.podcast_name
-        # context['podcast_summary'] = podcast.podcast_summary
-        # context['podcast_image'] = podcast.podcast_image
-        # return context
-
 
