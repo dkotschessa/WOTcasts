@@ -4,8 +4,9 @@ from django.db import models
 class Podcast(models.Model):
     feed_href = models.URLField(unique=True)
     podcast_name = models.CharField(max_length = 100)
-    podcast_summary = models.TextField()
+    podcast_summary = models.TextField(null = True, blank = True)
     podcast_image = models.URLField()
+    host = models.TextField(null = True, blank = True)
 
 
     def __str__(self) -> str:
