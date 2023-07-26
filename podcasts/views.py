@@ -19,13 +19,13 @@ def homepage_view(request):
         context_dict["podcast_id"] = podcast_id
         episode_list.append(context_dict)
     context["episodes"] = episode_list
-    return render(request, "homepage.html", context)
+    return render(request, "podcasts/homepage.html", context)
 
 
 def podcast_info_view(request, podcast_id):
     podcast = Podcast.objects.get(pk=podcast_id)
 
     return render(
-        request, "podcast_info.html", {"podcast" : podcast}
+        request, "podcasts/podcast_info.html", {"podcast" : podcast}
     )
 
