@@ -23,9 +23,11 @@ def populate_missing_fields():
             rss_link = podcast.feed_href
             _feed = feedparser.parse(rss_link)
             if not podcast.podcast_name:
-                    podcast.podcast_name = _feed.channel.title
+                podcast.podcast_name = _feed.channel.title
+                # todo maybe a separate function for this with error handling
+
             if not podcast.podcast_summary:
-                 podcast.podcast_summary = _feed.channel.summary
+                _feed.channel.get('summary', _feed.channel.get('subtitle'))
             if not podcast.podcast_image:
                 podcast.podcast_image = _feed.channel.image["href"]
             podcast.save()
@@ -49,7 +51,7 @@ def save_new_episodes(feed):
             episode = Episode(title = item.title, 
                                 description = item.description,
                                 pub_date = parser.parse(item.published),
-                                link = item.link,
+                                link = item.get('link', item.links[0]['href']),
                                 podcast_name = podcast,
                                 image = podcast.podcast_image,
                                 guid = item.guid)
