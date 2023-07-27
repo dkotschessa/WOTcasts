@@ -26,8 +26,8 @@ def populate_missing_fields():
                 podcast.podcast_name = _feed.channel.title
                 # todo maybe a separate function for this with error handling
 
-            if not podcast.podcast_summary:
-                _feed.channel.get('summary', _feed.channel.get('subtitle'))
+            if not podcast.podcast_summary or len(podcast.podcast_summary) < 2:
+                podcast.podcast_summary = _feed.channel.get('summary', _feed.channel.get('subtitle'))
             if not podcast.podcast_image:
                 podcast.podcast_image = _feed.channel.image["href"]
             podcast.save()
