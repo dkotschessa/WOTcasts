@@ -20,7 +20,7 @@ class Episode(models.Model):
     link = models.URLField()
     image = models.URLField()
     podcast_name = models.ForeignKey(Podcast, on_delete=models.CASCADE)
-    guid = models.CharField(max_length=50)
+    guid = models.CharField(max_length=100)
 
     def __str__(self) -> str:
         return f"{self.podcast_name}: {self.title}"
