@@ -55,6 +55,7 @@ def save_new_episodes(feed):
                                 podcast_name = podcast,
                                 image = podcast.podcast_image,
                                 guid = item.guid)
+            logger.info(f"Episode added: {episode.title} \n GUID: {episode.guid}")
             episode.save()
 
 
