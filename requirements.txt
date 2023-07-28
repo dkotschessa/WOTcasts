@@ -8,7 +8,7 @@ beautifulsoup4==4.12.1
 bs4==0.0.1
 coverage==7.2.3
 decorator==5.1.1
-Django==3.2.6
+Django~=4.1
 django-apscheduler==0.6.0
 django-extensions==3.2.1
 exceptiongroup==1.1.1
@@ -45,3 +45,5 @@ typing-extensions==4.5.0
 tzdata==2023.3
 tzlocal==4.3
 wcwidth==0.2.6
+
+python-dotenv~=1.0.0
