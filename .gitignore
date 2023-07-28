@@ -3,3 +3,5 @@ venv/
 .idea/
 .coverage
 db.sqlite3
+.pg_service.conf
+.my_pgpass
