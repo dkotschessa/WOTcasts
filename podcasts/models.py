@@ -15,7 +15,7 @@ class Podcast(models.Model):
 # Create your models here.
 class Episode(models.Model):
     title = models.CharField(max_length= 200)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     pub_date = models.DateTimeField()
     link = models.URLField()
     image = models.URLField()
