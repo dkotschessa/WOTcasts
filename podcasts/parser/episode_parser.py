@@ -46,21 +46,23 @@ def save_new_episodes(feed):
     for item in feed.entries:
         if not Episode.objects.filter(guid=item.guid).exists():
             logger.info(f"New episodes found for Podcast {feed.channel.title}")
+            logger.info(f"Parsing episode with GUID ${item.guid}")
             episode = Episode(
                 title=item.title,
-                description=item.description,
+                description=item.get('description'),
                 pub_date=parser.parse(item.published),
                 link=item.get("link", item.links[0]["href"]),
                 podcast_name=podcast,
                 image=podcast.podcast_image,
                 guid=item.guid,
             )
-            logger.info(f"Episode added: {episode.title} \n GUID: {episode.guid}")
+            logger.info(f"Episode added: {episode.title} \n")
             episode.save()
 
 
 def get_rss_feed_list() -> List:
     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
+    #TODO check is actually RSS feed
     return [p.feed_href for p in podcast_list]
 
 
