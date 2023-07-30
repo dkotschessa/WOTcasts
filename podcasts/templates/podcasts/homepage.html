@@ -1,46 +1,7 @@
 {% extends "podcasts/_base.html" %}
 {% block content %}
 
-    <main class="container flex-grow-1">
-
-
-      <div class="row">
-        <div class="col">
-          {% for episode in episodes %}
-          <section class="card mb-3">
-            <div class="row no-gutters">
-              <div class="col-md-2 my-auto">
-                <img
-                  src="{{ episode.episode_image }}"
-                  class="img-fluid ml-3 my-3"
-                  alt="{{ episode.podcast_name}}"
-                  style="height: 5em; width: 5em"
-                />
-              </div>
-              <div class="col-md-10">
-                <div class="card-body ml-3">
-                <a href="{% url 'podcast_info' episode.podcast_id %}">
-                  <h3 class="card-title">{{ episode.podcast_name }}</h3>
-                </a>
-
-
-
-                  <h3 class="card-title">{{ episode.episode_title }}</h3>
-                  {% autoescape off %}
-                  <p class="card-text">{{ episode.episode_description }}</p>
-
-                  {% endautoescape %}
-                  <a href="{{ episode.episode_link }}">
-                    <p class="card-text">🎧 Listen to this episode</p>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-          {% endfor %}
-        </div>
-      </div>
-    </main>
+{% include "podcasts/episode_list.html" %}
 {% endblock %}
 
 </html>
