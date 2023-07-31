@@ -1,0 +1,21 @@
+{% extends "podcasts/_base.html" %}
+
+<h1>Search Results</h1>
+
+<ul>
+
+    {% for episode in episode_list %}
+        <li>
+            {{ episode.title }}, {{ episode.description }}
+        </li>
+    {% endfor %}
+</ul>
+
+
+<h1>Search Results</h1>
+{% block content %}
+
+    {% include "podcasts/episode_list.html" %}
+{% endblock %}
+
+</html>
