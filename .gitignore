@@ -6,3 +6,5 @@ db.sqlite3
 .pg_service.conf
 .my_pgpass
 .env
+testreportdata/pytest_report.html
+testreportdata
