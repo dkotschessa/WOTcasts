@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('podcasts', '0011_remove_episode_image'),
+        ("podcasts", "0011_remove_episode_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='episode',
-            name='image',
-            field=models.URLField(default='image.jpg'),
+            model_name="episode",
+            name="image",
+            field=models.URLField(default="image.jpg"),
             preserve_default=False,
         ),
     ]

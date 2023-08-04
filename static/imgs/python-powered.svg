@@ -18,7 +18,7 @@
 
   <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/light-fe3f886b577a.css" /><link data-color-theme="dark" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark-a1dbeda2886c.css" /><link data-color-theme="dark_dimmed" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_dimmed-1ad5cf51dfeb.css" /><link data-color-theme="dark_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_high_contrast-11d3505dc06a.css" /><link data-color-theme="dark_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_colorblind-8b800495504f.css" /><link data-color-theme="light_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_colorblind-daa38c88b795.css" /><link data-color-theme="light_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_high_contrast-1b9ea565820a.css" /><link data-color-theme="light_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_tritanopia-e4be9332dd6c.css" /><link data-color-theme="dark_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_tritanopia-0dcf95848dd5.css" />
   <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/color-modes-contrast-9a495712ceda.css" />
-  
+
     <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-7cc439b4edd0.css" />
     <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/global-835b815139bc.css" />
     <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/github-b46e0c81f808.css" />
@@ -69,7 +69,7 @@
 <script crossorigin="anonymous" defer="defer" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_clipboard-copy-element_dist_index_esm_js-node_modules_github_mini-17eb43-0e309b61f5f6.js"></script>
 <script crossorigin="anonymous" defer="defer" type="application/javascript" src="https://github.githubassets.com/assets/app_assets_modules_github_diffs_blob-lines_ts-app_assets_modules_github_diffs_linkable-line-n-f96c66-97aade341120.js"></script>
 <script crossorigin="anonymous" defer="defer" type="application/javascript" src="https://github.githubassets.com/assets/diffs-5f78171ebd72.js"></script>
-  
+
 
   <title>materials/python-powered.svg at master · realpython/materials</title>
 
@@ -77,7 +77,7 @@
 
   <meta name="route-pattern" content="/:user_id/:repository/blob/*name(/*path)">
 
-    
+
   <meta name="current-catalog-service-hash" content="581425c0eaaa5e5e53c5b736f58a14dbe5d38b0be425901738ad0670bd1d5a33">
 
 
@@ -88,7 +88,7 @@
 
 
   <meta name="github-keyboard-shortcuts" content="repository,source-code,file-tree" data-turbo-transient="true" />
-  
+
 
   <meta name="selected-link" value="repo_source" data-turbo-transient>
 
@@ -102,19 +102,19 @@
 
   <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-turbo-transient="true" />
 
-  
 
 
 
 
-  
+
+
 
     <meta name="user-login" content="dkotschessa">
 
   <link rel="sudo-modal" href="/sessions/sudo_modal">
 
     <meta name="viewport" content="width=device-width">
-    
+
       <meta name="description" content="Bonus materials, exercises, and example projects for our Python tutorials - materials/python-powered.svg at master · realpython/materials">
       <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
     <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
@@ -122,7 +122,7 @@
     <meta name="apple-itunes-app" content="app-id=1477376905" />
       <meta name="twitter:image:src" content="https://opengraph.githubassets.com/e9c6ac5a6373928a46bf0db83e47c0adb57a824beca0213575a0c6f57c22aace/realpython/materials" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="materials/python-powered.svg at master · realpython/materials" /><meta name="twitter:description" content="Bonus materials, exercises, and example projects for our Python tutorials - materials/python-powered.svg at master · realpython/materials" />
       <meta property="og:image" content="https://opengraph.githubassets.com/e9c6ac5a6373928a46bf0db83e47c0adb57a824beca0213575a0c6f57c22aace/realpython/materials" /><meta property="og:image:alt" content="Bonus materials, exercises, and example projects for our Python tutorials - materials/python-powered.svg at master · realpython/materials" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="600" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="materials/python-powered.svg at master · realpython/materials" /><meta property="og:url" content="https://github.com/realpython/materials" /><meta property="og:description" content="Bonus materials, exercises, and example projects for our Python tutorials - materials/python-powered.svg at master · realpython/materials" />
-      
+
     <link rel="assets" href="https://github.githubassets.com/">
       <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/7572608/ws?session=eyJ2IjoiVjMiLCJ1Ijo3NTcyNjA4LCJzIjoxMDgxMzc5NTk4LCJjIjo3NzE0ODM3MjYsInQiOjE2ODAzNDA0MjR9--dae76ae58bceca81fd5c516fa649e04e99dbfd876c55fa2aee317a31e79f0574" data-refresh-url="/_alive" data-session-id="b26ab09a8f2640e3b7faac9d6d9c784d3fb613547ba8eee5c20ed72a7b5c3fc4">
       <link rel="shared-web-socket-src" href="/assets-cdn/worker/socket-worker-d7c2fe14563a.js">
@@ -178,15 +178,15 @@
 
   <body class="logged-in env-production page-responsive page-blob" style="word-wrap: break-word;">
     <div data-turbo-body class="logged-in env-production page-responsive page-blob" style="word-wrap: break-word;">
-      
+
 
 
     <div class="position-relative js-header-wrapper ">
       <a href="#start-of-content" class="p-3 color-bg-accent-emphasis color-fg-on-emphasis show-on-focus js-skip-to-content">Skip to content</a>
       <span data-view-component="true" class="progress-pjax-loader Progress position-fixed width-full">
     <span style="width: 0%;" data-view-component="true" class="Progress-item progress-pjax-loader-bar left-0 top-0 color-bg-accent-emphasis"></span>
-</span>      
-      
+</span>
+
 
 
         <script crossorigin="anonymous" defer="defer" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_command-palette-api_dist_command-palette-api_js-node_modules_gith-2eba16-be919efb60d2.js"></script>
@@ -219,7 +219,7 @@
 </button>    </div>
 
     <div class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
-              
+
 
 
 
@@ -232,7 +232,7 @@
           class="form-control js-site-search-focus header-search-input jump-to-field js-jump-to-field js-site-search-field is-clearable"
           data-hotkey=s,/
           name="q"
-          
+
           placeholder="Search or jump to…"
           data-unscoped-placeholder="Search or jump to…"
           data-scoped-placeholder="Search or jump to…"
@@ -253,9 +253,9 @@
 
 
           <div class="Box position-absolute overflow-hidden d-none jump-to-suggestions js-jump-to-suggestions-container">
-            
+
 <ul class="d-none js-jump-to-suggestions-template-container">
-  
+
 
 <li class="d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-suggestion" role="option">
   <a tabindex="-1" class="no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2" href="" data-item-type="suggestion">
@@ -302,7 +302,7 @@
 </ul>
 
 <ul id="jump-to-results" role="listbox" class="p-0 m-0 js-navigation-container jump-to-suggestions-results-container js-jump-to-suggestions-results-container">
-  
+
 
 <li class="d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-scoped-search d-none" role="option">
   <a tabindex="-1" class="no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2" href="" data-item-type="scoped_search">
@@ -340,7 +340,7 @@
   </a>
 </li>
 
-  
+
 
 <li class="d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-owner-scoped-search d-none" role="option">
   <a tabindex="-1" class="no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2" href="" data-item-type="owner_scoped_search">
@@ -378,7 +378,7 @@
   </a>
 </li>
 
-  
+
 
 <li class="d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-global-search d-none" role="option">
   <a tabindex="-1" class="no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2" href="" data-item-type="global_search">
@@ -487,13 +487,13 @@
     </div>
 
     <div class="Header-item mr-0 mr-md-3 flex-order-1 flex-md-order-none">
-        
+
 
 <notification-indicator data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6NzU3MjYwOCIsInQiOjE2ODAzNDA0MjR9--4c7e1bbb997bb9b40813291c8b903dd215fb8601a35932abcfe26706a4c11507" data-indicator-mode="none" data-tooltip-global="You have unread notifications" data-tooltip-unavailable="Notifications are unavailable at the moment." data-tooltip-none="You have no unread notifications" data-fetch-indicator-src="/notifications/indicator" data-fetch-indicator-enabled="true" data-view-component="true" class="js-socket-channel">
   <a id="AppHeader-notifications-button" href="/notifications"
     class="Header-link notification-indicator position-relative tooltipped tooltipped-sw"
 
-    
+
 
     data-hotkey="g n"
     data-target="notification-indicator.link"
@@ -528,7 +528,7 @@
 </svg> <span class="dropdown-caret"></span>
   </summary>
   <details-menu class="dropdown-menu dropdown-menu-sw">
-    
+
 <a role="menuitem" class="dropdown-item" href="/new" data-ga-click="Header, create new repository">
   New repository
 </a>
@@ -557,7 +557,7 @@
     </div>
 
     <div class="Header-item position-relative mr-0 d-none d-md-flex">
-        
+
   <details class="details-overlay details-reset js-feature-preview-indicator-container" data-feature-preview-indicator-src="/users/dkotschessa/feature_preview/indicator_check">
 
   <summary
@@ -572,7 +572,7 @@
   <details-menu
       class="dropdown-menu dropdown-menu-sw"
       style="width: 180px"
-      
+
       preload>
       <include-fragment src="/users/7572608/menu" loading="lazy">
         <p class="text-center mt-3" data-hide-on-error>
@@ -594,7 +594,7 @@
     </div>
 </header>
 
-            
+
     </div>
 
   <div id="start-of-content" class="show-on-focus"></div>
@@ -612,7 +612,7 @@
 
 
   <template class="js-flash-template">
-    
+
 <div class="flash flash-full   {{ className }}">
   <div class="px-2" >
     <button autofocus class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">
@@ -621,7 +621,7 @@
 </svg>
     </button>
     <div aria-atomic="true" role="alert" class="js-flash-alert">
-      
+
       <div>{{ message }}</div>
 
     </div>
@@ -631,7 +631,7 @@
 </div>
 
 
-    
+
     <notification-shelf-watcher data-base-url="https://github.com/notifications/beta/shelf" data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6NzU3MjYwOCIsInQiOjE2ODAzNDA0MjR9--4c7e1bbb997bb9b40813291c8b903dd215fb8601a35932abcfe26706a4c11507" data-view-component="true" class="js-socket-channel"></notification-shelf-watcher>
   <div hidden data-initial data-target="notification-shelf-watcher.placeholder"></div>
 
@@ -1398,7 +1398,7 @@
             data-src="/command_palette/commands"
           data-supported-modes="[]"
             data-supports-commands
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1407,7 +1407,7 @@
             data-src="/command_palette/jump_to_page_navigation"
           data-supported-modes="[&quot;&quot;]"
             data-supported-scope-types="[&quot;&quot;,&quot;owner&quot;,&quot;repository&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1416,7 +1416,7 @@
             data-src="/command_palette/issues"
           data-supported-modes="[&quot;#&quot;,&quot;#&quot;]"
             data-supported-scope-types="[&quot;owner&quot;,&quot;repository&quot;,&quot;&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1425,7 +1425,7 @@
             data-src="/command_palette/jump_to"
           data-supported-modes="[&quot;@&quot;,&quot;@&quot;]"
             data-supported-scope-types="[&quot;&quot;,&quot;owner&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1434,7 +1434,7 @@
             data-src="/command_palette/jump_to_members_only"
           data-supported-modes="[&quot;@&quot;,&quot;@&quot;,&quot;&quot;,&quot;&quot;]"
             data-supported-scope-types="[&quot;&quot;,&quot;owner&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1443,7 +1443,7 @@
             data-src="/command_palette/jump_to_members_only_prefetched"
           data-supported-modes="[&quot;@&quot;,&quot;@&quot;,&quot;&quot;,&quot;&quot;]"
             data-supported-scope-types="[&quot;&quot;,&quot;owner&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1452,7 +1452,7 @@
             data-src="/command_palette/files"
           data-supported-modes="[&quot;/&quot;]"
             data-supported-scope-types="[&quot;repository&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1461,7 +1461,7 @@
             data-src="/command_palette/discussions"
           data-supported-modes="[&quot;#&quot;]"
             data-supported-scope-types="[&quot;owner&quot;,&quot;repository&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1470,7 +1470,7 @@
             data-src="/command_palette/projects"
           data-supported-modes="[&quot;#&quot;,&quot;!&quot;]"
             data-supported-scope-types="[&quot;owner&quot;,&quot;repository&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1479,7 +1479,7 @@
             data-src="/command_palette/recent_issues"
           data-supported-modes="[&quot;#&quot;,&quot;#&quot;]"
             data-supported-scope-types="[&quot;owner&quot;,&quot;repository&quot;,&quot;&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1488,7 +1488,7 @@
             data-src="/command_palette/teams"
           data-supported-modes="[&quot;@&quot;,&quot;&quot;]"
             data-supported-scope-types="[&quot;owner&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
         <server-defined-provider
@@ -1497,7 +1497,7 @@
             data-src="/command_palette/name_with_owner_repository"
           data-supported-modes="[&quot;@&quot;,&quot;@&quot;,&quot;&quot;,&quot;&quot;]"
             data-supported-scope-types="[&quot;&quot;,&quot;owner&quot;]"
-          
+
           data-targets="command-palette.serverDefinedProviderElements"
           ></server-defined-provider>
     </command-palette>
@@ -1565,12 +1565,6 @@
   >
         <div itemscope itemtype="http://schema.org/SoftwareSourceCode" class="">
     <main id="js-repo-pjax-container" >
-      
-  
-
-
-    
-    
 
 
 
@@ -1579,18 +1573,24 @@
 
 
 
-  
+
+
+
+
+
+
+
   <div id="repository-container-header"  class="pt-3 hide-full-screen" style="background-color: var(--color-page-header-bg);" data-turbo-replace>
 
       <div class="d-flex flex-wrap flex-justify-end mb-3  px-3 px-md-4 px-lg-5" style="gap: 1rem;">
 
         <div class="flex-auto min-width-0 width-fit mr-3">
-            
+
   <div class=" d-flex flex-wrap flex-items-center wb-break-word f3 text-normal">
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo color-fg-muted mr-2">
     <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
 </svg>
-    
+
     <span class="author flex-self-stretch" itemprop="author">
       <a class="url fn" rel="author" data-hovercard-type="organization" data-hovercard-url="/orgs/realpython/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/realpython">
         realpython
@@ -1608,7 +1608,7 @@
 
           <ul class="pagehead-actions flex-shrink-0 d-none d-md-inline" style="padding: 2px 0;">
 
-      
+
 
   <li>
             <notifications-list-subscription-form
@@ -1624,7 +1624,7 @@
           <summary data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:132374697,&quot;originating_url&quot;:&quot;https://github.com/realpython/materials/blob/master/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg&quot;,&quot;user_id&quot;:7572608}}" data-hydro-click-hmac="1b368d7a9547ca0686cbb906a0512afbda7415d76e303eb62fd2215e94fcb5fe" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notification settings" data-view-component="true" class="btn-sm btn">    <span data-menu-button>
               <span
                 hidden
-                
+
                 data-target="notifications-list-subscription-form.unwatchButtonCopy"
               >
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-eye">
@@ -1634,7 +1634,7 @@
               </span>
               <span
                 hidden
-                
+
                 data-target="notifications-list-subscription-form.stopIgnoringButtonCopy"
               >
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bell-slash">
@@ -1643,8 +1643,8 @@
                 Stop ignoring
               </span>
               <span
-                
-                
+
+
                 data-target="notifications-list-subscription-form.watchButtonCopy"
               >
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-eye">
@@ -1660,7 +1660,7 @@
             class="SelectMenu  "
             role="menu"
             data-target="notifications-list-subscription-form.menu"
-            
+
           >
             <div class="SelectMenu-modal notifications-component-menu-modal">
               <header class="SelectMenu-header">
@@ -1685,7 +1685,7 @@
                     role="menuitemradio"
                     aria-checked="true"
                     data-targets="notifications-list-subscription-form.subscriptionButtons"
-                    
+
                   >
                     <span class="f5">
                       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
@@ -1758,7 +1758,7 @@
                   data-action="click:notifications-list-subscription-form#openCustomDialog"
                   aria-haspopup="true"
                   aria-checked="false"
-                  
+
                 >
                   <span class="f5">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
@@ -1855,7 +1855,7 @@
                           value="Issue"
                           data-targets="notifications-list-subscription-form.threadTypeCheckboxes"
                           data-action="change:notifications-list-subscription-form#threadTypeCheckboxesUpdated"
-                          
+
                         >
                         Issues
                       </label>
@@ -1870,7 +1870,7 @@
                           value="PullRequest"
                           data-targets="notifications-list-subscription-form.threadTypeCheckboxes"
                           data-action="change:notifications-list-subscription-form#threadTypeCheckboxesUpdated"
-                          
+
                         >
                         Pull requests
                       </label>
@@ -1885,7 +1885,7 @@
                           value="Release"
                           data-targets="notifications-list-subscription-form.threadTypeCheckboxes"
                           data-action="change:notifications-list-subscription-form#threadTypeCheckboxesUpdated"
-                          
+
                         >
                         Releases
                       </label>
@@ -1900,7 +1900,7 @@
                           value="Discussion"
                           data-targets="notifications-list-subscription-form.threadTypeCheckboxes"
                           data-action="change:notifications-list-subscription-form#threadTypeCheckboxesUpdated"
-                          
+
                             aria-describedby="Discussion-disabled"
                             aria-disabled="true"
                         >
@@ -1923,7 +1923,7 @@
                           value="SecurityAlert"
                           data-targets="notifications-list-subscription-form.threadTypeCheckboxes"
                           data-action="change:notifications-list-subscription-form#threadTypeCheckboxesUpdated"
-                          
+
                         >
                         Security alerts
                       </label>
@@ -1966,9 +1966,9 @@
   <details-menu
     class="SelectMenu right-0"
       src="/realpython/materials/my_forks_menu_content?can_fork=true"
-      
+
       role="menu"
-      
+
 >
     <div class="SelectMenu-modal">
         <button class="SelectMenu-closeButton position-absolute right-0 m-2" type="button" aria-label="Close menu" data-toggle-for="details-a814b8">
@@ -1991,7 +1991,7 @@
 </svg>
             </include-fragment>
         </div>
-        
+
       </div>
     </div>
   </details-menu>
@@ -2035,9 +2035,9 @@
   <details-menu
     class="SelectMenu right-0"
       src="/realpython/materials/lists"
-      
+
       role="menu"
-      
+
 >
     <div class="SelectMenu-modal">
         <button class="SelectMenu-closeButton position-absolute right-0 m-2" type="button" aria-label="Close menu" data-toggle-for="details-4471c0">
@@ -2060,7 +2060,7 @@
 </svg>
             </include-fragment>
         </div>
-        
+
       </div>
     </div>
   </details-menu>
@@ -2082,9 +2082,9 @@
   <details-menu
     class="SelectMenu right-0"
       src="/realpython/materials/lists"
-      
+
       role="menu"
-      
+
 >
     <div class="SelectMenu-modal">
         <button class="SelectMenu-closeButton position-absolute right-0 m-2" type="button" aria-label="Close menu" data-toggle-for="details-559d8b">
@@ -2107,7 +2107,7 @@
 </svg>
             </include-fragment>
         </div>
-        
+
       </div>
     </div>
   </details-menu>
@@ -2116,7 +2116,7 @@
   </li>
 
 
-    
+
 
 </ul>
 
@@ -2131,7 +2131,7 @@
   <ul data-view-component="true" class="UnderlineNav-body list-style-none">
       <li data-view-component="true" class="d-inline-flex">
   <a id="code-tab" href="/realpython/materials" data-tab-item="i0code-tab" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches repo_packages repo_deployments /realpython/materials" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g c" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Code&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" aria-current="page" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item selected">
-    
+
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
     <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
 </svg>
@@ -2139,11 +2139,11 @@
           <span id="code-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="issues-tab" href="/realpython/materials/issues" data-tab-item="i1issues-tab" data-selected-links="repo_issues repo_labels repo_milestones /realpython/materials/issues" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g i" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Issues&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-issue-opened UnderlineNav-octicon d-none d-sm-inline">
     <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
 </svg>
@@ -2151,11 +2151,11 @@
           <span id="issues-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="27" data-view-component="true" class="Counter">27</span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="pull-requests-tab" href="/realpython/materials/pulls" data-tab-item="i2pull-requests-tab" data-selected-links="repo_pulls checks /realpython/materials/pulls" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g p" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Pull requests&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
     <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path>
 </svg>
@@ -2163,11 +2163,11 @@
           <span id="pull-requests-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="15" data-view-component="true" class="Counter">15</span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="actions-tab" href="/realpython/materials/actions" data-tab-item="i3actions-tab" data-selected-links="repo_actions /realpython/materials/actions" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g a" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Actions&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-play UnderlineNav-octicon d-none d-sm-inline">
     <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
 </svg>
@@ -2175,22 +2175,22 @@
           <span id="actions-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="security-tab" href="/realpython/materials/security" data-tab-item="i4security-tab" data-selected-links="security overview alerts policy token_scanning code_scanning /realpython/materials/security" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g s" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Security&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-shield UnderlineNav-octicon d-none d-sm-inline">
     <path d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
 </svg>
         <span data-content="Security">Security</span>
           <include-fragment src="/realpython/materials/security/overall-count" accept="text/fragment+html"></include-fragment>
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="insights-tab" href="/realpython/materials/pulse" data-tab-item="i5insights-tab" data-selected-links="repo_graphs repo_contributors dependency_graph dependabot_updates pulse people community /realpython/materials/pulse" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Insights&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
                 <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-graph UnderlineNav-octicon d-none d-sm-inline">
     <path d="M1.5 1.75V13.5h13.75a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75V1.75a.75.75 0 0 1 1.5 0Zm14.28 2.53-5.25 5.25a.75.75 0 0 1-1.06 0L7 7.06 4.28 9.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.25-3.25a.75.75 0 0 1 1.06 0L10 7.94l4.72-4.72a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
 </svg>
@@ -2198,7 +2198,7 @@
           <span id="insights-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
 
 
-    
+
 </a></li>
 </ul>
     <div style="visibility:hidden;" data-view-component="true" class="UnderlineNav-actions js-responsive-underlinenav-overflow position-absolute pr-3 pr-md-4 pr-lg-5 right-0">      <details data-view-component="true" class="details-overlay details-reset position-relative">
@@ -2241,7 +2241,7 @@
 
   </div>
 
-  
+
 
 
 
@@ -2252,23 +2252,23 @@
 
 
 
-    
-      
+
+
   <div class="clearfix container-xl px-3 px-md-4 px-lg-5 mt-4">
-    
-    
+
+
 <div >
-  
-
-  
 
 
 
-    
+
+
+
+
 <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/realpython/materials/blob/eab4f93665b3a131dfafa6c7a0bf9a683b38d97f/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg">Permalink</a>
 
 <div class="d-flex flex-items-start flex-shrink-0 pb-3 flex-wrap flex-md-nowrap flex-justify-between flex-md-justify-start">
-  
+
 <div class="position-relative">
   <details
     class="js-branch-select-menu details-reset details-overlay mr-0 mb-0 "
@@ -2284,7 +2284,7 @@
       <span class="dropdown-caret"></span>
     </summary>
 
-    
+
 <div class="SelectMenu">
   <div class="SelectMenu-modal">
     <header class="SelectMenu-header">
@@ -2325,7 +2325,7 @@
               focus-list:ref-selector#focusFirstListMember
             "
             query-endpoint="/realpython/materials/refs"
-            
+
             cache-key="v0:1680199914.95106"
             current-committish="bWFzdGVy"
             default-branch="bWFzdGVy"
@@ -2351,7 +2351,7 @@
               </div>
             </div>
 
-              
+
 
 <template data-target="ref-selector.itemTemplate">
   <a href="https://github.com/realpython/materials/blob/{{ urlEncodedRefName }}/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}" >
@@ -2393,7 +2393,7 @@
               <div class="SelectMenu-message" data-index="{{ index }}">Nothing to show</div>
             </template>
 
-              
+
 
 <template data-target="ref-selector.itemTemplate">
   <a href="https://github.com/realpython/materials/blob/{{ urlEncodedRefName }}/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}" >
@@ -2442,7 +2442,7 @@
         </div>
       </header>
     <div class="Overlay-body ">
-      
+
           <div data-view-component="true">      A tag already exists with the provided branch name. Many Git commands accept both tag and branch names, so creating this branch may cause unexpected behavior. Are you sure you want to create this branch?
 </div>
 
@@ -2481,13 +2481,13 @@
         <li class="dropdown-divider" role="none"></li>
         <li>
           <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" data-view-component="true" class="dropdown-item cursor-pointer">
-    
+
             Copy path
 
 </clipboard-copy>        </li>
         <li>
           <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/realpython/materials/blob/eab4f93665b3a131dfafa6c7a0bf9a683b38d97f/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" data-view-component="true" class="dropdown-item cursor-pointer">
-    
+
             <span class="d-flex flex-items-baseline">
               <span class="flex-auto">Copy permalink</span>
             </span>
@@ -2503,7 +2503,7 @@
 
     <div id="spoof-warning" class="mt-0 pb-3" hidden aria-hidden>
   <div data-view-component="true" class="flash flash-warn mt-0 clearfix">
-  
+
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-alert float-left mt-1">
     <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
 </svg>
@@ -2511,7 +2511,7 @@
       <div class="overflow-hidden">This commit does not belong to any branch on this repository, and may belong to a fork outside of the repository.</div>
 
 
-  
+
 </div></div>
 
     <include-fragment src="/realpython/materials/spoofed_commit_check/eab4f93665b3a131dfafa6c7a0bf9a683b38d97f" data-test-selector="spoofed-commit-check"></include-fragment>
@@ -2531,7 +2531,6 @@
 
 
 
-      
 
 
 
@@ -2540,12 +2539,13 @@
 
 
 
-  
+
+
     <div data-target="readme-toc.content" class="Box mt-3 position-relative">
-      
+
   <div
     class="Box-header js-blob-header py-2 pr-2 d-flex flex-shrink-0 flex-md-row flex-items-center"
-    
+
   >
 
 
@@ -2573,7 +2573,7 @@
 </a>    </div>
 
     <div class="d-flex">
-        
+
 <div class="ml-1" >
   <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="BtnGroup-parent js-update-url-with-hash " data-turbo="false" action="/realpython/materials/edit/master/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="bBTnV6Jv9duLGCzo4XrjXk7ReGsSytGXsDZbiAAo_Z05aHt2MA4iZ7W_BNQDNCRVmhjFSZZHzqeg5t_k1Jk4zA" autocomplete="off" />
       <button title="Edit the file in your fork of this project" data-hotkey="e" data-disable-with="" type="submit" data-view-component="true" class="btn-sm BtnGroup-item btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
@@ -2602,10 +2602,10 @@
 </div>
 
 
-        
+
 <div >
   <remote-clipboard-copy class="d-inline-block btn-octicon" style="height: 26px" data-src="/realpython/materials/raw/eab4f93665b3a131dfafa6c7a0bf9a683b38d97f/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" data-action="click:remote-clipboard-copy#remoteCopy">
-  
+
 
   <span data-target="remote-clipboard-copy.idle">      <span class="tooltipped tooltipped-nw cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:132374697,&quot;originating_url&quot;:&quot;https://github.com/realpython/materials/blob/master/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg&quot;,&quot;user_id&quot;:7572608}}" data-hydro-click-hmac="cda3de302b8a25be412b672ef5f9afb1ba5401a8d71402bd811d85ec9867d12c" aria-label="Copy raw contents">
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy">
@@ -2648,7 +2648,7 @@
           class="js-blob-dropdown-click btn-octicon"
           aria-haspopup="true"
           aria-label="possible actions"
-          
+
           data-dropdown-tracking="{&quot;type&quot;:&quot;blob_edit_dropdown.more_options_click&quot;,&quot;context&quot;:{&quot;repository_id&quot;:132374697,&quot;actor_id&quot;:7572608,&quot;github_dev_enabled&quot;:true,&quot;edit_enabled&quot;:true,&quot;small_screen&quot;:true}}"
         >
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-kebab-horizontal">
@@ -2671,7 +2671,7 @@
           </li>
             <li>
               <remote-clipboard-copy class="dropdown-item" data-src="/realpython/materials/raw/master/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg" data-action="click:remote-clipboard-copy#remoteCopy">
-  
+
 
   <span data-target="remote-clipboard-copy.idle">                  <span class="cursor-pointer" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;COPY_RAW_CONTENTS_BUTTON&quot;,&quot;repository_id&quot;:132374697,&quot;originating_url&quot;:&quot;https://github.com/realpython/materials/blob/master/build-a-django-content-aggregator/source_code_setup/static/imgs/python-powered.svg&quot;,&quot;user_id&quot;:7572608}}" data-hydro-click-hmac="cda3de302b8a25be412b672ef5f9afb1ba5401a8d71402bd811d85ec9867d12c">
                     Copy raw contents
@@ -2717,7 +2717,7 @@
 </div>
 
 
-      
+
     <div itemprop="text" class="Box-body p-0 blob-wrapper data type-svg  gist-border-0">
 
           <div class="render-wrapper ">
@@ -2743,13 +2743,13 @@
       </iframe>
     </div>
   </div>
- 
-    </div>
 
     </div>
 
+    </div>
 
-  
+
+
 
   <details class="details-reset details-overlay details-overlay-dark" id="jumpto-line-details-dialog">
     <summary data-hotkey="l" aria-label="Jump to line"></summary>
@@ -2772,7 +2772,7 @@
     class="Box d-flex flex-column anim-fade-in fast Box--overlay overflow-visible"
       aria-label="Provide feedback"
       src="/realpython/materials/repos/code_nav_survey"
-      
+
     >
     <div class="Box-header">
       <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
@@ -2921,4 +2921,3 @@
     <div id="js-global-screen-reader-notice" class="sr-only" aria-live="polite" ></div>
   </body>
 </html>
-

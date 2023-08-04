@@ -6,20 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('podcasts', '0007_auto_20230406_1117'),
+        ("podcasts", "0007_auto_20230406_1117"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='podcast',
-            name='feed_href',
-            field=models.URLField(default='summary'),
+            model_name="podcast",
+            name="feed_href",
+            field=models.URLField(default="summary"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='podcast',
-            name='podcast_summary',
-            field=models.TextField(default='summary'),
+            model_name="podcast",
+            name="podcast_summary",
+            field=models.TextField(default="summary"),
             preserve_default=False,
         ),
     ]

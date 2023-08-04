@@ -14,11 +14,8 @@ from podcasts.parser.episode_parser import fetch_new_episodes
 logger = logging.getLogger(__name__)
 
 
-
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
-
 
         logger.info("Attempting to fetch new episodes")
 
@@ -27,6 +24,3 @@ class Command(BaseCommand):
 
         except KeyboardInterrupt:
             logger.info("Keyboard Interrupt")
-
-
-

@@ -50,7 +50,7 @@ def save_new_episodes(feed):
             logger.info(f"Parsing episode with GUID ${item.guid}")
             episode = Episode(
                 title=item.title,
-                description=item.get('description', ''),
+                description=item.get("description", ""),
                 pub_date=parser.parse(item.published),
                 link=item.get("link", item.links[0]["href"]),
                 podcast_name=podcast,

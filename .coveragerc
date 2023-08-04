@@ -3,13 +3,13 @@
 branch = True
 # don't measure python standard library (this is the default)
 cover_pylib = False
-# omit 
+# omit
 omit =
     __init__.py
     content_aggregator/asgi.py
     content_aggregator/wsgi.py
     manage.py
-    */migrations/* # omit migrations  
+    */migrations/* # omit migrations
     */tests/* # omit unit test files and directories
 
 # exclude some methods we don't test from the report and stats

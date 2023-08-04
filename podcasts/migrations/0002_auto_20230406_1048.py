@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('podcasts', '0001_initial'),
+        ("podcasts", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='episode',
-            old_name='description',
-            new_name='description_raw_data',
+            model_name="episode",
+            old_name="description",
+            new_name="description_raw_data",
         ),
         migrations.AddField(
-            model_name='episode',
-            name='readable_description',
-            field=models.TextField(default=['datetime', 'timezone']),
+            model_name="episode",
+            name="readable_description",
+            field=models.TextField(default=["datetime", "timezone"]),
             preserve_default=False,
         ),
     ]

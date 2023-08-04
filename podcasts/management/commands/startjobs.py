@@ -14,29 +14,31 @@ from podcasts.parser.episode_parser import fetch_new_episodes
 logger = logging.getLogger(__name__)
 
 
-def delete_old_job_executions(max_age = 604_800):
+def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
 
-
 class Command(BaseCommand):
-
     def add_arguments(self, parser):
-        parser.add_argument('interval', type=int, help='Indicates number of minutes to wait between fetching')
+        parser.add_argument(
+            "interval",
+            type=int,
+            help="Indicates number of minutes to wait between fetching",
+        )
 
     def handle(self, *args, **options):
-        scheduler = BlockingScheduler(timezone = settings.TIME_ZONE)
+        scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(), "default")
-        interval=options['interval']
+        interval = options["interval"]
 
         scheduler.add_job(
             fetch_new_episodes,
-            trigger = "interval",
-            minutes = interval,
-            id = "Fetch New Podcast Episodes",
-            max_instances = 1,
-            replace_existing=True
+            trigger="interval",
+            minutes=interval,
+            id="Fetch New Podcast Episodes",
+            max_instances=1,
+            replace_existing=True,
         )
         logger.info(f"Added job: Fetch new episodes every {interval} minutes")
 
@@ -47,5 +49,3 @@ class Command(BaseCommand):
             logger.info("Stopping scheduler")
             scheduler.shutdown()
             logger.info("Scheduler shut down successfully")
-
-
