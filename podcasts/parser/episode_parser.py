@@ -26,6 +26,7 @@ def populate_missing_fields():
                 podcast.podcast_summary = _feed.channel.get(
                     "summary", _feed.channel.get("subtitle")
                 )
+
             if not podcast.podcast_image:
                 podcast.podcast_image = _feed.channel.image["href"]
             podcast.save()
@@ -62,7 +63,7 @@ def save_new_episodes(feed):
 
 def get_rss_feed_list() -> List:
     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
-    #TODO check is actually RSS feed
+    # TODO check is actually RSS feed
     return [p.feed_href for p in podcast_list]
 
 
