@@ -42,7 +42,10 @@ def save_new_episodes(feed):
 
     logger.info("Checking for new episodes...")
 
-    podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
+    try:
+        podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
+    except KeyError as keyexception:
+        logger.info(f"KeyException:  ${keyexception}")
 
     for item in feed.entries:
         if not Episode.objects.filter(guid=item.guid).exists():
