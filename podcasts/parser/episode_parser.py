@@ -44,6 +44,8 @@ def save_new_episodes(feed):
 
     try:
         podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
+    except AttributeError as attributeerror:
+        logger.info(f"Attribute Error:  ${attributeerror}")
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
 
