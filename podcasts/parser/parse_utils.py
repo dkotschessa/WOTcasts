@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 
 
 def convert_duration(duration: str):
+    if duration == "N/A":
+        return duration
     logger.info("Checking episode duration")
     if ":" in duration:  # regular format
         logger.info("Duration is already in proper format")
@@ -44,11 +46,12 @@ def populate_missing_episode_duration(episode: Episode):
     """
     logger.info(f"Looking up duration for{episode.title}")
     rss_fields = episode_rss_lookup(episode)
-    duration = (
-        convert_duration(rss_fields.itunes_duration)
-        if rss_fields.itunes_duration
-        else None
-    )
+    try:
+        itunes_duration = rss_fields.itunes_duration
+    except AttributeError:
+        logger.info(f"Missing duration field in RSS for {episode.title}")
+        itunes_duration = "N/A"
+    duration = convert_duration(itunes_duration) if rss_fields.itunes_duration else None
     episode.duration = duration
     episode.save()
     logger.info(f"Duration saved as {duration}")
