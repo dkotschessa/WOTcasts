@@ -27,9 +27,13 @@ def episode_rss_lookup(episode: Episode):
     """
     podcast = Podcast.objects.get(episode__guid=episode.guid)
     feed_href = podcast.feed_href
+    logger.info(
+        f"looking up rss feed for guid {feed_href} for podcast {podcast.podcast_name}"
+    )
     feed = feedparser.parse(feed_href)
     for item in feed.entries:
         if item.guid == episode.guid:
+            logger.info(f"Found episode {episode.title}")
             return item
     return None
 
@@ -40,7 +44,11 @@ def populate_missing_episode_duration(episode: Episode):
     """
     logger.info(f"Looking up duration for{episode.title}")
     rss_fields = episode_rss_lookup(episode)
-    duration = convert_duration(rss_fields.itunes_duration)
+    duration = (
+        convert_duration(rss_fields.itunes_duration)
+        if rss_fields.itunes_duration
+        else None
+    )
     episode.duration = duration
     episode.save()
     logger.info(f"Duration saved as {duration}")
