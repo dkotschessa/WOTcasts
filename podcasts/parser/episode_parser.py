@@ -41,7 +41,7 @@ def save_new_episodes(feed):
     Args:
     feed: requires a feedparser object"""
 
-    logger.info("Checking for new episodes...")
+    logger.info(f"Checking for new episodes of {feed.channel.title}")
 
     try:
         podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)

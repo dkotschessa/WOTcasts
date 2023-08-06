@@ -59,8 +59,10 @@ def get_episode_list(episodes):
             "podcast_name": episode.podcast_name,
             "podcast_title": episode.title,
             "episode_description": episode.description,
+            "episode_duration": episode.duration,
             "episode_link": episode.link,
             "podcast_id": episode.podcast_name_id,
+            "published_date": episode.pub_date,
         }
         episode_list.append(context_dict)
     return episode_list
