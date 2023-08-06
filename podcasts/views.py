@@ -15,6 +15,10 @@ def homepage_view(request):
     return render(request, "podcasts/homepage.html", context)
 
 
+def about_view(request):
+    return render(request, "podcasts/about.html")
+
+
 def podcast_info_view(request, podcast_id):
     podcast = Podcast.objects.get(pk=podcast_id)
     episodes = Episode.objects.filter(podcast_name_id=podcast.id).order_by("-pub_date")[
