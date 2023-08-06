@@ -4,6 +4,7 @@ from dateutil import parser
 import feedparser
 
 from podcasts.models import Episode, Podcast
+from podcasts.parser.parse_utils import convert_duration
 
 logger = logging.getLogger(__name__)
 
@@ -58,8 +59,9 @@ def save_new_episodes(feed):
                 description=item.get("description", ""),
                 pub_date=parser.parse(item.published),
                 link=item.get("link", item.links[0]["href"]),
-                podcast_name=podcast,
+                podcast_name=podcast,  ##TODO not sure what's up here
                 image=podcast.podcast_image,
+                duration=convert_duration(item.itunes_duration),
                 guid=item.guid,
             )
             logger.info(f"Episode added: {episode.title} \n")
