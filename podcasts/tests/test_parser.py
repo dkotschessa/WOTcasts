@@ -7,8 +7,8 @@ from podcasts.parser.episode_parser import (
     save_new_episodes,
     get_rss_feed_list,
     fetch_new_episodes,
-    convert_duration,
 )
+from podcasts.parser.parse_utils import convert_duration
 from unittest.mock import patch, Mock
 from podcasts.models import Episode, Podcast
 from podcasts.tests.mock_parser import mock_feed
