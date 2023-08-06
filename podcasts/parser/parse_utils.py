@@ -1,9 +1,10 @@
 import datetime
-
+import logging
 import feedparser
 
 from podcasts.models import Episode, Podcast
-from podcasts.parser.episode_parser import logger
+
+logger = logging.getLogger(__name__)
 
 
 def convert_duration(duration: str):
