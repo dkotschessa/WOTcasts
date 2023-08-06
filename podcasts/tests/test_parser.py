@@ -7,6 +7,7 @@ from podcasts.parser.episode_parser import (
     save_new_episodes,
     get_rss_feed_list,
     fetch_new_episodes,
+    convert_duration,
 )
 from unittest.mock import patch, Mock
 from podcasts.models import Episode, Podcast
@@ -77,3 +78,9 @@ def test_fetch_new_episodes():
                     assert save_new_episodes_mock.call_count == 2
                     assert feedparser_mock.call_count == 2
                     feedparser_mock.assert_called_with("http://podcast2.com")
+
+
+def test_convert_duration():
+    # TODO parameterise
+    assert convert_duration("5531") == "1:32:11"
+    assert convert_duration("01:08:43") == "01:08:43"

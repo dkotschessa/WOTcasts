@@ -2,10 +2,23 @@ import logging
 from typing import List
 from dateutil import parser
 import feedparser
+import datetime
 
 from podcasts.models import Episode, Podcast
 
 logger = logging.getLogger(__name__)
+
+
+def convert_duration(duration: str):
+    if ":" in duration:  # regular format
+        logger.info("Duration is already in proper format")
+        return duration
+    else:  # duration is in seconds
+        logger.info("Duration as {$duration} seconds. Converting.")
+        seconds = int(duration)
+        converted_duration = datetime.timedelta(seconds=seconds)
+        logger.info(f"Converting to {converted_duration}")
+        return str(converted_duration)
 
 
 def populate_missing_fields():
@@ -58,12 +71,38 @@ def save_new_episodes(feed):
                 description=item.get("description", ""),
                 pub_date=parser.parse(item.published),
                 link=item.get("link", item.links[0]["href"]),
-                podcast_name=podcast,
+                podcast_name=podcast,  ##TODO not sure what's up here
                 image=podcast.podcast_image,
+                duration=convert_duration(item.itunes_duration),
                 guid=item.guid,
             )
             logger.info(f"Episode added: {episode.title} \n")
             episode.save()
+
+
+def episode_rss_lookup(episode: Episode):
+    """
+    For an episode in the DB, find it's entry in RSS
+    Return its complete RSS entry
+    """
+    podcast = Podcast.objects.get(episode__guid=episode.guid)
+    feed_href = podcast.feed_href
+    feed = feedparser.parse(feed_href)
+    for item in feed.entries:
+        if item.guid == episode.guid:
+            return item
+    return None
+
+
+def populate_missing_episode_duration(episode: Episode):
+    """
+    get episode duration from RSS and save to model
+    """
+    rss_fields = episode_rss_lookup(episode)
+    duration = convert_duration(rss_fields.itunes_duration)
+    logger.info(f"Duration is {duration}")
+    episode.duration = duration
+    episode.save()
 
 
 def get_rss_feed_list() -> List:
