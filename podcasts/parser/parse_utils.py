@@ -51,7 +51,7 @@ def populate_missing_episode_duration(episode: Episode):
     except AttributeError:
         logger.info(f"Missing duration field in RSS for {episode.title}")
         itunes_duration = "N/A"
-    duration = convert_duration(itunes_duration) if rss_fields.itunes_duration else None
+    duration = convert_duration(itunes_duration)
     episode.duration = duration
     episode.save()
     logger.info(f"Duration saved as {duration}")

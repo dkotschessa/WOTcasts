@@ -61,7 +61,7 @@ def save_new_episodes(feed):
                 link=item.get("link", item.links[0]["href"]),
                 podcast_name=podcast,  ##TODO not sure what's up here
                 image=podcast.podcast_image,
-                duration=convert_duration(item.itunes_duration),
+                duration=convert_duration(item.get("itunes_duration", "N/A")),
                 guid=item.guid,
             )
             logger.info(f"Episode added: {episode.title} \n")
