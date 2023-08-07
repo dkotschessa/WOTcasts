@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import Episode, Podcast
 
@@ -33,6 +33,9 @@ def podcast_info_view(request, podcast_id):
 
 def search_results_view(request):
     query = request.GET.get("q")
+    if query == "trollocnips":
+        page = Podcast.objects.get(feed_href="https://media.rss.com/kpod/feed.xml")
+        return redirect(f"podcast/{page.id}")
 
     episodes = Episode.objects.filter(
         Q(description__icontains=query) | Q(title__icontains=query)
