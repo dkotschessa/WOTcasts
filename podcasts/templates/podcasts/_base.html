@@ -13,50 +13,9 @@
     <link rel="stylesheet" href="{% static 'podcasts/greytheme.css' %}">
 
 </head>
-<body class="d-flex flex-column">
-<header>
-    <nav class="container">
-        <div class="row">
-            <div class="col text-center" style="padding: 5em">
 
-                <h3>WOTpods</h3>
-                <h2>The Latest Episodes across the Wheel of Time Podverse</h2>
-            </div>
-            <div>
-                <form action="{% url 'search_results' %}" method="get">
-                    <input name="q" type="text" placeholder="Search...">
+<body>
 
-                    <select name="q" type="text">
-                        <option selected disabled=true>--Select Book--</option>
-                        <option value="New Spring">New Spring</option>
-                        <option value="The Eye Of The World">The Eye Of The World</option>
-                        <option value="The Great Hunt">The Great Hunt</option>
-
-                        <option value="The Dragon Reborn">The Dragon Reborn</option>
-
-                        <option value="The Shadow Rising">The Shadow Rising</option>
-                        <option value="Lord of Chaos">Lord of Chaos</option>
-                        <option value="A Crown Of Swords">A Crown Of Swords</option>
-                        <option value="The Path Of Daggers">A Path Of Daggers</option>
-                        <option value="Winter's Heart">Winter's Heart</option>
-                        <option value="Crossroads of Twilight">Crossroads of Twilight</option>
-                        <option value="The Gathering Storm">The Gathering Storm</option>
-                        <option value="Towers of Midnight">Towers of Midnight</option>
-                        <option value="A Memory Of Light">A Memory of Light</option>
-
-
-                    </select>
-                    <input type="submit" value="Search">
-                    <hr>
-
-
-                </form>
-
-            </div>
-
-        </div>
-    </nav>
-</header>
 
 {#navbar start#}
 <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
@@ -91,13 +50,52 @@
 
     </div>
 </nav>
-
-
 {#            navbar end#}
 
-{% block content %}
-{% endblock %}
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1>WOTpods</h1>
+            <h2>The Latest Episodes across the Wheel of Time Podverse</h2>
+
+        </div>
+        <div>
+            <form action="{% url 'search_results' %}" method="get">
+                <input name="q" type="text" placeholder="Search...">
+
+                <select name="q" type="text">
+                    <option selected disabled=true>--Select Book--</option>
+                    <option value="New Spring">New Spring</option>
+                    <option value="The Eye Of The World">The Eye Of The World</option>
+                    <option value="The Great Hunt">The Great Hunt</option>
+
+                    <option value="The Dragon Reborn">The Dragon Reborn</option>
+
+                    <option value="The Shadow Rising">The Shadow Rising</option>
+                    <option value="Lord of Chaos">Lord of Chaos</option>
+                    <option value="A Crown Of Swords">A Crown Of Swords</option>
+                    <option value="The Path Of Daggers">A Path Of Daggers</option>
+                    <option value="Winter's Heart">Winter's Heart</option>
+                    <option value="Crossroads of Twilight">Crossroads of Twilight</option>
+                    <option value="The Gathering Storm">The Gathering Storm</option>
+                    <option value="Towers of Midnight">Towers of Midnight</option>
+                    <option value="A Memory Of Light">A Memory of Light</option>
 
 
+                </select>
+                <input type="submit" value="Search">
+                <hr>
+
+
+            </form>
+
+        </div>
+    </section>
+
+
+    {% block content %}
+    {% endblock %}
+
+</main>
 </body>
 </html>

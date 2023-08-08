@@ -1,39 +1,38 @@
 {% extends "podcasts/_base.html" %}
 <!DOCTYPE html>
+<html lang="US-EN">
 {% block content %}
 
-    <main class="container flex-grow-1">
-      <div class="row">
+    <div class="row">
         <div class="col">
-          <section class="card mb-3">
-            <div class="row no-gutters">
-              <div class="col-md-2 my-auto">
-                <img
-                  src="{{ podcast.podcast_image }}"
-                  class="img-fluid ml-3 my-3"
-                  alt="{{ podcast.podcast_name}}"
-                />
-              </div>
-              <div class="col-md-10">
-                <div class="card-body ml-3">
-                  <h3 class="card-title">{{ podcast.podcast_name }}</h3>
+            <section class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-2 my-auto">
+                        <img
+                                src="{{ podcast.podcast_image }}"
+                                class="img-fluid ml-3 my-3"
+                                alt="{{ podcast.podcast_name }}"
+                        />
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body ml-3">
+                            <h3 class="card-title">{{ podcast.podcast_name }}</h3>
 
-                  {% autoescape off %}
-                      <h3 class="card-title">{{ podcast.podcast_summary }}</h3>
-                  <p class="card-text">{{ podcast.episode_description }}</p>
+                            {% autoescape off %}
+                                <h3 class="card-title">{{ podcast.podcast_summary }}</h3>
+                                <p class="card-text">{{ podcast.episode_description }}</p>
 
-                  {% endautoescape %}
-                  <a href="{{ podcast.feed_href }}">
-                    <p class="card-text">🎧 Listen to this episode</p>
-                  </a>
+                            {% endautoescape %}
+                            <a href="{{ podcast.feed_href }}">
+                                <p class="card-text">🎧 Listen to this episode</p>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </section>
+            </section>
         </div>
-      </div>
+    </div>
     {% include 'podcasts/episode_list.html' %}
-    </main>
 {% endblock %}
 
 </html>
