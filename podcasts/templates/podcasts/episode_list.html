@@ -37,16 +37,17 @@
                                 <p class="card-title">Length: {{ episode.episode_duration }} </p>
                                 <p>Published: {{ episode.published_date }}</p>
                                 {% autoescape off %}
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                            data-target="#collapseExample" aria-expanded="false"
-                                            aria-controls="collapseExample">
-                                        Button with data-target
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#dt-{{ forloop.counter }}" aria-expanded="false"
+                                            aria-controls="dt-{{ forloop.counter }}}">
+                                        Expand Summary...
                                     </button>
-                                    <div class="collapse" id="collapseExample">
+                                    <div class="collapse" id="dt-{{ forloop.counter }}">
                                         {{ episode.episode_description }}</div>
 
 
                                     <p>
+
 
                                 {% endautoescape %}
                                 <a href="{{ episode.episode_link }}">
