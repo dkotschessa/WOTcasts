@@ -1,33 +1,52 @@
-{#    podcast list#}
-<main class="container flex-grow-1">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WOTpods</title>
 
 
-    <div class="row">
-        <div class="col">
-            {% for episode in episodes %}
-                <section class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-2 my-auto">
+</head>
+
+<body>
+
+<main role="main">
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                {% for episode in episodes %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
                             <img
                                     src="{{ episode.episode_image }}"
-                                    class="img-fluid ml-3 my-3"
+                                    class="card-img-top"
                                     alt="{{ episode.podcast_name }}"
-                                    style="height: 5em; width: 5em"
+                                    style="height: 100%; width: 100%; display: block;"
                             />
-                        </div>
-                        <div class="col-md-10">
-                            <div class="card-body ml-3">
+                            <div class="card-body h-75">
+
                                 <a href="{% url 'podcast_info' episode.podcast_id %}">
                                     <h3 class="card-title">{{ episode.podcast_name }}</h3>
                                 </a>
-                                <h3 class="card-title">{{ episode.podcast_title }}</h3>
-
-
-                                <h3 class="card-title">{{ episode.episode_title }}</h3>
+                                <h4 class="card-title">{{ episode.podcast_title }}</h4>
+                                <h5 class="card-title">{{ episode.episode_title }}</h5>
                                 <p class="card-title">Length: {{ episode.episode_duration }} </p>
                                 <p>Published: {{ episode.published_date }}</p>
                                 {% autoescape off %}
-                                    <p class="card-text">{{ episode.episode_description }}</p>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#collapseExample" aria-expanded="false"
+                                            aria-controls="collapseExample">
+                                        Button with data-target
+                                    </button>
+                                    <div class="collapse" id="collapseExample">
+                                        {{ episode.episode_description }}</div>
+
+
+                                    <p>
 
                                 {% endautoescape %}
                                 <a href="{{ episode.episode_link }}">
@@ -36,9 +55,15 @@
                             </div>
                         </div>
                     </div>
-                </section>
-            {% endfor %}
+                {% endfor %}
+
+
+            </div>
         </div>
     </div>
+
 </main>
-{#end podcast list#}
+
+
+</body>
+</html>

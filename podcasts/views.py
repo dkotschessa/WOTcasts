@@ -64,7 +64,7 @@ def get_episode_list(episodes):
         context_dict = {
             "episode_image": episode.image,
             "podcast_name": episode.podcast_name,
-            "podcast_title": episode.title,
+            "episode_title": episode.title,
             "episode_description": episode.description,
             "episode_duration": episode.duration,
             "episode_link": episode.link,
