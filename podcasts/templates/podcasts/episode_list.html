@@ -16,17 +16,20 @@
 <main role="main">
     <div class="album py-5 bg-light">
         <div class="container">
+            <h3>Click on any podcast to view their full list of episodes!</h3>
+
 
             <div class="row">
                 {% for episode in episodes %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img
+                            <a href="{% url 'podcast_info' episode.podcast_id %}"> <img
                                     src="{{ episode.episode_image }}"
                                     class="card-img-top"
                                     alt="{{ episode.podcast_name }}"
                                     style="height: 100%; width: 100%; display: block;"
-                            />
+                            /> </a>
+
                             <div class="card-body h-75">
 
                                 <a href="{% url 'podcast_info' episode.podcast_id %}">

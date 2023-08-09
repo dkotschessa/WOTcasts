@@ -6,7 +6,7 @@ from django.db.models import Q
 
 
 def homepage_view(request):
-    episodes = Episode.objects.filter().order_by("-pub_date")[:20]
+    episodes = Episode.objects.filter().order_by("-pub_date")[:40]
     # TODO one of each
     context = {}
 
