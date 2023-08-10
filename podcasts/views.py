@@ -6,7 +6,11 @@ from django.db.models import Q
 
 
 def homepage_view(request):
-    episodes = Episode.objects.filter().order_by("-pub_date")[:40]
+    episodes = (
+        Episode.objects.filter()
+        .prefetch_related("podcast_name")
+        .order_by("-pub_date")[:20]
+    )
     # TODO one of each
     context = {}
 
@@ -52,7 +56,7 @@ class SearchResultsView(ListView):
     template_name = "podcasts/search_results.html"
 
     def get_queryset(self):
-        object_list = Episode.objects.filter(
+        object_list = Episode.objects.prefetch_related("podcast_name").filter(
             Q(description__icontains=query) | Q(title__icontains=query)
         )
         return object_list
