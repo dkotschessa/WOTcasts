@@ -62,7 +62,7 @@ def save_new_episodes(feed):
                 podcast_name=podcast,  ##TODO not sure what's up here
                 # Image may unique to each episode, otherwise get podcast image
                 # https://podcasters.apple.com/support/896-artwork-requirements
-                image=item.get("image", feed.channel.image),
+                image=item.get("image", feed.channel.image["href"]),
                 duration=convert_duration(item.get("itunes_duration", "N/A")),
                 guid=item.guid,
             )
