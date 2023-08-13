@@ -35,8 +35,8 @@ def populate_missing_fields():
 
 def save_new_episodes(feed):
     """Saves New episodes to database
-    checks if the wpisode GUID against the episodes currently stored
-    in the datebase. If not found, then a new Episode is added
+    checks if the episode GUID against the episodes currently stored
+    in the database. If not found, then a new Episode is added
 
     Args:
     feed: requires a feedparser object"""
