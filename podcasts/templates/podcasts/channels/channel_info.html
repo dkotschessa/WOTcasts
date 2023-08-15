@@ -1,0 +1,37 @@
+{% extends "podcasts/_base.html" %}
+<!DOCTYPE html>
+<html lang="US-EN">
+{% block content %}
+
+    <div class="row">
+        <div class="col">
+            <section class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-2 my-auto">
+                        <img
+                                src="{{ channel.channel_image }}"
+                                class="img-fluid ml-3 my-3"
+                                alt="{{ channel.channel_name }}"
+                        />
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body ml-3">
+                            <h3 class="card-title">{{ channel.channel_name }}</h3>
+
+                            {% autoescape off %}
+                                <h3 class="card-title">{{ channel.channel_summary }}</h3>
+
+                            {% endautoescape %}
+                            <a href="{{ channel.youtube_url }}">
+                                <p class="card-text"> Watch this episode on youtube</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    {% include 'podcasts/episode_list.html' %}
+{% endblock %}
+
+</html>

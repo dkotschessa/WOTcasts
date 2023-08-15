@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import (
     homepage_view,
+    youtube_channels_view,
+    channel_info_view,
     podcast_info_view,
     podcast_gallery_view,
     search_results_view,
@@ -9,6 +11,12 @@ from .views import (
 
 urlpatterns = [
     path("", homepage_view, name="homepage"),
+    path("wheel_of_youtube", youtube_channels_view, name="youtube_channels"),
+    path(
+        "podcasts/channels/<int:channel_id>",
+        channel_info_view,
+        name="youtube_channel_info",
+    ),
     path("podcasts", podcast_gallery_view, name="podcast_gallery"),
     path("about", about_view, name="about"),
     path("podcast/<int:podcast_id>", podcast_info_view, name="podcast_info"),

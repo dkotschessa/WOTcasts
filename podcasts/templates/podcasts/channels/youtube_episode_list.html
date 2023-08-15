@@ -15,21 +15,15 @@
 
 <main role="main">
     <div class="album py-5 bg-light">
-
-
         <div class="container">
-            <div class="col text-center">
-                {% include "podcasts/search.html" %}
-                <h3>Click on any podcast to view their full list of episodes!</h3>
-
-            </div>
+            <h3>Click on any channel to view their full list of episodes!</h3>
 
 
             <div class="row">
-                {% for episode in episodes %}
+                {% for episode in yt_episodes %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <a href="{% url 'podcast_info' episode.podcast_id %}"> <img
+                            <a href="{% url 'youtube_channel_info' episode.podcast_id %}"> <img
                                     src="{{ episode.episode_image }}"
                                     class="card-img-top"
                                     alt="{{ episode.podcast_name }}"
@@ -41,9 +35,8 @@
                                 <a href="{% url 'podcast_info' episode.podcast_id %}">
                                     <h3 class="card-title">{{ episode.podcast_name }}</h3>
                                 </a>
-                                <h4 class="card-title">{{ episode.podcast_title }}</h4>
+                                <h4 class="card-title">{{ episode.channel_name }}</h4>
                                 <h5 class="card-title">{{ episode.episode_title }}</h5>
-                                <p class="card-title">Length: {{ episode.episode_duration }} </p>
                                 <p>Published: {{ episode.published_date }}</p>
                                 {% autoescape off %}
                                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
@@ -60,7 +53,7 @@
 
                                 {% endautoescape %}
                                 <a href="{{ episode.episode_link }}">
-                                    <p class="card-text">🎧 Listen to this episode</p>
+                                    <p class="card-text">Watch this episode on YouTube!</p>
                                 </a>
                             </div>
                         </div>

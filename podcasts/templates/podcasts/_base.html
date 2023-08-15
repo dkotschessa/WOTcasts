@@ -42,6 +42,7 @@
                     <a class="dropdown-item" href="/">Home</a>
 
                     <a class="dropdown-item" href="/podcasts">Podcasts</a>
+                    <a class="dropdown-item" href="/wheel_of_youtube">Youtube Channels</a>
                     <a class="dropdown-item" href="/about">About</a>
 
                 </li>
@@ -54,12 +55,12 @@
 
 <main role="main">
     <div>
-        <section class="jumbotron text-center">
-            <div class="col text-center" style="padding: 5em">
+        <section class="jumbotron text-center" style="padding: 3em">
+            <div class="col text-center" style="padding: 3em">
 
                 <h3>WOTpods</h3>
-                <h2>The Latest Episodes </h2>
-
+                <h2>The Latest Podcasts</h2>
+                <h2>and YouTube content from </h2>
                 <h2>across the</h2>
                 <h1>Wheel of Time</h1>
                 <h2>
@@ -68,34 +69,6 @@
             </div>
             <div>
                 <div>
-                    <form action="{% url 'search_results' %}" method="get">
-                        <input name="q" type="text" placeholder="Search...">
-
-                        <select name="q" type="text">
-                            <option selected disabled=true>--Select Book--</option>
-                            <option value="New Spring">New Spring</option>
-                            <option value="The Eye Of The World">The Eye Of The World</option>
-                            <option value="The Great Hunt">The Great Hunt</option>
-
-                            <option value="The Dragon Reborn">The Dragon Reborn</option>
-
-                            <option value="The Shadow Rising">The Shadow Rising</option>
-                            <option value="Lord of Chaos">Lord of Chaos</option>
-                            <option value="A Crown Of Swords">A Crown Of Swords</option>
-                            <option value="The Path Of Daggers">A Path Of Daggers</option>
-                            <option value="Winter's Heart">Winter's Heart</option>
-                            <option value="Crossroads of Twilight">Crossroads of Twilight</option>
-                            <option value="The Gathering Storm">The Gathering Storm</option>
-                            <option value="Towers of Midnight">Towers of Midnight</option>
-                            <option value="A Memory Of Light">A Memory of Light</option>
-
-
-                        </select>
-                        <input type="submit" value="Search">
-                        <hr>
-
-
-                    </form>
 
                 </div>
         </section>

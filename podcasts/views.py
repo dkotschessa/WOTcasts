@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from .models import Episode, Podcast
+from .models import Episode, Podcast, Channel, YoutubeEpisode
 
 from django.db.models import Q
 
@@ -9,7 +9,7 @@ def homepage_view(request):
     episodes = (
         Episode.objects.filter()
         .prefetch_related("podcast_name")
-        .order_by("-pub_date")[:20]
+        .order_by("-pub_date")[:40]
     )
     # TODO one of each
     context = {}
@@ -19,6 +19,32 @@ def homepage_view(request):
     return render(request, "podcasts/homepage.html", context)
 
 
+def youtube_channels_view(request):
+    yt_episodes = (
+        YoutubeEpisode.objects.filter()
+        .prefetch_related("channel_name")
+        .order_by("-pub_date")[:40]
+    )
+
+    context = {}
+
+    episode_list = get_youtube_episode_list(yt_episodes)
+    context["yt_episodes"] = episode_list
+    return render(request, "podcasts/youtube.html", context)
+
+
+def channel_info_view(request, channel_id):
+    channel = Channel.objects.get(pk=channel_id)
+    episodes = YoutubeEpisode.objects.filter(channel_name=channel_id).order_by(
+        "-pub_date"
+    )[:40]
+    context = {"channel": channel}
+
+    episode_list = get_youtube_episode_list(episodes)
+    context["episodes"] = episode_list
+    return render(request, "podcasts/channels/channel_info.html", context)
+
+
 def about_view(request):
     return render(request, "podcasts/about.html")
 
@@ -26,7 +52,7 @@ def about_view(request):
 def podcast_info_view(request, podcast_id):
     podcast = Podcast.objects.get(pk=podcast_id)
     episodes = Episode.objects.filter(podcast_name_id=podcast.id).order_by("-pub_date")[
-        :20
+        :40
     ]
     context = {"podcast": podcast}
 
@@ -79,6 +105,22 @@ def get_episode_list(episodes):
     return episode_list
 
 
+def get_youtube_episode_list(episodes):
+    episode_list = []
+    for episode in episodes:
+        context_dict = {
+            "episode_image": episode.image,
+            "channel_name": episode.channel_name,
+            "episode_title": episode.title,
+            "episode_description": episode.description,
+            "episode_link": episode.link,
+            "podcast_id": episode.channel_name_id,
+            "published_date": episode.pub_date,
+        }
+        episode_list.append(context_dict)
+    return episode_list
+
+
 def podcast_gallery_view(request):
     podcasts = Podcast.objects.all()
     podcast_list = []
@@ -94,3 +136,5 @@ def podcast_gallery_view(request):
 
     context["podcasts"] = podcast_list
     return render(request, "podcasts/podcast_gallery.html", context)
+
+    return None

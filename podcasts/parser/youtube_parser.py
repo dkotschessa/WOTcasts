@@ -126,14 +126,6 @@ def save_new_youtube_episodes(youtube_url: str):
     feed = get_xml(youtube_url)
 
     channel, created = Channel.objects.get_or_create(youtube_url=youtube_url)
-    # channel_name = feed.channel.title
-    # title = feed.episode.title
-    # description = feed.episode.summary_detail.value
-    # pub_date = date_parser.parse(feed.episode.published)
-    # link = feed.episode.links[0].href
-    # image = feed.pisode.media_thumbnail[0]["url"]
-    # guid = feed.episode.guid
-    # episode_fields = episode_dict(feed)
 
     for item in feed.entries:
         if not YoutubeEpisode.objects.filter(guid=item.guid):
@@ -149,3 +141,12 @@ def save_new_youtube_episodes(youtube_url: str):
             )
             logger.info(f"Added episode: {item.title}")
             episode.save()
+
+
+def fetch_new_youtube_episodes():
+    populate_missing_youtube_fields()
+    channel_list = Channel.objects.all().filter(youtube_url__isnull=False)
+    for channel in channel_list:
+        youtube_url = channel.youtube_url
+        logger.info(f"Getting Youtube channel {channel.channel_name}")
+        save_new_youtube_episodes(youtube_url)

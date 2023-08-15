@@ -70,17 +70,13 @@ def save_new_episodes(feed):
             episode.save()
 
 
-def get_rss_feed_list() -> List:
-    podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
-    # TODO check is actually RSS feed
-    return [p.feed_href for p in podcast_list]
-
-
 def fetch_new_episodes():
     populate_missing_fields()
     """ Fetches new episodes from RSS feed"""
-    feeds = get_rss_feed_list()
-    for feed in feeds:
+    podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
+    for podcast in podcast_list:
+        feed = podcast.feed_href
+        # TODO RSS verification
         logger.info(f"Getting {feed}...")
         _feed = feedparser.parse(feed)
         save_new_episodes(_feed)
