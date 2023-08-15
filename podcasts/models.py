@@ -36,7 +36,7 @@ class Channel(models.Model):
     host = models.TextField(null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"{self.youtube_url}"
+        return f"{self.channel_name}"
 
 
 class YoutubeEpisode(models.Model):

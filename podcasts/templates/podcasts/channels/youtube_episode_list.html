@@ -23,19 +23,19 @@
                 {% for episode in yt_episodes %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <a href="{% url 'youtube_channel_info' episode.podcast_id %}"> <img
+                            <a href="{% url 'youtube_channel_info' episode.channel_id %}"> <img
                                     src="{{ episode.episode_image }}"
                                     class="card-img-top"
-                                    alt="{{ episode.podcast_name }}"
+                                    alt="{{ episode.episode_title }}"
                                     style="height: auto; width: 100%; display: block;"
                             /> </a>
 
                             <div class="card-body h-75">
 
-                                <a href="{% url 'podcast_info' episode.podcast_id %}">
-                                    <h3 class="card-title">{{ episode.podcast_name }}</h3>
+                                <a href="{% url 'youtube_channel_info' episode.channel_id %}">
+                                    <h3 class="card-title">{{ episode.channel_name }}</h3>
                                 </a>
-                                <h4 class="card-title">{{ episode.channel_name }}</h4>
+                                {#                                <h4 class="card-title">{{ episode.channel_name }}</h4>#}
                                 <h5 class="card-title">{{ episode.episode_title }}</h5>
                                 <p>Published: {{ episode.published_date }}</p>
                                 {% autoescape off %}

@@ -40,7 +40,7 @@ class ChannelAdmin(admin.ModelAdmin):
         "host",
     ]
 
-    fields = ["youtube_url", "feed_href"]
+    fields = ["youtube_url"]
 
 
 @admin.register(YoutubeEpisode)
