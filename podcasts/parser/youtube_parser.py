@@ -120,7 +120,7 @@ def populate_missing_youtube_fields():
 def save_new_youtube_episodes(youtube_url: str):
     """
     Checks or new episodes
-    by checking if the GUID exists in the model already
+    by checking if the link exists in the model already
     """
     logger.info(f"Checking for new episodes of {youtube_url}")
     feed = get_xml(youtube_url)
@@ -128,7 +128,7 @@ def save_new_youtube_episodes(youtube_url: str):
     channel, created = Channel.objects.get_or_create(youtube_url=youtube_url)
 
     for item in feed.entries:
-        if not YoutubeEpisode.objects.filter(guid=item.guid):
+        if not YoutubeEpisode.objects.filter(link=item.link):
             logger.info(f"Found new episodes for {channel.channel_name}")
 
             episode = YoutubeEpisode(
