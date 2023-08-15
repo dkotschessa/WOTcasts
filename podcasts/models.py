@@ -29,6 +29,7 @@ class Episode(models.Model):
 
 class Channel(models.Model):
     youtube_url = models.URLField(unique=True, null=True)
+    feed_href = models.URLField()
     channel_name = models.CharField(max_length=100)
     channel_summary = models.TextField(null=True, blank=True)
     channel_image = models.URLField()
