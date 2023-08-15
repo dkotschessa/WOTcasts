@@ -29,14 +29,13 @@ class Episode(models.Model):
 
 class Channel(models.Model):
     youtube_url = models.URLField(unique=True, null=True)
-    feed_href = models.URLField(unique=True)
     channel_name = models.CharField(max_length=100)
     channel_summary = models.TextField(null=True, blank=True)
     channel_image = models.URLField()
     host = models.TextField(null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"{self.channel_name}"
+        return f"{self.youtube_url}"
 
 
 class YoutubeEpisode(models.Model):
