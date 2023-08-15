@@ -1,6 +1,5 @@
 import logging
 
-
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django_apscheduler.jobstores import DjangoJobStore
@@ -9,7 +8,7 @@ from django.conf import settings
 from podcasts.models import Episode
 from django.core.management import BaseCommand
 from podcasts.parser.episode_parser import fetch_new_episodes
-
+from podcasts.parser.youtube_parser import fetch_new_youtube_episodes
 
 logger = logging.getLogger(__name__)
 
@@ -17,6 +16,11 @@ logger = logging.getLogger(__name__)
 def delete_old_job_executions(max_age=604_800):
     """Deletes all apscheduler job execution logs older than `max_age`."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
+
+
+def fetch_all_content():
+    fetch_new_episodes()
+    fetch_new_youtube_episodes()
 
 
 class Command(BaseCommand):
@@ -33,10 +37,10 @@ class Command(BaseCommand):
         interval = options["interval"]
 
         scheduler.add_job(
-            fetch_new_episodes,
+            fetch_all_content,
             trigger="interval",
             minutes=interval,
-            id="Fetch New Podcast Episodes",
+            id="Fetch New Podcast and Youtube Episodes",
             max_instances=1,
             replace_existing=True,
         )
