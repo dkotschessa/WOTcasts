@@ -28,6 +28,7 @@ class Episode(models.Model):
 
 
 class Channel(models.Model):
+    youtube_url = models.URLField(unique=True, null=True)
     feed_href = models.URLField(unique=True)
     channel_name = models.CharField(max_length=100)
     channel_summary = models.TextField(null=True, blank=True)
@@ -44,6 +45,6 @@ class YoutubeEpisode(models.Model):
     pub_date = models.DateTimeField()
     link = models.URLField()
     image = models.URLField()
-    podcast_name = models.ForeignKey(Podcast, on_delete=models.CASCADE)
+    channel_name = models.ForeignKey(Channel, on_delete=models.CASCADE)
     guid = models.CharField(max_length=200)
     duration = models.CharField(max_length=10, blank=True, null=True)

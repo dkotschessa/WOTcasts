@@ -1,22 +1,15 @@
 from typing import Dict
 from feedparser.util import FeedParserDict
 from dateutil import parser as date_parser
-
+from podcasts.models import Channel, YoutubeEpisode
 import requests
 from bs4 import BeautifulSoup
 import feedparser
-from podcasts.models import Channel, YoutubeEpisode
 import logging
 
 logger = logging.getLogger(__name__)
 
-test_urls = [
-    "https://www.youtube.com/@TotalRunningProductions",
-    "https://www.youtube.com/@Grazzyy",
-    "https://www.youtube.com/@MarkLewisfitness",
-    "https://www.youtube.com/@middick",
-    "https://www.youtube.com/@WebDevSimplified",
-]
+test_urls = ["https://www.youtube.com/@WoTUp", "https://www.youtube.com/@TheDustyWheel"]
 
 
 def soup_tube(url):
@@ -38,10 +31,24 @@ def get_xml(url):
 
 
 def get_description(url):
+    """
+    Gets descriptionf from the original youtube channel
+    as XML doesn't have anything good
+
+    """
     soup = soup_tube(url)
     og_description = soup.find("meta", property="og:description")
     description = og_description.get("content")
     return description
+
+
+def get_thumbnail(url):
+    """
+    TODO
+    get channel thumbnail from youtube channel
+    it's deeply nested so this is a bit painful
+    """
+    pass
 
 
 def channel_dict(url) -> Dict:
@@ -56,15 +63,17 @@ def channel_dict(url) -> Dict:
     }
 
 
-def episode_dict(episode: FeedParserDict) -> Dict:
-    title = episode.title
-    description = episode.summary_detail.value
-    pub_date = date_parser.parse(episode.published)
-    link = episode.links[0].href
-    image = episode.media_thumbnail[0]["url"]
-    guid = episode.guid
+def episode_dict(feed: FeedParserDict) -> Dict:
+    channel_name = feed.channel.title
+    title = feed.episode.title
+    description = feed.episode.summary_detail.value
+    pub_date = date_parser.parse(feed.episode.published)
+    link = feed.episode.links[0].href
+    image = feed.pisode.media_thumbnail[0]["url"]
+    guid = feed.episode.guid
 
     return {
+        "channel_name": channel_name,
         "title": title,
         "description": description,
         "pub_date": pub_date,
@@ -74,70 +83,69 @@ def episode_dict(episode: FeedParserDict) -> Dict:
     }
 
 
+def populate_channel_fields_from_url(url):
+    """
+    used when new channel is added
+    add initial channel fields after youtube URL
+    """
+    channel_fields = channel_dict(url)
+    channel, created = Channel.objects.get_or_create(
+        youtube_url=url,
+        feed_href=channel_fields["feed_href"],
+        channel_name=channel_fields["channel_name"],
+        channel_summary=channel_fields["description"],
+        channel_image=channel_fields["image"],
+        host=channel_fields["host"],
+    )
+    channel.save()
+
+
 def populate_missing_youtube_fields():
+    for channel in Channel.objects.all():
+        if channel.youtube_url is not None:
+            channel_fields = channel_dict(channel.youtube_url)
+            if not channel.channel_name:
+                channel.channel_name = channel_fields["channel_name"]
+            if not channel.feed_href:
+                channel.feed_href = channel_fields["feed_href"]
+            if not channel.channel_summary:
+                channel.channel_summary = channel_fields["description"]
+            if not channel.channel_image:
+                channel.channel_image = channel_fields["image"]
+            if not channel.host:
+                channel.host = channel_fields["host"]
+            channel.save()
+
+
+def save_new_youtube_episodes(youtube_url: str):
     """
-    Populate fields that are missing
-    mostly used when new podcast is added
+    Checks or new episodes
+    by checking if the GUID exists in the model already
     """
+    logger.info(f"Checking for new episodes of {youtube_url}")
+    feed = get_xml(youtube_url)
 
-    for podcast in Chann.objects.all():
-        if podcast.feed_href is not None:
-            rss_link = podcast.feed_href
-            _feed = feedparser.parse(rss_link)
-            if not podcast.podcast_name:
-                podcast.podcast_name = _feed.channel.title
-                # todo maybe a separate function for this with error handling
-
-            if not podcast.podcast_summary or len(podcast.podcast_summary) < 2:
-                podcast.podcast_summary = _feed.channel.get(
-                    "summary", _feed.channel.get("subtitle")
-                )
-
-            if not podcast.podcast_image:
-                podcast.podcast_image = _feed.channel.image["href"]
-            podcast.save()
-
-
-def save_new_youtube_episodes(feed):
-    """Saves New youtube episodes to database
-    checks if the episode GUID against the episodes currently stored
-    in the database. If not found, then a new Episode is added
-
-    Args:
-    feed: requires a feedparser object"""
-
-    logger.info(f"Checking for new youtube episodes of {feed.channel.title}")
-
-    try:
-        podcast, created = Channel.objects.get_or_create(feed_href=feed.href)
-    except AttributeError as attributeerror:
-        logger.info(f"Attribute Error:  ${attributeerror}")
-    except KeyError as keyexception:
-        logger.info(f"KeyException:  ${keyexception}")
+    channel, created = Channel.objects.get_or_create(youtube_url=youtube_url)
+    # channel_name = feed.channel.title
+    # title = feed.episode.title
+    # description = feed.episode.summary_detail.value
+    # pub_date = date_parser.parse(feed.episode.published)
+    # link = feed.episode.links[0].href
+    # image = feed.pisode.media_thumbnail[0]["url"]
+    # guid = feed.episode.guid
+    # episode_fields = episode_dict(feed)
 
     for item in feed.entries:
-        if not Channel.objects.filter(guid=item.guid).exists():
-            logger.info(f"New episodes found for Podcast {feed.channel.title}")
-            logger.info(f"Parsing episode with GUID ${item.guid}")
-            episode = Episode(
+        if not YoutubeEpisode.objects.filter(guid=item.guid):
+            logger.info(f"Found new episodes for {channel.channel_name}")
+
+            episode = YoutubeEpisode(
+                channel_name=channel,
                 title=item.title,
-                description=item.get("description", ""),
-                pub_date=parser.parse(item.published),
-                link=item.get("link", item.links[0]["href"]),
-                podcast_name=podcast,  ##TODO not sure what's up here
-                image=podcast.podcast_image,
-                duration=convert_duration(item.get("itunes_duration", "N/A")),
-                guid=item.guid,
+                description=item.summary_detail.value,
+                pub_date=date_parser.parse(item.published),
+                link=item.link,
+                image=item.media_thumbnail[0]["url"],
             )
-            logger.info(f"Episode added: {episode.title} \n")
+            logger.info(f"Added episode: {item.title}")
             episode.save()
-
-
-def fetch_new_youtube_episodes():
-    populate_missing_fields()
-    """ Fetches new episodes from RSS feed"""
-    feeds = get_rss_feed_list()
-    for feed in feeds:
-        logger.info(f"Getting {feed}...")
-        _feed = feedparser.parse(feed)
-        save_new_episodes(_feed)
