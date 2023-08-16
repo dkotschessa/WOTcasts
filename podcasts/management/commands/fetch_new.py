@@ -18,7 +18,7 @@ class Command(BaseCommand):
         logger.info("Attempting to fetch new episodes")
 
         try:
-            fetch_new_episodes()
+            fetch_all_content()
 
         except KeyboardInterrupt:
             logger.info("Keyboard Interrupt")
