@@ -5,7 +5,7 @@ from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 from django.conf import settings
 from django.core.management import BaseCommand
-from fetch_new import fetch_all_content
+from podcasts.management.commands.fetch_new import fetch_all_content
 
 logger = logging.getLogger(__name__)
 
