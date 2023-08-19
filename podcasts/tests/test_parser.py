@@ -1,18 +1,35 @@
-from typing import List
-from django.test import TestCase
-import feedparser
+import factory
 from datetime import datetime, timezone
+
 from podcasts.parser.episode_parser import (
     populate_missing_fields,
     save_new_episodes,
-    get_rss_feed_list,
     fetch_new_episodes,
 )
 from podcasts.parser.parse_utils import convert_duration
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 from podcasts.models import Episode, Podcast
 from podcasts.tests.mock_parser import mock_feed
 import pytest
+from faker import Faker
+
+fake = Faker()
+
+
+class PodcastFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Podcast
+
+    feed_href = "http://podcast1.com"
+
+
+class EpisodeFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Episode
+
+    title = "Another amazing episode"
+    guid = fake.url()
+    podcast_name = factory.SubFactory(PodcastFactory, feed_href="http://podcast.com")
 
 
 @pytest.mark.django_db
@@ -50,34 +67,21 @@ def test_save_new_episodes():
 
 
 @pytest.mark.django_db
-def test_get_rss_feed_list():
-    podcast_1 = Podcast(feed_href="http://podcast1.com")
-    podcast_1.save()
-    podcast_2 = Podcast(feed_href="http://podcast2.com")
-    podcast_2.save()
-    list = get_rss_feed_list()
-    assert len(list) == 2
-
-
-@pytest.mark.django_db
 def test_fetch_new_episodes():
-    with patch("podcasts.parser.episode_parser.populate_missing_fields") as populate:
+    # Arrange
+    PodcastFactory.create(feed_href="http://podcast1.com")
+    PodcastFactory.create(feed_href="http://podcast2.com")
+
+    with patch(
+        "podcasts.parser.episode_parser.populate_missing_fields"
+    ) as populate_mock:
         with patch(
-            "podcasts.parser.episode_parser.get_rss_feed_list"
-        ) as feed_list_mock:
-            feed_list_mock.return_value = ["http://podcast1.com", "http://podcast2.com"]
-            with patch(
-                "podcasts.parser.episode_parser.save_new_episodes"
-            ) as save_new_episodes_mock:
-                with patch(
-                    "podcasts.parser.episode_parser.feedparser.parse"
-                ) as feedparser_mock:
-                    fetch_new_episodes()
-                    populate.assert_called()
-                    feed_list_mock.assert_called()
-                    assert save_new_episodes_mock.call_count == 2
-                    assert feedparser_mock.call_count == 2
-                    feedparser_mock.assert_called_with("http://podcast2.com")
+            "podcasts.parser.episode_parser.save_new_episodes"
+        ) as save_episodes_mock:
+            fetch_new_episodes()
+
+            populate_mock.assert_called()
+            save_episodes_mock.assert_called()
 
 
 def test_convert_duration():

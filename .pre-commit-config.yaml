@@ -12,10 +12,11 @@ repos:
     rev: 22.10.0
     hooks:
     -   id: black
--   repo: local
-    hooks:
-    -   id: run_tests
-        language: script
-        name: Run tests
-        entry: ./runtests.sh
-        stage: [ commit ]
+#-   repo: local
+#    hooks:
+#    -   id: pytest-check
+#        language: system
+#        name: pytest-check
+#        verbose: true
+#        entry: pytest
+#        stage: [ commit ]

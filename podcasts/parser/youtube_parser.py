@@ -9,8 +9,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-test_urls = ["https://www.youtube.com/@WoTUp", "https://www.youtube.com/@TheDustyWheel"]
-
 
 def soup_tube(url):
     page = requests.get(url)
@@ -18,21 +16,21 @@ def soup_tube(url):
     return soup
 
 
-def get_rss_from_channel(url):
+def get_rss_link_from_channel(url):
     soup = soup_tube(url)
     feed_href = soup.find(title="RSS")
     return feed_href["href"]
 
 
 def get_xml(url):
-    feed_href = get_rss_from_channel(url)
+    feed_href = get_rss_link_from_channel(url)
     feed = feedparser.parse(feed_href)
     return feed
 
 
 def get_description(url):
     """
-    Gets descriptionf from the original youtube channel
+    Gets description from the original youtube channel
     as XML doesn't have anything good
 
     """
@@ -61,43 +59,6 @@ def channel_dict(url) -> Dict:
         "image": feed.entries[0].media_thumbnail[0]["url"],  # most recent thumbnail
         "host": feed.channel.author,
     }
-
-
-def episode_dict(feed: FeedParserDict) -> Dict:
-    channel_name = feed.channel.title
-    title = feed.episode.title
-    description = feed.episode.summary_detail.value
-    pub_date = date_parser.parse(feed.episode.published)
-    link = feed.episode.links[0].href
-    image = feed.pisode.media_thumbnail[0]["url"]
-    guid = feed.episode.guid
-
-    return {
-        "channel_name": channel_name,
-        "title": title,
-        "description": description,
-        "pub_date": pub_date,
-        "link": link,
-        "image": image,
-        "guid": guid,
-    }
-
-
-def populate_channel_fields_from_url(url):
-    """
-    used when new channel is added
-    add initial channel fields after youtube URL
-    """
-    channel_fields = channel_dict(url)
-    channel, created = Channel.objects.get_or_create(
-        youtube_url=url,
-        feed_href=channel_fields["feed_href"],
-        channel_name=channel_fields["channel_name"],
-        channel_summary=channel_fields["description"],
-        channel_image=channel_fields["image"],
-        host=channel_fields["host"],
-    )
-    channel.save()
 
 
 def populate_missing_youtube_fields():

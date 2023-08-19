@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls.base import reverse
 from podcasts.models import Episode, Podcast
-from datetime import datetime
 
 
 class PodcastTests(TestCase):

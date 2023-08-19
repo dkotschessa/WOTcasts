@@ -1,5 +1,5 @@
 from attrs import define
-from typing import List
+from typing import List, Dict
 from attrs import asdict
 
 
@@ -10,7 +10,7 @@ class FeedItem:
     published: str
     podcast_name: str
     link: str
-    image: str
+    image: Dict[str, str]
     guid: str
     links: list
 
@@ -49,7 +49,7 @@ feeditem = FeedItem(
     description="some description",
     published="Tue, 04 Apr 2023 18:30:00 -0700",
     podcast_name=Channel.title,
-    image="",
+    image={"href": "http://www.someimagehost/img.png"},
     link="a link",
     guid="a guid",
     links=[

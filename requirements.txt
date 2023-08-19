@@ -19,6 +19,8 @@ django-apscheduler==0.6.2
 django-extensions==3.2.3
 exceptiongroup==1.1.1
 executing==1.2.0
+factory-boy==3.3.0
+Faker==19.3.0
 feedparser==6.0.8
 filelock==3.12.2
 flake8==6.1.0
