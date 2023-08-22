@@ -46,3 +46,12 @@ class SampleXML:
 
 
 sample_xml = SampleXML
+
+
+class PodcastXML:
+    test_xml = BASE_DIR / "podcasts" / "tests" / "dragon_podcast_xml.xml"
+    content = open(test_xml).read()
+    response = 200
+
+
+podcast_xml = PodcastXML

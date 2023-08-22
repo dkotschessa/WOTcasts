@@ -132,8 +132,14 @@ def test_populate_missing_youtube_fields():
 
 
 @pytest.mark.django_db
+def test_save_new_youtube_episodes():
+    with patch("podcasts.parser.youtube_parser.get_xml") as mock_get_xml:
+        pass
+
+
+@pytest.mark.django_db
 def test_fetch_new_youtube_episodes():
-    # Arrange
+    # ARRANGE
 
     test_url = fake.url()
     episode = YoutubeEpisodeFactory.create(link=test_url)
@@ -141,13 +147,14 @@ def test_fetch_new_youtube_episodes():
 
     with patch(
         "podcasts.parser.youtube_parser.populate_missing_youtube_fields"
-    ) as mock_populate:
-        with patch(
-            "podcasts.parser.youtube_parser.save_new_youtube_episodes"
-        ) as save_new_youtube_episodes_mock:
-            fetch_new_youtube_episodes()
+    ) as mock_populate, patch(
+        "podcasts.parser.youtube_parser.save_new_youtube_episodes"
+    ) as save_new_youtube_episodes_mock:
+        # ACT
+        fetch_new_youtube_episodes()
 
-            mock_populate.assert_called()
-            save_new_youtube_episodes_mock.assert_called()
+        mock_populate.assert_called()
+        save_new_youtube_episodes_mock.assert_called()
 
+    # ASSERT
     assert url == test_url

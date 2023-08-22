@@ -1,6 +1,8 @@
 import factory
 from datetime import datetime, timezone
 
+import feedparser
+
 from podcasts.parser.episode_parser import (
     populate_missing_fields,
     save_new_episodes,
@@ -12,6 +14,7 @@ from podcasts.models import Episode, Podcast
 from podcasts.tests.mock_parser import mock_feed
 import pytest
 from faker import Faker
+from .samplehtml import podcast_xml
 
 fake = Faker()
 
@@ -68,20 +71,16 @@ def test_save_new_episodes():
 
 @pytest.mark.django_db
 def test_fetch_new_episodes():
-    # Arrange
-    PodcastFactory.create(feed_href="http://podcast1.com")
-    PodcastFactory.create(feed_href="http://podcast2.com")
-
-    with patch(
-        "podcasts.parser.episode_parser.populate_missing_fields"
-    ) as populate_mock:
+    PodcastFactory.create(
+        feed_href="https://anchor.fm/s/1e036b78/podcast/rss",
+    )
+    with patch("podcasts.parser.episode_parser.populate_missing_fields"):
         with patch(
-            "podcasts.parser.episode_parser.save_new_episodes"
-        ) as save_episodes_mock:
+            "podcasts.parser.episode_parser.feedparser.parse"
+        ) as mock_feedparser:
+            mock_feedparser.return_value = mock_feed
             fetch_new_episodes()
-
-            populate_mock.assert_called()
-            save_episodes_mock.assert_called()
+            assert Episode.objects.last().title == "some title"
 
 
 def test_convert_duration():
