@@ -22,10 +22,18 @@
                                     <a href="{% url 'youtube_channel_info' channel.channel_id %}">
                                         <h3 class="card-title">{{ channel.channel_name }}</h3>
                                     </a>
+
                                     {% autoescape off %}
                                         <p class="card-text">{{ channel.channel_summary }}</p>
 
+
                                     {% endautoescape %}
+                                    {% if channel.channel_twitter %}
+
+                                        <a href="{{ channel.channel_twitter }}">
+                                            <h5> Twitter </h5>
+                                        </a>
+                                    {% endif %}
 
 
                                 </div>

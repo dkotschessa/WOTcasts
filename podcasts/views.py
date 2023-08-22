@@ -121,6 +121,7 @@ def youtube_gallery_view(request):
             "channel_name": channel.channel_name,
             "channel_summary": channel.channel_summary,
             "channel_image": channel.channel_image,
+            "channel_twitter": channel.channel_twitter,
             "host": channel.host,
             "channel_id": channel.id,
         }
