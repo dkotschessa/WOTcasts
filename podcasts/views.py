@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
 from .models import Episode, Podcast, Channel, YoutubeEpisode
 
 from django.db.models import Q
@@ -57,13 +56,11 @@ def podcast_gallery_view(request):
     context["podcasts"] = podcast_list
     return render(request, "podcasts/podcast_gallery.html", context)
 
-    return None
-
 
 # Podcast search
 
 
-def search_results_view(request):
+def podcast_search_results_view(request):
     query = request.GET.get("q")
     if query == "trollocnips":
         page = Podcast.objects.get(feed_href="https://media.rss.com/kpod/feed.xml")
@@ -76,18 +73,22 @@ def search_results_view(request):
 
     episode_list = get_episode_list(episodes)
     context["episodes"] = episode_list
-    return render(request, "podcasts/homepage.html", context)
+    context["query"] = query
+    return render(request, "podcasts/search_results.html", context)
 
 
-class SearchResultsView(ListView):
-    model = Episode
-    template_name = "podcasts/search_results.html"
+def youtube_search_results_view(request):
+    query = request.GET.get("q")
 
-    def get_queryset(self):
-        object_list = Episode.objects.prefetch_related("podcast_name").filter(
-            Q(description__icontains=query) | Q(title__icontains=query)
-        )
-        return object_list
+    episodes = YoutubeEpisode.objects.filter(
+        Q(description__icontains=query) | Q(title__icontains=query)
+    )
+    context = {}
+
+    episode_list = get_youtube_episode_list(episodes)
+    context["yt_episodes"] = episode_list
+    context["query"] = query
+    return render(request, "podcasts/channels/search_results.html", context)
 
 
 def get_episode_list(episodes):

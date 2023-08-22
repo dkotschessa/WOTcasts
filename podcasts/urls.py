@@ -5,9 +5,10 @@ from .views import (
     channel_info_view,
     podcast_info_view,
     podcast_gallery_view,
-    search_results_view,
+    podcast_search_results_view,
     about_view,
     youtube_gallery_view,
+    youtube_search_results_view,
 )
 
 urlpatterns = [
@@ -22,5 +23,10 @@ urlpatterns = [
     path("podcasts", podcast_gallery_view, name="podcast_gallery"),
     path("about", about_view, name="about"),
     path("podcast/<int:podcast_id>", podcast_info_view, name="podcast_info"),
-    path("search", search_results_view, name="search_results"),
+    path("search_results", podcast_search_results_view, name="search_results"),
+    path(
+        "youtube_search_results",
+        youtube_search_results_view,
+        name="youtube_search_results",
+    ),
 ]
