@@ -110,7 +110,27 @@ def get_episode_list(episodes):
 ### YOUTUBE views
 
 
-def youtube_channels_view(request):
+def youtube_gallery_view(request):
+    channels = Channel.objects.all()
+    channel_list = []
+    context = {}
+    for channel in channels:
+        context_dict = {
+            "youtube_url": channel.youtube_url,
+            "feed_href": channel.feed_href,
+            "channel_name": channel.channel_name,
+            "channel_summary": channel.channel_summary,
+            "channel_image": channel.channel_image,
+            "host": channel.host,
+            "channel_id": channel.id,
+        }
+        channel_list.append(context_dict)
+
+    context["channels"] = channel_list
+    return render(request, "podcasts/channels/channel_gallery.html", context)
+
+
+def youtube_episodes_view(request):
     yt_episodes = (
         YoutubeEpisode.objects.filter()
         .prefetch_related("channel_name")

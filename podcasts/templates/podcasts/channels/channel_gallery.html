@@ -6,24 +6,24 @@
 
         <div class="row">
             <div class="col">
-                {% for podcast in podcasts %}
+                {% for channel in channels %}
                     <section class="card mb-3">
                         <div class="row no-gutters">
                             <div class="col-md-2 my-auto">
                                 <img
-                                        src="{{ podcast.podcast_image }}"
+                                        src="{{ channel.channel_image }}"
                                         class="img-fluid ml-3 my-3"
-                                        alt="{{ podcast.podcast_name }}"
+                                        alt="{{ channel.channel_name }}"
                                         style="height: auto; width: 100%; display: block;"
                                 />
                             </div>
                             <div class="col-md-10">
                                 <div class="card-body ml-3">
-                                    <a href="{% url 'podcast_info' podcast.podcast_id %}">
-                                        <h3 class="card-title">{{ podcast.podcast_name }}</h3>
+                                    <a href="{% url 'youtube_channel_info' channel.channel_id %}">
+                                        <h3 class="card-title">{{ channel.channel_name }}</h3>
                                     </a>
                                     {% autoescape off %}
-                                        <p class="card-text">{{ podcast.podcast_summary }}</p>
+                                        <p class="card-text">{{ channel.channel_summary }}</p>
 
                                     {% endautoescape %}
 
