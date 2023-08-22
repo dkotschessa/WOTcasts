@@ -14,7 +14,7 @@ class PodcastAdmin(admin.ModelAdmin):
         "podcast_image",
         "host",
     )
-    fields = ["feed_href", "podcast_image"]
+    fields = ["feed_href", "podcast_image", "podcast_twitter"]
 
 
 @admin.register(Episode)
@@ -40,7 +40,7 @@ class ChannelAdmin(admin.ModelAdmin):
         "host",
     ]
 
-    fields = ["youtube_url"]
+    fields = ["youtube_url", "channel_twitter"]
 
 
 @admin.register(YoutubeEpisode)
