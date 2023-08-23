@@ -16,9 +16,10 @@
 <main role="main">
     <div class="album py-5 bg-light">
         <div class="container">
-            {% include "podcasts/channels/search.html" %}
-            <h3>Click on any channel to view their full list of episodes!</h3>
-
+            <div class="col text-center">
+                {% include "podcasts/channels/search.html" %}
+                <h3>Click on any channel to view their full list of episodes!</h3>
+            </div>
 
             <div class="row">
                 {% for episode in yt_episodes %}

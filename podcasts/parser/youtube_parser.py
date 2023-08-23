@@ -63,6 +63,8 @@ def channel_dict(url) -> Dict:
 
 def populate_missing_youtube_fields():
     for channel in Channel.objects.all():
+        logger.info(f"Populating fields for  {channel.youtube_url}")
+
         if channel.youtube_url is not None:
             channel_fields = channel_dict(channel.youtube_url)
             if not channel.channel_name:
