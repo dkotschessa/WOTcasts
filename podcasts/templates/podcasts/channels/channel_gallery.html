@@ -28,10 +28,10 @@
 
 
                                     {% endautoescape %}
-                                    {% if channel.channel_twitter %}
+                                    {% if channel.channel_twitter_url %}
 
-                                        <a href="{{ channel.channel_twitter }}">
-                                            <h5> Twitter </h5>
+                                        <a href="{{ channel.channel_twitter_url }}">
+                                            <h5> {{ channel.channel_twitter_tag }} </h5>
                                         </a>
                                     {% endif %}
 

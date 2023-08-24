@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Episode, Podcast, Channel, YoutubeEpisode
+from podcasts.utils.helpers import get_twitter_tag
 
 from django.db.models import Q
 
@@ -48,6 +49,8 @@ def podcast_gallery_view(request):
         context_dict = {
             "podcast_name": podcast.podcast_name,
             "podcast_summary": podcast.podcast_summary,
+            "podcast_twitter_url": podcast.podcast_twitter,
+            "podcast_twitter_tag": get_twitter_tag(podcast.podcast_twitter),
             "podcast_image": podcast.podcast_image,
             "podcast_id": podcast.id,
         }
@@ -122,7 +125,8 @@ def youtube_gallery_view(request):
             "channel_name": channel.channel_name,
             "channel_summary": channel.channel_summary,
             "channel_image": channel.channel_image,
-            "channel_twitter": channel.channel_twitter,
+            "channel_twitter_url": channel.channel_twitter,
+            "channel_twitter_tag": get_twitter_tag(channel.channel_twitter),
             "host": channel.host,
             "channel_id": channel.id,
         }

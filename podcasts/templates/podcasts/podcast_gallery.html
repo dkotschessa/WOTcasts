@@ -26,6 +26,12 @@
                                         <p class="card-text">{{ podcast.podcast_summary }}</p>
 
                                     {% endautoescape %}
+                                    {% if podcast.podcast_twitter_url %}
+
+                                        <a href="{{ podcast.podcast_twitter_url }}">
+                                            <h5> {{ podcast.podcast_twitter_tag }} </h5>
+                                        </a>
+                                    {% endif %}
 
 
                                 </div>

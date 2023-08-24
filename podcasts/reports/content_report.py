@@ -3,6 +3,8 @@ from podcasts.models import Episode, YoutubeEpisode
 from content_aggregator.settings.base import BASE_DIR
 from django.utils import timezone
 
+from podcasts.utils.helpers import get_twitter_tag
+
 
 def get_content(days=0):
     days_ago = datetime.timedelta(days=days)
@@ -47,11 +49,6 @@ def combine_names_and_return_string():
     names_string = ", ".join(all_names_but_last) + " and " + last_name
 
     return names_string
-
-
-def get_twitter_tag(twitter_url):
-    twitter_tag = twitter_url.split("/")[-1]
-    return f"@{twitter_tag}"
 
 
 def get_twitter_tags_and_return_string(days=0):
