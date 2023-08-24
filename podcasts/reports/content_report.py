@@ -1,21 +1,24 @@
 import datetime
-import os
 from podcasts.models import Episode, YoutubeEpisode
-from pathlib import Path
 from content_aggregator.settings.base import BASE_DIR
+from django.utils import timezone
 
 
-def get_todays_content():
-    episodes = Episode.objects.filter(pub_date__gte=datetime.datetime.today().date())
+def get_content(days=0):
+    days_ago = datetime.timedelta(days=days)
+    episodes = Episode.objects.filter(
+        pub_date__date__gte=datetime.datetime.now(tz=timezone.utc) - days_ago
+    )
+
     videos = YoutubeEpisode.objects.filter(
-        pub_date__gte=datetime.datetime.today().date()
+        pub_date__date__gte=datetime.datetime.now(tz=timezone.utc) - days_ago
     )
 
     return episodes, videos
 
 
-def get_podcasts_and_channels_to_be_mentioned():
-    episodes, videos = get_todays_content()
+def get_podcasts_and_channels_to_be_mentioned(days=0):
+    episodes, videos = get_content(days)
 
     podcasts = set([episode.podcast_name for episode in episodes])
     channels = set([video.channel_name for video in videos])
@@ -51,8 +54,8 @@ def get_twitter_tag(twitter_url):
     return f"@{twitter_tag}"
 
 
-def get_twitter_tags_and_return_string():
-    podcasts, channels = get_podcasts_and_channels_to_be_mentioned()
+def get_twitter_tags_and_return_string(days=0):
+    podcasts, channels = get_podcasts_and_channels_to_be_mentioned(days)
 
     # get Twitter Tags
     twitter_tags = []
@@ -72,24 +75,34 @@ def get_twitter_tags_and_return_string():
     return tags
 
 
-def daily_report():
+def daily_report(days=0):
     # TODOS
     # randomize header, twitter tag, phrasing to make less repetitive
     date = datetime.datetime.today().strftime("%m/%d/%Y")
 
-    tag_string = get_twitter_tags_and_return_string()
+    tag_string = get_twitter_tags_and_return_string(days)
     report_string = f"""
                     Today {date}, we have new episodes from {tag_string}!
                     Check them out on www.wheeloftimepodcasts.com or
                     in your podcast app!"""
+    shorter_format = f"""
+                     Today {date}, we have new episodes from {tag_string}!
+                     """
+    shortest_format = f"""
+                     New content from {tag_string}!"""
+    if len(report_string) > 279:
+        report_string = shorter_format
+    if len(shorter_format) > 279:
+        report_string = shortest_format
+
     return report_string
 
 
-def save_report_to_file():
+def save_report_to_file(days=0):
     reports_dir = BASE_DIR / "reports"
     date = datetime.datetime.today().strftime("%m-%d-%Y")
     report_file = reports_dir / f"report_{date}"
 
     with open(report_file, "w") as file:
-        file.write(daily_report())
+        file.write(daily_report(days))
     file.close()
