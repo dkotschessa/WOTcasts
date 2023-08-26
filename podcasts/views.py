@@ -1,3 +1,6 @@
+import datetime
+
+import dateutil.parser
 from django.shortcuts import render, redirect
 from .models import Episode, Podcast, Channel, YoutubeEpisode
 from podcasts.utils.helpers import get_twitter_tag
@@ -176,3 +179,37 @@ def get_youtube_episode_list(episodes):
         }
         episode_list.append(context_dict)
     return episode_list
+
+
+def get_content_by_date_view(request, content_date: str):
+    date = dateutil.parser.parse(content_date)
+    podcast_episodes = Episode.objects.filter(pub_date__date=date)
+    yt_episodes = YoutubeEpisode.objects.filter(pub_date__date=date)
+    podcast_episode_list = get_episode_list(podcast_episodes)
+    youtube_episode_list = get_youtube_episode_list(yt_episodes)
+    context = {
+        "pub_date": content_date,
+        "podcast_episodes": podcast_episode_list,
+        "youtube_episodes": youtube_episode_list,
+    }
+    return render(request, "podcasts/content_by_date.html", context)
+
+
+def get_content_by_date_range_view(request, start_date: str, end_date: str):
+    content_start_date = dateutil.parser.parse(start_date)
+    content_end_date = dateutil.parser.parse(end_date)
+    podcast_episodes = Episode.objects.filter(
+        pub_date__date__gte=content_start_date
+    ).filter(pub_date__date__lte=content_end_date)
+    yt_episodes = YoutubeEpisode.objects.filter(
+        pub_date__date__gte=content_start_date
+    ).filter(pub_date__date__lte=content_end_date)
+    podcast_episode_list = get_episode_list(podcast_episodes)
+    youtube_episode_list = get_youtube_episode_list(yt_episodes)
+    context = {
+        "start_date": content_start_date.date,
+        "end_date": content_end_date.date,
+        "podcast_episodes": podcast_episode_list,
+        "youtube_episodes": youtube_episode_list,
+    }
+    return render(request, "podcasts/content_by_date.html", context)

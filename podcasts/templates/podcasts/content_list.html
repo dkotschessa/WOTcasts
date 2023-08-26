@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WOTpods</title>
+
+
+</head>
+
+<body>
+
+<main role="main">
+    <div class="album py-5 bg-light">
+
+
+        <div class="container">
+            <div class="col text-center">
+                {% include "podcasts/search.html" %}
+                <h3>Click on any podcast to view their full list of episodes!</h3>
+
+            </div>
+
+
+            <div class="row">
+                <h3>Podcasts from {{ start_date }} to {{ end_date }}</h3>
+                {% for episode in podcast_episodes %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <a href="{% url 'podcast_info' episode.podcast_id %}"> <img
+                                    src="{{ episode.episode_image }}"
+                                    class="card-img-top"
+                                    alt="{{ episode.podcast_name }}"
+                                    style="height: auto; width: 100%; display: block;"
+                            /> </a>
+
+                            <div class="card-body h-75">
+
+                                <a href="{% url 'podcast_info' episode.podcast_id %}">
+                                    <h3 class="card-title">{{ episode.podcast_name }}</h3>
+                                </a>
+                                <h4 class="card-title">{{ episode.podcast_title }}</h4>
+                                <h5 class="card-title">{{ episode.episode_title }}</h5>
+                                <p class="card-title">Length: {{ episode.episode_duration }} </p>
+                                <p>Published: {{ episode.published_date }}</p>
+                                {% autoescape off %}
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#dt-{{ forloop.counter }}" aria-expanded="false"
+                                            aria-controls="dt-{{ forloop.counter }}}">
+                                        Expand Summary...
+                                    </button>
+                                    <div class="collapse" id="dt-{{ forloop.counter }}">
+                                        {{ episode.episode_description }}</div>
+
+
+                                    <p>
+
+
+                                {% endautoescape %}
+                                <a href="{{ episode.episode_link }}">
+                                    <p class="card-text">🎧 Listen to this episode</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+            <div class="row">
+                <h3>Videos from {{ start_date }} to {{ end_date }}</h3>
+
+                {% for episode in youtube_episodes %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <a href="{% url 'youtube_channel_info' episode.channel_id %}"> <img
+                                    src="{{ episode.episode_image }}"
+                                    class="card-img-top"
+                                    alt="{{ episode.episode_title }}"
+                                    style="height: auto; width: 100%; display: block;"
+                            /> </a>
+
+                            <div class="card-body h-75">
+
+                                <a href="{% url 'youtube_channel_info' episode.channel_id %}">
+                                    <h3 class="card-title">{{ episode.channel_name }}</h3>
+                                </a>
+                                {#                                <h4 class="card-title">{{ episode.channel_name }}</h4>#}
+                                <h5 class="card-title">{{ episode.episode_title }}</h5>
+                                <p>Published: {{ episode.published_date }}</p>
+                                {% autoescape off %}
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#dt-{{ forloop.counter }}" aria-expanded="false"
+                                            aria-controls="dt-{{ forloop.counter }}}">
+                                        Expand Summary...
+                                    </button>
+                                    <div class="collapse" id="dt-{{ forloop.counter }}">
+                                        {{ episode.episode_description }}</div>
+
+
+                                    <p>
+
+
+                                {% endautoescape %}
+                                <a href="{{ episode.episode_link }}">
+                                    <p class="card-text">Watch this episode on YouTube!</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+</body>
+</html>
