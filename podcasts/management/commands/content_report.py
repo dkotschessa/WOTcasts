@@ -7,12 +7,20 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    def handle(self, *args, **options):
+    def add_arguments(self, report):
+        report.add_argument(
+            "days",
+            type=int,
+            help="Number of days back for report",
+        )
 
-        logger.info("Attempting to fetch new episodes")
+    def handle(self, *args, **options):
+        days = options["days"]
+
+        logger.info("creating daily report")
 
         try:
-            save_report_to_file()
+            save_report_to_file(days)
 
         except KeyboardInterrupt:
             logger.info("Keyboard Interrupt")

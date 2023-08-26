@@ -4,6 +4,9 @@ from content_aggregator.settings.base import BASE_DIR
 from django.utils import timezone
 
 from podcasts.utils.helpers import get_twitter_tag
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def get_content(days=0):
@@ -99,6 +102,7 @@ def save_report_to_file(days=0):
     reports_dir = BASE_DIR / "reports"
     date = datetime.datetime.today().strftime("%m-%d-%Y")
     report_file = reports_dir / f"report_{date}"
+    logger.info(f"saving report for {days} days to {report_file}")
 
     with open(report_file, "w") as file:
         file.write(daily_report(days))
