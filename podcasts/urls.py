@@ -9,10 +9,22 @@ from .views import (
     about_view,
     youtube_gallery_view,
     youtube_search_results_view,
+    get_content_by_date_view,
+    get_content_by_date_range_view,
 )
 
 urlpatterns = [
     path("", homepage_view, name="homepage"),
+    path(
+        "content_by_date/<str:content_date>",
+        get_content_by_date_view,
+        name="content_by_date",
+    ),
+    path(
+        "content_by_date_range/<str:start_date>/<str:end_date>",
+        get_content_by_date_range_view,
+        name="content_by_date_range",
+    ),
     path("wheel_of_youtube", youtube_episodes_view, name="youtube_episodes"),
     path("youtube_channels", youtube_gallery_view, name="youtube_gallery"),
     path(
