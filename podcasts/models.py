@@ -5,8 +5,8 @@ class Podcast(models.Model):
     feed_href = models.URLField(unique=True)
     podcast_name = models.CharField(max_length=100)
     podcast_summary = models.TextField(null=True, blank=True)
-    podcast_image = models.URLField()
-    podcast_twitter = models.URLField(unique=True, null=True)
+    podcast_image = models.URLField(blank=True)
+    podcast_twitter = models.URLField(unique=True, null=True, blank=True)
     host = models.TextField(null=True, blank=True)
 
     def __str__(self) -> str:
@@ -34,7 +34,7 @@ class Channel(models.Model):
     channel_name = models.CharField(max_length=100)
     channel_summary = models.TextField(null=True, blank=True)
     channel_image = models.URLField()
-    channel_twitter = models.URLField(unique=True, null=True)
+    channel_twitter = models.URLField(unique=True, null=True, blank=True)
     host = models.TextField(null=True, blank=True)
 
     def __str__(self) -> str:
