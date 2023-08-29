@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 import feedparser
 import logging
 
+from podcasts.parser.parse_utils import passes_filter
+
 logger = logging.getLogger(__name__)
 
 
@@ -80,6 +82,22 @@ def populate_missing_youtube_fields():
             channel.save()
 
 
+def save_episode(item, channel):
+    if not YoutubeEpisode.objects.filter(link=item.link):
+        logger.info(f"Found new episodes for {channel.channel_name}")
+
+        episode = YoutubeEpisode(
+            channel_name=channel,
+            title=item.title,
+            description=item.summary_detail.value,
+            pub_date=date_parser.parse(item.published),
+            link=item.link,
+            image=item.media_thumbnail[0]["url"],
+        )
+        logger.info(f"Added episode: {item.title}")
+        episode.save()
+
+
 def save_new_youtube_episodes(youtube_url: str):
     """
     Checks or new episodes
@@ -89,21 +107,13 @@ def save_new_youtube_episodes(youtube_url: str):
     feed = get_xml(youtube_url)
 
     channel, created = Channel.objects.get_or_create(youtube_url=youtube_url)
-
-    for item in feed.entries:
-        if not YoutubeEpisode.objects.filter(link=item.link):
-            logger.info(f"Found new episodes for {channel.channel_name}")
-
-            episode = YoutubeEpisode(
-                channel_name=channel,
-                title=item.title,
-                description=item.summary_detail.value,
-                pub_date=date_parser.parse(item.published),
-                link=item.link,
-                image=item.media_thumbnail[0]["url"],
-            )
-            logger.info(f"Added episode: {item.title}")
-            episode.save()
+    if not channel.requires_filter:
+        for item in feed.entries:
+            save_episode(item, channel)
+    if channel.requires_filter:
+        for item in feed.entries:
+            if passes_filter(item):
+                save_episode(item, channel)
 
 
 def fetch_new_youtube_episodes():

@@ -1,11 +1,9 @@
 import logging
-from typing import List
 from dateutil import parser
 import feedparser
-from feedparser.util import FeedParserDict
 
 from podcasts.models import Episode, Podcast
-from podcasts.parser.parse_utils import convert_duration
+from podcasts.parser.parse_utils import convert_duration, passes_filter
 
 logger = logging.getLogger(__name__)
 
@@ -78,28 +76,10 @@ def save_new_episodes(feed):
         logger.info(f"KeyException:  ${keyexception}")
 
 
-def passes_filter(item: FeedParserDict) -> bool:
-    passes = False
-    keywords = [
-        "elayne",
-        "nynaeve",
-        "robert jordan",
-        "wheel of time",
-    ]
-    blob = item.title + item.description
-    if any([kw in blob.lower() for kw in keywords]):
-        passes = True
-        keywords_found = [kw for kw in keywords if kw in blob.lower()]
-        logger.info(f"Found keywords {keywords_found}")
-
-    return passes
-
-
 def fetch_new_episodes():
     populate_missing_fields()
     """ Fetches new episodes from RSS feed"""
-    # podcast_list = Podcast.objects.all().filter(feed_href='https://feed.podbean.com/thelegendarium/feed.xml'
-    #                                             )
+
     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
     for podcast in podcast_list:
         feed = podcast.feed_href

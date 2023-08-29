@@ -1,6 +1,7 @@
 import datetime
 import logging
 import feedparser
+from feedparser import FeedParserDict
 
 from podcasts.models import Episode, Podcast
 
@@ -55,3 +56,20 @@ def populate_missing_episode_duration(episode: Episode):
     episode.duration = duration
     episode.save()
     logger.info(f"Duration saved as {duration}")
+
+
+def passes_filter(item: FeedParserDict) -> bool:
+    passes = False
+    keywords = [
+        "elayne",
+        "nynaeve",
+        "robert jordan",
+        "wheel of time",
+    ]
+    blob = item.title + item.description
+    if any([kw in blob.lower() for kw in keywords]):
+        passes = True
+        keywords_found = [kw for kw in keywords if kw in blob.lower()]
+        logger.info(f"Found keywords {keywords_found}")
+
+    return passes
