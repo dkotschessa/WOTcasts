@@ -71,8 +71,9 @@ def save_new_episodes(feed):
                     save_episode(podcast, feed, item)
         if podcast.requires_filter:
             for item in feed.entries:
-                if passes_filter(item):
-                    save_episode(podcast, feed, item)
+                if not Episode.objects.filter(guid=item.guid).exists():
+                    if passes_filter(item):
+                        save_episode(podcast, feed, item)
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
 
