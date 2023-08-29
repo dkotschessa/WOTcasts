@@ -2,6 +2,7 @@ import logging
 from typing import List
 from dateutil import parser
 import feedparser
+from feedparser.util import FeedParserDict
 
 from podcasts.models import Episode, Podcast
 from podcasts.parser.parse_utils import convert_duration
@@ -33,6 +34,23 @@ def populate_missing_fields():
             podcast.save()
 
 
+def save_episode(podcast, feed, item):
+    episode = Episode(
+        title=item.title,
+        description=item.get("description", ""),
+        pub_date=parser.parse(item.published),
+        link=item.get("link", item.links[0]["href"]),
+        podcast_name=podcast,  ##TODO not sure what's up here
+        # Image may unique to each episode, otherwise get podcast image
+        # https://podcasters.apple.com/support/896-artwork-requirements
+        image=item.get("image", feed.channel.image)["href"],
+        duration=convert_duration(item.get("itunes_duration", "N/A")),
+        guid=item.guid,
+    )
+    logger.info(f"Episode added: {episode.title} \n")
+    episode.save()
+
+
 def save_new_episodes(feed):
     """Saves New episodes to database
     checks if the episode GUID against the episodes currently stored
@@ -45,32 +63,42 @@ def save_new_episodes(feed):
 
     try:
         podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
+        if not podcast.requires_filter:
+            for item in feed.entries:
+                if not Episode.objects.filter(guid=item.guid).exists():
+                    logger.info(f"New episodes found for Podcast {feed.channel.title}")
+                    logger.info(f"Parsing episode with GUID ${item.guid}")
+                    save_episode(podcast, feed, item)
+        if podcast.requires_filter:
+            for item in feed.entries:
+                if passes_filter(item):
+                    save_episode(podcast, feed, item)
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
 
-    for item in feed.entries:
-        if not Episode.objects.filter(guid=item.guid).exists():
-            logger.info(f"New episodes found for Podcast {feed.channel.title}")
-            logger.info(f"Parsing episode with GUID ${item.guid}")
-            episode = Episode(
-                title=item.title,
-                description=item.get("description", ""),
-                pub_date=parser.parse(item.published),
-                link=item.get("link", item.links[0]["href"]),
-                podcast_name=podcast,  ##TODO not sure what's up here
-                # Image may unique to each episode, otherwise get podcast image
-                # https://podcasters.apple.com/support/896-artwork-requirements
-                image=item.get("image", feed.channel.image)["href"],
-                duration=convert_duration(item.get("itunes_duration", "N/A")),
-                guid=item.guid,
-            )
-            logger.info(f"Episode added: {episode.title} \n")
-            episode.save()
+
+def passes_filter(item: FeedParserDict) -> bool:
+    passes = False
+    keywords = [
+        "elayne",
+        "nynaeve",
+        "robert jordan",
+        "wheel of time",
+    ]
+    blob = item.title + item.description
+    if any([kw in blob.lower() for kw in keywords]):
+        passes = True
+        keywords_found = [kw for kw in keywords if kw in blob.lower()]
+        logger.info(f"Found keywords {keywords_found}")
+
+    return passes
 
 
 def fetch_new_episodes():
     populate_missing_fields()
     """ Fetches new episodes from RSS feed"""
+    # podcast_list = Podcast.objects.all().filter(feed_href='https://feed.podbean.com/thelegendarium/feed.xml'
+    #                                             )
     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
     for podcast in podcast_list:
         feed = podcast.feed_href
