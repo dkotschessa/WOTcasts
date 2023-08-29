@@ -13,8 +13,9 @@ class PodcastAdmin(admin.ModelAdmin):
         "podcast_summary",
         "podcast_image",
         "host",
+        "requires_filter",
     )
-    fields = ["feed_href", "podcast_image", "podcast_twitter"]
+    fields = ["feed_href", "podcast_image", "podcast_twitter", "requires_filter"]
 
 
 @admin.register(Episode)
