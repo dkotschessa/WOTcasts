@@ -41,7 +41,7 @@ class ChannelAdmin(admin.ModelAdmin):
         "host",
     ]
 
-    fields = ["youtube_url", "channel_twitter"]
+    fields = ["youtube_url", "channel_twitter", "requires_filter"]
 
 
 @admin.register(YoutubeEpisode)
