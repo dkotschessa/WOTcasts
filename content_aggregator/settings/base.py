@@ -83,9 +83,11 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "podcasts.apps.PodcastsConfig",
+    "apis.apps.ApisConfig",
     # Third party apps
     "django_apscheduler",
     "django_extensions",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
