@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls.base import reverse
 from podcasts.models import Episode, Podcast
+from rest_framework import status
 
 
 class PodcastTests(TestCase):

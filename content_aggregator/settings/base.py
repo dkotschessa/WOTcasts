@@ -83,14 +83,19 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "podcasts.apps.PodcastsConfig",
+    "apis.apps.ApisConfig",
     # Third party apps
     "django_apscheduler",
     "django_extensions",
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # CORS
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -175,3 +180,7 @@ STATIC_ROOT = BASE_DIR / "static"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8000"]
+
+CORS_TRUSTED_ORIGINS = ["http://localhost:3000"]
