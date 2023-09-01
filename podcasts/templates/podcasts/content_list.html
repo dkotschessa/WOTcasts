@@ -26,7 +26,13 @@
 
 
             <div class="row">
-                <h3>Podcasts from {{ start_date }} to {{ end_date }}</h3>
+                {% if end_date %}
+                    <h3>Podcasts from {{ start_date }} to {{ end_date }}</h3>
+                {% endif %}
+                {% if not end_date %}
+                    <h3>Podcasts for {{ pub_date }}</h3>
+
+                {% endif %}
                 {% for episode in podcast_episodes %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
@@ -71,8 +77,13 @@
 
             </div>
             <div class="row">
-                <h3>Videos from {{ start_date }} to {{ end_date }}</h3>
+                {% if end_date %}
+                    <h3>Videos from {{ start_date }} to {{ end_date }}</h3>
+                {% endif %}
+                {% if not end_date %}
+                    <h3>Videos for {{ pub_date }}</h3>
 
+                {% endif %}
                 {% for episode in youtube_episodes %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
