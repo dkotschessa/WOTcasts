@@ -8,3 +8,4 @@ db.sqlite3
 .env
 testreportdata/pytest_report.html
 testreportdata
+node_modules/
