@@ -9,7 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def get_content(days=0):
+def get_podcasts_and_channels_to_be_mentioned(days=0):
     days_ago = datetime.timedelta(days=days)
     episodes = Episode.objects.filter(
         pub_date__date__gte=datetime.datetime.now(tz=timezone.utc) - days_ago
@@ -18,12 +18,6 @@ def get_content(days=0):
     videos = YoutubeEpisode.objects.filter(
         pub_date__date__gte=datetime.datetime.now(tz=timezone.utc) - days_ago
     )
-
-    return episodes, videos
-
-
-def get_podcasts_and_channels_to_be_mentioned(days=0):
-    episodes, videos = get_content(days)
 
     podcasts = set([episode.podcast_name for episode in episodes])
     channels = set([video.channel_name for video in videos])
@@ -94,6 +88,9 @@ def daily_report(days=0):
         report_string = shorter_format
     if len(shorter_format) > 279:
         report_string = shortest_format
+    if len(shorter_format) > 279:
+        logger.info("Tweet format exceeds twitter limit")
+        return None
 
     return report_string
 
