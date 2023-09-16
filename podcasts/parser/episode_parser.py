@@ -63,27 +63,22 @@ def save_new_episodes(feed):
         podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
         if not podcast.requires_filter:
             for item in feed.entries:
-                try:
-                    if not Episode.objects.filter(guid=item.guid).exists():
-                        logger.info(
-                            f"New episodes found for Podcast {feed.channel.title}"
-                        )
-                        logger.info(f"Parsing episode with GUID ${item.guid}")
-                        save_episode(podcast, feed, item)
-                except Podcast.DoesNotExist as podcastmissingexception:
-                    logger.info(f"Except {podcastmissingexception}")
-                    logger.info(
-                        f"Podcast URL href not found - the url has probably changed and needs to be updated."
-                    )
-                    logger.info(
-                        f"Change feed_href for {feed.channel.title} to {feed.href}"
-                    )
+                if not Episode.objects.filter(guid=item.guid).exists():
+                    logger.info(f"New episodes found for Podcast {feed.channel.title}")
+                    logger.info(f"Parsing episode with GUID ${item.guid}")
+                    save_episode(podcast, feed, item)
+
         if podcast.requires_filter:
             for item in feed.entries:
                 if not Episode.objects.filter(guid=item.guid).exists():
                     if passes_filter(item):
                         save_episode(podcast, feed, item)
-
+    except Podcast.DoesNotExist as podcastmissingexception:
+        logger.info(f"Except {podcastmissingexception}")
+        logger.info(
+            f"Podcast URL href not found - the url has probably changed and needs to be updated."
+        )
+        logger.info(f"Change feed_href for {feed.channel.title} to {feed.href}")
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
 
