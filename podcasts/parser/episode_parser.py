@@ -1,7 +1,6 @@
 import logging
 from dateutil import parser
 import feedparser
-from django.core.exceptions import ObjectDoesNotExist
 
 from podcasts.models import Episode, Podcast
 from podcasts.parser.parse_utils import convert_duration, passes_filter
@@ -71,7 +70,7 @@ def save_new_episodes(feed):
                         )
                         logger.info(f"Parsing episode with GUID ${item.guid}")
                         save_episode(podcast, feed, item)
-                except ObjectDoesNotExist as podcastmissingexception:
+                except Podcast.DoesNotExist as podcastmissingexception:
                     logger.info(f"Except {podcastmissingexception}")
                     logger.info(
                         f"Podcast URL href not found - the url has probably changed and needs to be updated."
