@@ -1,6 +1,7 @@
 import logging
 from dateutil import parser
 import feedparser
+from django.core.exceptions import ObjectDoesNotExist
 
 from podcasts.models import Episode, Podcast
 from podcasts.parser.parse_utils import convert_duration, passes_filter
@@ -72,6 +73,12 @@ def save_new_episodes(feed):
                 if not Episode.objects.filter(guid=item.guid).exists():
                     if passes_filter(item):
                         save_episode(podcast, feed, item)
+    except ObjectDoesNotExist as podcastmissingexception:
+        logger.info(
+            f"Podcast URL href not found - the url has probably changed and needs to be updated."
+        )
+        logger.info(f"Change feed_href for {feed.channel.title} to {feed.href}")
+
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
 
