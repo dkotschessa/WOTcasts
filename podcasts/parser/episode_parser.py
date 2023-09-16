@@ -1,5 +1,6 @@
 import logging
 from dateutil import parser
+from datetime import datetime
 import feedparser
 
 from podcasts.models import Episode, Podcast
@@ -43,6 +44,8 @@ def save_episode(podcast, feed, item):
         # https://podcasters.apple.com/support/896-artwork-requirements
         image=item.get("image", feed.channel.image)["href"],
         duration=convert_duration(item.get("itunes_duration", "N/A")),
+        fetched_date=datetime.utcnow(),
+        announced_to_twitter=False,
         guid=item.guid,
     )
     logger.info(f"Episode added: {episode.title} \n")

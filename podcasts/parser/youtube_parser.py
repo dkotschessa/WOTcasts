@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 import feedparser
 import logging
+from datetime import datetime
 
 from podcasts.parser.parse_utils import passes_filter
 
@@ -93,6 +94,8 @@ def save_episode(item, channel):
             pub_date=date_parser.parse(item.published),
             link=item.link,
             image=item.media_thumbnail[0]["url"],
+            fetched_date=datetime.utcnow(),
+            announced_to_twitter=False,
         )
         logger.info(f"Added episode: {item.title}")
         episode.save()
