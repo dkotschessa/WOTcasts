@@ -24,6 +24,8 @@ class Episode(models.Model):
     podcast_name = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     guid = models.CharField(max_length=200)
     duration = models.CharField(max_length=10, blank=True, null=True)
+    fetched_date = models.DateTimeField(null=True)
+    announced_to_twitter = models.BooleanField()
 
     def __str__(self) -> str:
         return f"{self.podcast_name}: {self.title}"
@@ -52,3 +54,5 @@ class YoutubeEpisode(models.Model):
     channel_name = models.ForeignKey(Channel, on_delete=models.CASCADE)
     guid = models.CharField(max_length=200)
     duration = models.CharField(max_length=10, blank=True, null=True)
+    fetched_date = models.DateTimeField(null=True)
+    announced_to_twitter = models.BooleanField()
