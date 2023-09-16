@@ -102,5 +102,5 @@ def save_report_to_file(days=0):
     logger.info(f"saving report for {days} days to {report_file}")
 
     with open(report_file, "w") as file:
-        file.write(daily_report(days))
+        file.write(str(daily_report(days)))
     file.close()
