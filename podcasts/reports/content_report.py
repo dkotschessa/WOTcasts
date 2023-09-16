@@ -88,7 +88,7 @@ def daily_report(days=0):
         report_string = shorter_format
     if len(shorter_format) > 279:
         report_string = shortest_format
-    if len(shorter_format) > 279:
+    if len(shortest_format) > 279:
         logger.info("Tweet format exceeds twitter limit")
         return None
 
