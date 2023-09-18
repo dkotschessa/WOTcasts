@@ -16,8 +16,8 @@ def fetch_and_tweet_content():
     fetch_new_episodes()
     fetch_new_youtube_episodes()
     unnannounced = get_unannounced_episodes_and_videos()
-    logger.info("there are new episodes to announce!")
     if len(unnannounced) >= 1:
+        logger.info("there are new episodes to announce!")
         tweet_new_episodes()
 
 
