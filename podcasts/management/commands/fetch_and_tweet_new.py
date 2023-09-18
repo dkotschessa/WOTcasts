@@ -1,8 +1,8 @@
-import logging
+from podcasts.tweet_scheduler.tweet import (
+    tweet_new_episodes,
+    get_unannounced_episodes_and_videos,
+)
 
-from django.core.management import BaseCommand
-from podcasts.parser.episode_parser import fetch_new_episodes
-from podcasts.parser.youtube_parser import fetch_new_youtube_episodes
 import logging
 
 from django.core.management import BaseCommand
@@ -12,9 +12,13 @@ from podcasts.parser.youtube_parser import fetch_new_youtube_episodes
 logger = logging.getLogger(__name__)
 
 
-def fetch_all_content():
+def fetch_and_tweet_content():
     fetch_new_episodes()
     fetch_new_youtube_episodes()
+    unnannounced = get_unannounced_episodes_and_videos()
+    logger.info("there are new episodes to announce!")
+    if len(unnannounced) >= 1:
+        tweet_new_episodes()
 
 
 class Command(BaseCommand):
