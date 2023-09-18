@@ -1,4 +1,5 @@
 import datetime
+
 from podcasts.models import Episode, YoutubeEpisode
 from content_aggregator.settings.base import BASE_DIR
 from django.utils import timezone
@@ -9,7 +10,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def get_podcasts_and_channels_to_be_mentioned(days=0):
+def get_podcasts_channels_from_episode_list(episodes, videos):
+    podcasts = set([episode.podcast_name for episode in episodes])
+    channels = set([video.channel_name for video in videos])
+
+    return podcasts, channels
+
+
+def get_podcasts_channels_by_days_ago(days=0):
     days_ago = datetime.timedelta(days=days)
     episodes = Episode.objects.filter(
         pub_date__date__gte=datetime.datetime.now(tz=timezone.utc) - days_ago
@@ -19,14 +27,12 @@ def get_podcasts_and_channels_to_be_mentioned(days=0):
         pub_date__date__gte=datetime.datetime.now(tz=timezone.utc) - days_ago
     )
 
-    podcasts = set([episode.podcast_name for episode in episodes])
-    channels = set([video.channel_name for video in videos])
-
+    podcasts, channels = get_podcasts_channels_from_episode_list(episodes, videos)
     return podcasts, channels
 
 
 def get_podcast_and_channel_names():
-    podcasts, channels = get_podcasts_and_channels_to_be_mentioned()
+    podcasts, channels = get_podcasts_channels_by_days_ago()
 
     # Get the podcast and channel names themselves
     podcast_names = [podcast.podcast_name for podcast in podcasts]
@@ -48,9 +54,7 @@ def combine_names_and_return_string():
     return names_string
 
 
-def get_twitter_tags_and_return_string(days=0):
-    podcasts, channels = get_podcasts_and_channels_to_be_mentioned(days)
-
+def get_twitter_tags(podcasts, channels):
     # get Twitter Tags
     twitter_tags = []
     for podcast in podcasts:
@@ -65,8 +69,13 @@ def get_twitter_tags_and_return_string(days=0):
 
     # nice comma separated string for reporting
     tags = ", ".join(all_tags_but_last) + " and " + last_name
-
     return tags
+
+
+def get_twitter_tags_and_return_string(days=0):
+    podcasts, channels = get_podcasts_channels_by_days_ago(days)
+
+    return get_twitter_tags(podcasts, channels)
 
 
 def daily_report(days=0):
@@ -91,7 +100,6 @@ def daily_report(days=0):
     if len(shortest_format) > 279:
         logger.info("Tweet format exceeds twitter limit")
         return None
-
     return report_string
 
 

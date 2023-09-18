@@ -1,10 +1,15 @@
+import random
+
 import tweepy
 from os import environ
 from dotenv import load_dotenv
-import time
-from datetime import datetime, timedelta
-from dateutil import parser as date_parser
 import logging
+
+from podcasts.models import Episode, YoutubeEpisode
+from podcasts.reports.content_report import (
+    get_podcasts_channels_from_episode_list,
+    get_twitter_tags,
+)
 
 load_dotenv()
 
@@ -27,4 +32,70 @@ client = tweepy.Client(
 
 msg = "test tweet"
 
-# client.create_tweet(msg)
+
+def set_content_announcement_flag_true(episodes, videos):
+    if episodes.exists():
+        for episode in episodes:
+            episode.announced_to_twitter = True
+            episode.save()
+    if videos.exists():
+        for video in videos:
+            video.announced_to_twitter = True
+            video.save()
+
+
+def tweet_new_episodes():
+    episodes, videos = get_unannounced_episodes_and_videos()
+    if episodes.exists():
+        logging.info(f"Unannounced episodes to tweet: {episodes} ")
+    if videos.exists():
+        logging.info(f"Unannounced videos to tweet: {videos} ")
+
+    if episodes.exists() or videos.exists():
+        logging.info("tweeting content")
+        tweet = new_content_report(episodes, videos)
+        logger.info(f"Attempting to send tweet: {tweet}")
+        response = client.create_tweet(text=tweet)
+
+        if not response.errors:
+
+            set_content_announcement_flag_true(episodes, videos)
+        else:
+            logging.info(f"Errors when tweeting: {response.errors}")
+    else:
+        logger.info("no new content")
+
+
+def get_unannounced_episodes_and_videos():
+    episodes = Episode.objects.filter(announced_to_twitter=False)
+
+    videos = YoutubeEpisode.objects.filter(announced_to_twitter=False)
+    return episodes, videos
+
+
+def new_content_report(episodes, videos):
+    podcasts, channels = get_podcasts_channels_from_episode_list(episodes, videos)
+
+    tags = get_twitter_tags(podcasts, channels)
+
+    # TODO morning afternoon evening
+    greeting = random.choice(
+        [
+            "Hey #TwitterOfTime! ",
+            "Hey there #TwitterOfTime! ",
+            "Greetings #TwitterOfTime! ",
+            "Hi #TwitterOfTime! ",
+            "Hey #TwitterOfTime! ",
+        ]
+    )
+    content_announcement = random.choice(
+        [
+            "We found new stuff from: ",
+            "New content found for: ",
+            "New episodes from: ",
+        ]
+    )
+
+    footer = "Check them out on www.wheeloftimepodcasts.com or in your podcast app!"
+    full_tweet = greeting + content_announcement + tags + "\n" + footer
+    return full_tweet
