@@ -31,23 +31,3 @@ class Command(BaseCommand):
 
         except KeyboardInterrupt:
             logger.info("Keyboard Interrupt")
-
-
-logger = logging.getLogger(__name__)
-
-
-def fetch_all_content():
-    fetch_new_episodes()
-    fetch_new_youtube_episodes()
-
-
-class Command(BaseCommand):
-    def handle(self, *args, **options):
-
-        logger.info("Attempting to fetch new episodes")
-
-        try:
-            fetch_all_content()
-
-        except KeyboardInterrupt:
-            logger.info("Keyboard Interrupt")
