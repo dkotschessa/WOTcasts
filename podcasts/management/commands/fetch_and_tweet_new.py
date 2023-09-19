@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 def fetch_and_tweet_content():
     fetch_new_episodes()
     fetch_new_youtube_episodes()
+    logger.info("checking whether there is new tweetable content")
     unnannounced = get_unannounced_episodes_and_videos()
     if len(unnannounced) >= 1:
         logger.info("there are new episodes to announce!")
