@@ -45,6 +45,7 @@ def set_content_announcement_flag_true(episodes, videos):
 
 
 def tweet_new_episodes():
+    logger.info("Checking for any unnannounced episodes")
     episodes, videos = get_unannounced_episodes_and_videos()
     if episodes.exists():
         logging.info(f"Unannounced episodes to tweet: {episodes} ")
@@ -67,8 +68,6 @@ def tweet_new_episodes():
 
 
 def get_unannounced_episodes_and_videos():
-    logger.info("Checking for any unnannounced episodes")
-
     episodes = Episode.objects.filter(announced_to_twitter=False)
 
     videos = YoutubeEpisode.objects.filter(announced_to_twitter=False)
