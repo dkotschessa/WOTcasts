@@ -13,8 +13,11 @@ logger = logging.getLogger(__name__)
 
 
 def fetch_and_tweet_content():
+    logger.info("Fetching new podcast episodes")
     fetch_new_episodes()
+    logger.info("Fetching new youtube episodes")
     fetch_new_youtube_episodes()
+    logger.info("Checking if anything needs to bet tweeted")
     tweet_new_episodes()
 
 
