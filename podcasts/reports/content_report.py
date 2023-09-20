@@ -46,10 +46,7 @@ def combine_names_and_return_string():
 
     all_names = podcast_names + channel_names
     all_names_but_last = all_names[:-1]
-    if len(all_names) == 1:
-        last_name = all_names[0]  # single tag
-    else:
-        last_name = all_names[-1]  # multiple tags
+    last_name = all_names[-1]
 
     # nice comma separated string for reporting
     names_string = ", ".join(all_names_but_last) + " and " + last_name
@@ -67,12 +64,15 @@ def get_twitter_tags(podcasts, channels):
         if channel.channel_twitter:
             twitter_tags.append(get_twitter_tag(channel.channel_twitter))
 
-    all_tags_but_last = twitter_tags[:-1]
-    last_name = twitter_tags[-1]
     if len(twitter_tags) == 1:
-        return last_name
-    # nice comma separated string for reporting
-    tags = ", ".join(all_tags_but_last) + " and " + last_name
+        tags = twitter_tags[0]
+    else:
+        all_tags_but_last = twitter_tags[:-1]
+        last_name = twitter_tags[-1]
+        if len(twitter_tags) == 1:
+            return last_name
+        # nice comma separated string for reporting
+        tags = ", ".join(all_tags_but_last) + " and " + last_name
     return tags
 
 
