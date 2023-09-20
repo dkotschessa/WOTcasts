@@ -66,7 +66,8 @@ def get_twitter_tags(podcasts, channels):
 
     all_tags_but_last = twitter_tags[:-1]
     last_name = twitter_tags[-1]
-
+    if len(twitter_tags) == 1:
+        return last_name
     # nice comma separated string for reporting
     tags = ", ".join(all_tags_but_last) + " and " + last_name
     return tags

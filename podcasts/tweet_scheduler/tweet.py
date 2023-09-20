@@ -92,11 +92,25 @@ def new_content_report(episodes, videos):
     content_announcement = random.choice(
         [
             "We found new stuff from: ",
-            "New content found for: ",
+            "New content from: ",
             "New episodes from: ",
         ]
     )
+    content = []
+    for episode in episodes:
+        content.append(f"{episode.podcast_name}: {episode.title}\n")
+    for video in videos:
+        content.append(f"{video.channel_name}: {video.title}\n")
 
     footer = "Check them out on www.wheeloftimepodcasts.com or in your podcast app!"
-    full_tweet = greeting + content_announcement + tags + "\n" + footer
+    full_tweet = (
+        greeting
+        + "\n"
+        + content_announcement
+        + tags
+        + "\n"
+        + "".join(content)
+        + "\n"
+        + footer
+    )
     return full_tweet

@@ -6,14 +6,14 @@ from podcasts.parser.youtube_parser import (
     get_description,
     channel_dict,
     populate_missing_youtube_fields,
-    save_new_youtube_episodes,
     fetch_new_youtube_episodes,
     get_xml,
 )
-from podcasts.models import Channel, YoutubeEpisode
+from podcasts.models import Channel
 from unittest.mock import patch
-import factory
 import pytest
+
+from .factories import ChannelFactory, YoutubeEpisodeFactory
 from .samplehtml import sample_html, sample_xml
 
 test_urls = ["https://www.youtube.com/@WoTUp", "https://www.youtube.com/@TheDustyWheel"]
@@ -21,26 +21,6 @@ test_urls = ["https://www.youtube.com/@WoTUp", "https://www.youtube.com/@TheDust
 from faker import Faker
 
 fake = Faker()
-
-
-class ChannelFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Channel
-
-    youtube_url = fake.url()
-
-
-class YoutubeEpisodeFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = YoutubeEpisode
-
-    title = "Another amazing video"
-    pub_date = fake.date()
-    link = fake.url()
-    image = fake.url()
-    guid = fake.url()
-    channel_name = factory.SubFactory(ChannelFactory, youtube_url=fake.url())
-    duration = "1022"
 
 
 def test_soup_tube():

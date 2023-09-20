@@ -1,7 +1,4 @@
-import factory
 from datetime import datetime, timezone
-
-import feedparser
 
 from podcasts.parser.episode_parser import (
     populate_missing_fields,
@@ -14,25 +11,10 @@ from podcasts.models import Episode, Podcast
 from podcasts.tests.mock_parser import mock_feed
 import pytest
 from faker import Faker
-from .samplehtml import podcast_xml
+
+from .factories import PodcastFactory
 
 fake = Faker()
-
-
-class PodcastFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Podcast
-
-    feed_href = "http://podcast1.com"
-
-
-class EpisodeFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Episode
-
-    title = "Another amazing episode"
-    guid = fake.url()
-    podcast_name = factory.SubFactory(PodcastFactory, feed_href="http://podcast.com")
 
 
 @pytest.mark.django_db
