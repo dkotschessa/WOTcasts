@@ -56,6 +56,7 @@ def combine_names_and_return_string():
 
 def get_twitter_tags(podcasts, channels):
     # get Twitter Tags
+
     twitter_tags = []
     for podcast in podcasts:
         if podcast.podcast_twitter:

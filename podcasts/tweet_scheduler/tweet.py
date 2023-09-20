@@ -77,37 +77,44 @@ def get_unannounced_episodes_and_videos():
 def new_content_report(episodes, videos):
     podcasts, channels = get_podcasts_channels_from_episode_list(episodes, videos)
 
-    tags = get_twitter_tags(podcasts, channels)
+    if episodes.exists() or videos.exists():
+        tags = get_twitter_tags(podcasts, channels)
 
-    # TODO morning afternoon evening
-    greeting = random.choice(
-        [
-            "Hey #TwitterOfTime! ",
-            "Hey there #TwitterOfTime! ",
-            "Greetings #TwitterOfTime! ",
-            "Hi #TwitterOfTime! ",
-            "Hey #TwitterOfTime! ",
-        ]
-    )
-    content_announcement = random.choice(
-        [
-            "New stuff from: ",
-            "New content from: ",
-            "New episodes from: ",
-        ]
-    )
-    content = []
-    for episode in episodes:
-        content.append(f"{episode.podcast_name}: {episode.title}\n")
-    for video in videos:
-        content.append(f"{video.channel_name}: {video.title}\n")
+        # TODO morning afternoon evening
+        greeting = random.choice(
+            [
+                "Hey #TwitterOfTime! ",
+                "Hey there #TwitterOfTime! ",
+                "Greetings #TwitterOfTime! ",
+                "Hi #TwitterOfTime! ",
+                "Hey #TwitterOfTime! ",
+            ]
+        )
+        content_announcement = random.choice(
+            [
+                "New stuff from: ",
+                "New content from: ",
+                "New episodes from: ",
+            ]
+        )
+        content = []
+        for episode in episodes:
+            content.append(f"{episode.podcast_name}: {episode.title}\n")
+        for video in videos:
+            content.append(f"{video.channel_name}: {video.title}\n")
 
-    footer = "Check them out on www.wheeloftimepodcasts.com or in your podcast app!"
-    short_format = (
-        greeting + "\n" + content_announcement + tags + "!" + "\n" + "".join(content)
-    )
-    long_format = short_format + footer
-    if len(long_format) > 280:
-        return short_format
-    else:
-        return long_format
+        footer = "Check them out on www.wheeloftimepodcasts.com or in your podcast app!"
+        short_format = (
+            greeting
+            + "\n"
+            + content_announcement
+            + tags
+            + "!"
+            + "\n"
+            + "".join(content)
+        )
+        long_format = short_format + footer
+        if len(long_format) > 280:
+            return short_format
+        else:
+            return long_format
