@@ -46,7 +46,10 @@ def combine_names_and_return_string():
 
     all_names = podcast_names + channel_names
     all_names_but_last = all_names[:-1]
-    last_name = all_names[-1]
+    if len(all_names) == 1:
+        last_name = all_names[0]  # single tag
+    else:
+        last_name = all_names[-1]  # multiple tags
 
     # nice comma separated string for reporting
     names_string = ", ".join(all_names_but_last) + " and " + last_name
