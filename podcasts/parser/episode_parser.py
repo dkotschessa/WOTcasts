@@ -81,7 +81,7 @@ def save_new_episodes(feed):
     except Podcast.DoesNotExist as podcastmissingexception:
         logger.info(f"Except {podcastmissingexception}")
         logger.info(
-            f"Podcast URL href not found - the url has probably changed and needs to be updated."
+            f"Podcast URL href not found - the url has probably changed and needs to be updated or there is a network issue."
         )
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
@@ -97,4 +97,5 @@ def fetch_new_episodes():
         # TODO RSS verification
         logger.info(f"Getting {feed}...")
         _feed = feedparser.parse(feed)
-        save_new_episodes(_feed)
+        if not _feed.bozo:
+            save_new_episodes(_feed)
