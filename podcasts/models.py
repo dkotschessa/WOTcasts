@@ -8,7 +8,7 @@ class Podcast(models.Model):
     podcast_image = models.URLField(blank=True)
     podcast_twitter = models.URLField(unique=True, null=True, blank=True)
     host = models.TextField(null=True, blank=True)
-    requires_filter = models.BooleanField()
+    requires_filter = models.BooleanField(null=True)
 
     def __str__(self) -> str:
         return f"{self.podcast_name}"
