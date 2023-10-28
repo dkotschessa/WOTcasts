@@ -64,7 +64,7 @@ def save_new_episodes(feed):
     logger.info(f"Checking for new episodes of {feed.channel.title}")
 
     try:
-        podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
+        podcast, created = Podcast.objects.get_or_create(feed_href=feed.feed.link)
         if not podcast.requires_filter:
             for item in feed.entries:
                 if not Episode.objects.filter(guid=item.guid).exists():
