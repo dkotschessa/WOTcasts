@@ -83,7 +83,6 @@ def save_new_episodes(feed):
         logger.info(
             f"Podcast URL href not found - the url has probably changed and needs to be updated."
         )
-        logger.info(f"Change feed_href for {feed.channel.title} to {feed.href}")
     except KeyError as keyexception:
         logger.info(f"KeyException:  ${keyexception}")
 
