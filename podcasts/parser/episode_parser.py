@@ -2,6 +2,7 @@ import logging
 from dateutil import parser
 from datetime import datetime
 import feedparser
+import requests
 
 from podcasts.models import Episode, Podcast
 from podcasts.parser.parse_utils import convert_duration, passes_filter
@@ -92,8 +93,12 @@ def fetch_new_episodes():
 
     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
     for podcast in podcast_list:
-        feed = podcast.feed_href
+        feed_href = podcast.feed_href
         # TODO RSS verification
-        logger.info(f"Getting {feed}...")
-        _feed = feedparser.parse(feed)
-        save_new_episodes(_feed)
+        logger.info(f"Getting episodes of {podcast.podcast_name} at {feed_href}...")
+        try:
+            res = requests.get(feed_href)
+            _feed = feedparser.parse(res.content)
+            save_new_episodes(_feed)
+        except requests.exceptions.RequestException as e:
+            logger.info(f"Requests exception: {e}")
