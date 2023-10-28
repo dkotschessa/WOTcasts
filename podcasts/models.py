@@ -39,7 +39,7 @@ class Channel(models.Model):
     channel_image = models.URLField()
     channel_twitter = models.URLField(unique=True, null=True, blank=True)
     host = models.TextField(null=True, blank=True)
-    requires_filter = models.BooleanField()
+    requires_filter = models.BooleanField(null=True)
 
     def __str__(self) -> str:
         return f"{self.channel_name}"
