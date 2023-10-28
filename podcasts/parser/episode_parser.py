@@ -21,6 +21,7 @@ def populate_missing_fields():
             rss_link = podcast.feed_href
             _feed = feedparser.parse(rss_link)
             if not podcast.podcast_name:
+                logger.debug(f"Populating {_feed.channel.title}")
                 podcast.podcast_name = _feed.channel.title
                 # todo maybe a separate function for this with error handling
 
@@ -64,7 +65,7 @@ def save_new_episodes(feed):
     logger.info(f"Checking for new episodes of {feed.channel.title}")
 
     try:
-        podcast, created = Podcast.objects.get_or_create(feed_href=feed.feed.link)
+        podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
         if not podcast.requires_filter:
             for item in feed.entries:
                 if not Episode.objects.filter(guid=item.guid).exists():
@@ -93,12 +94,8 @@ def fetch_new_episodes():
 
     podcast_list = Podcast.objects.all().filter(feed_href__isnull=False)
     for podcast in podcast_list:
-        feed_href = podcast.feed_href
+        feed = podcast.feed_href
         # TODO RSS verification
-        logger.info(f"Getting episodes of {podcast.podcast_name} at {feed_href}...")
-        try:
-            res = requests.get(feed_href)
-            _feed = feedparser.parse(res.content)
-            save_new_episodes(_feed)
-        except requests.exceptions.RequestException as e:
-            logger.info(f"Requests exception: {e}")
+        logger.info(f"Getting {feed}...")
+        _feed = feedparser.parse(feed)
+        save_new_episodes(_feed)
