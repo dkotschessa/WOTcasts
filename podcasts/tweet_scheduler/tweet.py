@@ -104,6 +104,9 @@ def new_content_report(episodes, videos):
             content.append(f"{video.channel_name}: {video.title}\n")
 
         footer = "Check them out on www.wheeloftimepodcasts.com or in your podcast app!"
+        brief_format = (
+            greeting + "\n" + content_announcement + tags + "!" + "\n" + footer
+        )
         short_format = (
             greeting
             + "\n"
@@ -113,6 +116,9 @@ def new_content_report(episodes, videos):
             + "\n"
             + "".join(content)
         )
+        if len(short_format) > 280:
+            return brief_format
+
         long_format = short_format + footer
         if len(long_format) > 280:
             return short_format

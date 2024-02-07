@@ -97,5 +97,5 @@ def fetch_new_episodes():
         # TODO RSS verification
         logger.info(f"Getting {feed}...")
         _feed = feedparser.parse(feed)
-        if not _feed.bozo:
+        if not _feed.bozo:  # todo make this like a real exception with logging
             save_new_episodes(_feed)
