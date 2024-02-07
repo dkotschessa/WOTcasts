@@ -17,4 +17,3 @@ class APITests(APITestCase):
     def test_api_listview(self):
         response = self.client.get(reverse("podcast_list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response.self.book)

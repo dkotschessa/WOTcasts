@@ -21,6 +21,7 @@ class PodcastTests(TestCase):
             image="https://image.something.com",
             podcast_name=self.podcast,
             guid="de194720-7b4c-49e2-a05f-432436d3fetr",
+            announced_to_twitter=True,
         )
 
     def test_episode_content(self):

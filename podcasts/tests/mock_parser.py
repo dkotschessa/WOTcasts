@@ -42,6 +42,7 @@ class MockFeed:
     channel: Channel
     href: str
     entries: List[FeedItem]
+    bozo: bool
 
 
 feeditem = FeedItem(
@@ -72,5 +73,5 @@ channel = Channel(
 )
 
 mock_feed = MockFeed(
-    href="http://www.something.com", channel=channel, entries=[feeditem]
+    href="http://www.something.com", channel=channel, entries=[feeditem], bozo=False
 )

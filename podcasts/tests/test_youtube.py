@@ -89,7 +89,7 @@ def test_channel_dict():
 @pytest.mark.django_db
 def test_populate_missing_youtube_fields():
     # ARRANGE
-    new_channel = ChannelFactory.create()
+    new_channel = ChannelFactory.create(channel_name="WoT Up!")
     channel_fields = {
         "feed_href": "http://www.youtube.com/feeds/videos.xml?channel_id=UCbl0nJfwdXWANnKEURnFkHg",
         "channel_name": "WoT Up!",

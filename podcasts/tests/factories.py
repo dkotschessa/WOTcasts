@@ -26,6 +26,7 @@ class YoutubeEpisodeFactory(factory.django.DjangoModelFactory):
     guid = fake.url()
     channel_name = factory.SubFactory(ChannelFactory, youtube_url=fake.url())
     duration = "1022"
+    announced_to_twitter = True
 
 
 class PodcastFactory(factory.django.DjangoModelFactory):
