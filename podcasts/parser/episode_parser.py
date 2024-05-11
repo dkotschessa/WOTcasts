@@ -20,21 +20,22 @@ def populate_missing_fields():
         if podcast.feed_href is not None:
             rss_link = podcast.feed_href
             _feed = feedparser.parse(rss_link)
-            if not _feed.bozo:  # check if valid RSS
-                # TODO use requests to check connection
-                if not podcast.podcast_name:
-                    logger.debug(f"Populating {_feed.channel.title}")
-                    podcast.podcast_name = _feed.channel.title
-                    # todo maybe a separate function for this with error handling
+            if _feed.bozo:
+                logger.info("Attemping to parse malformed RSS feed")
+            # TODO use requests to check connection
+            if not podcast.podcast_name:
+                logger.debug(f"Populating {_feed.channel.title}")
+                podcast.podcast_name = _feed.channel.title
+                # todo maybe a separate function for this with error handling
 
-                if not podcast.podcast_summary or len(podcast.podcast_summary) < 2:
-                    podcast.podcast_summary = _feed.channel.get(
-                        "summary", _feed.channel.get("subtitle")
-                    )
+            if not podcast.podcast_summary or len(podcast.podcast_summary) < 2:
+                podcast.podcast_summary = _feed.channel.get(
+                    "summary", _feed.channel.get("subtitle")
+                )
 
-                if not podcast.podcast_image:
-                    podcast.podcast_image = _feed.channel.image["href"]
-                podcast.save()
+            if not podcast.podcast_image:
+                podcast.podcast_image = _feed.channel.image["href"]
+            podcast.save()
 
 
 def save_episode(podcast, feed, item):
