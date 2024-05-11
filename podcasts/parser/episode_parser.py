@@ -24,7 +24,7 @@ def populate_missing_fields():
                 logger.info("Attemping to parse malformed RSS feed")
             # TODO use requests to check connection
             if not podcast.podcast_name:
-                logger.debug(f"Populating {_feed.channel.title}")
+                logger.debug(f"Populating {podcast.feed_href}")
                 podcast.podcast_name = _feed.channel.title
                 # todo maybe a separate function for this with error handling
 
