@@ -19,7 +19,7 @@ class PodcastAdmin(admin.ModelAdmin):
     list_filter = ("feed_href", "podcast_name", "requires_filter")
     search_fields = (
         "podcast_name__startswith",
-        "feed_href_startswith",
+        "feed_href__startswith",
     )
 
 
