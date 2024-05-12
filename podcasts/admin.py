@@ -16,6 +16,11 @@ class PodcastAdmin(admin.ModelAdmin):
         "requires_filter",
     )
     fields = ["feed_href", "podcast_image", "podcast_twitter", "requires_filter"]
+    list_filter = ("feed_href", "podcast_name", "requires_filter")
+    search_fields = (
+        "podcast_name__startswith",
+        "feed_href_startswith",
+    )
 
 
 @admin.register(Episode)
@@ -29,6 +34,8 @@ class EpisodeAdmin(admin.ModelAdmin):
         "duration",
         "guid",
     )
+    list_filter = ("podcast_name", "pub_date")
+    search_fields = ("podcast_name__startswith", "title_startswith")
 
 
 @admin.register(Channel)
@@ -40,8 +47,10 @@ class ChannelAdmin(admin.ModelAdmin):
         "channel_summary",
         "host",
     ]
+    list_filter = ("channel_name",)
 
     fields = ["youtube_url", "channel_twitter", "requires_filter"]
+    search_fields = ("youtube_url__startswith", "channel_name__startswith")
 
 
 @admin.register(YoutubeEpisode)
@@ -56,3 +65,5 @@ class YoutubeEpisodeAdmin(admin.ModelAdmin):
         "guid",
         "duration",
     ]
+    list_filter = ("channel_name", "pub_date")
+    search_fields = ("channel_name__startswith", "title__startswith")
