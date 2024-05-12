@@ -35,7 +35,7 @@ class EpisodeAdmin(admin.ModelAdmin):
         "guid",
     )
     list_filter = ("podcast_name", "pub_date")
-    search_fields = ("podcast_name__startswith", "title_startswith")
+    search_fields = ("podcast_name__startswith", "title__startswith")
 
 
 @admin.register(Channel)
