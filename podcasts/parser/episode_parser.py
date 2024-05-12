@@ -28,7 +28,7 @@ def populate_missing_fields():
                     logger.info(f"Populating {podcast.feed_href}")
                     podcast.podcast_name = _feed.channel.title
                 except AttributeError as e:
-                    logger.error(f"Cannot parse RSS feed. Error: {e}")
+                    logger.error(f"Cannot parse RSS feed for title. Error: {e}")
 
             if not podcast.podcast_summary or len(podcast.podcast_summary) < 2:
                 podcast.podcast_summary = _feed.channel.get(
@@ -36,7 +36,10 @@ def populate_missing_fields():
                 )
 
             if not podcast.podcast_image:
-                podcast.podcast_image = _feed.channel.image["href"]
+                try:
+                    podcast.podcast_image = _feed.channel.image["href"]
+                except AttributeError as e:
+                    logger.error(f"Cannot parse RSS fed for image. Error {e}")
             podcast.save()
 
 
