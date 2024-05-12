@@ -14,13 +14,13 @@ class Podcast(models.Model):
         return f"{self.podcast_name}"
 
 
-# Create your models here.
+# Creaepite your models here.
 class Episode(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     pub_date = models.DateTimeField()
     link = models.URLField()
-    image = models.URLField()
+    image = models.URLField(max_length=400)
     podcast_name = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     guid = models.CharField(max_length=200)
     duration = models.CharField(max_length=10, blank=True, null=True)
