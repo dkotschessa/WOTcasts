@@ -24,9 +24,11 @@ def populate_missing_fields():
                 logger.info("Attemping to parse malformed RSS feed")
             # TODO use requests to check connection
             if not podcast.podcast_name:
-                logger.info(f"Populating {podcast.feed_href}")
-                podcast.podcast_name = _feed.channel.title
-                # todo maybe a separate function for this with error handling
+                try:
+                    logger.info(f"Populating {podcast.feed_href}")
+                    podcast.podcast_name = _feed.channel.title
+                except AttributeError as e:
+                    logger.error(f"Cannot parse RSS feed. Error: {e}")
 
             if not podcast.podcast_summary or len(podcast.podcast_summary) < 2:
                 podcast.podcast_summary = _feed.channel.get(
