@@ -8,6 +8,7 @@ from .models import Episode, Podcast, Channel, YoutubeEpisode
 class PodcastAdmin(admin.ModelAdmin):
     list_display = (
         "id",
+        "name",
         "feed_href",
         "podcast_name",
         "podcast_summary",
@@ -15,8 +16,14 @@ class PodcastAdmin(admin.ModelAdmin):
         "host",
         "requires_filter",
     )
-    fields = ["feed_href", "podcast_image", "podcast_twitter", "requires_filter"]
-    list_filter = ("feed_href", "podcast_name", "requires_filter")
+    fields = [
+        "name",
+        "feed_href",
+        "podcast_image",
+        "podcast_twitter",
+        "requires_filter",
+    ]
+    list_filter = ("name", "feed_href", "podcast_name", "requires_filter")
     search_fields = (
         "podcast_name__startswith",
         "feed_href__startswith",
