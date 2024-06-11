@@ -8,7 +8,6 @@ from .models import Episode, Podcast, Channel, YoutubeEpisode
 class PodcastAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "podcast_name",
         "feed_href",
         "podcast_name",
         "podcast_summary",
