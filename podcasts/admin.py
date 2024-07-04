@@ -9,14 +9,14 @@ class PodcastAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "feed_href",
-        "podcast_name",
+        # "podcast_name",
         "podcast_summary",
         "podcast_image",
         "host",
         "requires_filter",
     )
     fields = [
-        "podcast_name",
+        # "podcast_name",
         "feed_href",
         "podcast_image",
         "podcast_twitter",
