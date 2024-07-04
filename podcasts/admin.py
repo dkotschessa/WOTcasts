@@ -9,20 +9,20 @@ class PodcastAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "feed_href",
-        # "podcast_name",
+        "podcast_name",
         "podcast_summary",
         "podcast_image",
         "host",
         "requires_filter",
     )
     fields = [
-        # "podcast_name",
+        "podcast_name",
         "feed_href",
         "podcast_image",
         "podcast_twitter",
         "requires_filter",
     ]
-    list_filter = ("name", "feed_href", "podcast_name", "requires_filter")
+    list_filter = ("feed_href", "podcast_name", "requires_filter")
     search_fields = (
         "podcast_name__startswith",
         "feed_href__startswith",
