@@ -131,7 +131,7 @@ WSGI_APPLICATION = "content_aggregator.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": str(os.getenv("DATABASE_NAME")),
         "USER": str(os.getenv("DATABASE_USER")),
         "PASSWORD": str(os.getenv("DATABASE_PASS")),
