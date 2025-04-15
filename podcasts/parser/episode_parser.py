@@ -19,9 +19,18 @@ def populate_missing_fields():
     for podcast in Podcast.objects.all():
         if podcast.feed_href is not None:
             rss_link = podcast.feed_href
+            if all(
+                [
+                    podcast.feed_href,
+                    podcast.podcast_name,
+                    podcast.podcast_summary,
+                    podcast.podcast_image,
+                ]
+            ):
+                logger.info("Podcast %s contains all fields" % rss_link)
             _feed = feedparser.parse(rss_link)
             if _feed.bozo:
-                logger.info("Attemping to parse malformed RSS feed")
+                logger.info("Attemping to parse malformed RSS feed %s" % rss_link)
             # TODO use requests to check connection
             if not podcast.podcast_name:
                 try:
@@ -78,6 +87,12 @@ def save_new_episodes(feed):
                     logger.info(f"New episodes found for Podcast {feed.channel.title}")
                     logger.info(f"Parsing episode with GUID ${item.guid}")
                     save_episode(podcast, feed, item)
+                else:
+                    last_pub = feed.entries[-1]["published"]
+                    logger.info(
+                        f"No new episodes found for Podcast {feed.channel.title}"
+                    )
+                    logger.info("Last episode date: %s" % last_pub)
 
         if podcast.requires_filter:
             for item in feed.entries:
