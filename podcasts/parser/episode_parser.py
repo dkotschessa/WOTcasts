@@ -81,10 +81,12 @@ def save_new_episodes(feed):
 
     try:
         podcast, created = Podcast.objects.get_or_create(feed_href=feed.href)
-
-        last_pub = feed.entries[-1]["published"]
-        logger.info("Last episode date: %s" % last_pub)
-        logger.info("Checking for new episodes of %s" % feed.feed.title)
+        if feed.entries:
+            last_pub = feed.entries[-1]["published"]
+            logger.info("Last episode date: %s" % last_pub)
+            logger.info("Checking for new episodes of %s" % feed.feed.title)
+        else:
+            logger.info("%s has no entries" % feed.href)
         if not podcast.requires_filter:
             for item in feed.entries:
                 if not Episode.objects.filter(guid=item.guid).exists():
