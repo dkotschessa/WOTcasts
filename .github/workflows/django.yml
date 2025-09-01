@@ -9,6 +9,7 @@ on:
 env:
   # Environmental Variables
   SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 
 
 jobs:
