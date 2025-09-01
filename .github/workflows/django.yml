@@ -8,7 +8,7 @@ on:
 
 env:
   # Environmental Variables
-  env_var: ${{ vars.SENTRY_DSN }}
+  SENTRY_DSN: ${{ vars.SENTRY_DSN }}
 
 
 jobs:
