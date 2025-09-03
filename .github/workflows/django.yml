@@ -30,9 +30,9 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-              DATABASE_PASS: root
-              DATABASE_NAME: test_db
-              DATABASE_USER: test_user
+              MYSQL_ROOT_PASSWORD: test_pass
+              MYSQL_DATABASE: test_db
+              # DATABASE_USER: test_user
         ports:
           - 3306:3306
 
