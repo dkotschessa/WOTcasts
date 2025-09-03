@@ -32,8 +32,8 @@ jobs:
         env:
               MYSQL_ROOT_PASSWORD: root
               MYSQL_DATABASE: test_db
-              MYSQL_USER: test_user
-              MYSQL_PASSWORD: test_pass
+              # MYSQL_USER: test_user
+              # MYSQL_PASSWORD: test_pass
         ports:
           - 3306:3306
 
@@ -53,6 +53,14 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Run Migrations
+      run: python manage.py migrate
+      env: 
+        DBENGINE: django.db.backends.mysql
+        DBNAME: test_db
+        DBUSER: root
+        DBPASSWORD: test_pass
+      
     - name: Run Tests
       run: |
         pytest
