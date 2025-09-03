@@ -8,7 +8,7 @@ on:
 
 env:
   # Environmental Variables
-  SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+
   # Secrets
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   API_KEY: ${{ secrets.API_KEY }}
