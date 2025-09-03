@@ -71,4 +71,8 @@ jobs:
       run: |
         pytest
       env:
+        DATABASE_NAME: test_db
+        DATABASE_USER: root
+        DATABASE_PASS: test_pass
+        DATABASE_HOST: 127.0.0.1
         DATABASE_PORT: 3306
