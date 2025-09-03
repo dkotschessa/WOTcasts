@@ -1,4 +1,4 @@
-venv/
+venv*/
 **/__pycache__/
 .idea/
 .coverage
@@ -9,3 +9,4 @@ db.sqlite3
 testreportdata/pytest_report.html
 testreportdata
 node_modules/
+staticfiles/
