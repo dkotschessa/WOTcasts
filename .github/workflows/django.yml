@@ -29,11 +29,13 @@ jobs:
     services:
       mysql:
         image: mysql:8.0
-    env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_pass
+        env:
+              MYSQL_ROOT_PASSWORD: root
+              MYSQL_DATABASE: test_db
+              MYSQL_USER: test_user
+              MYSQL_PASSWORD: test_pass
+        ports:
+          - 3306:3306
 
     runs-on: ubuntu-latest
     strategy:
