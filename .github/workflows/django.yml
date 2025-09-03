@@ -54,7 +54,7 @@ jobs:
         pip install -r requirements.txt
     - name: Wait for MySQL
       run: |
-          until mysqladmin ping -h 127.0.0.1 -P 3306 -u root -proot --silent; do
+          until mysqladmin ping -h 127.0.0.1 -P 3306; do
             sleep 1
           done
     - name: Run Migrations
