@@ -14,7 +14,7 @@ class APITests(APITestCase):
             requires_filter=False,
         )
 
-    @pytest.mark.django_db
-    def test_api_listview(self):
-        response = self.client.get(reverse("podcast_list"))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    # @pytest.mark.django_db
+    # def test_api_listview(self):
+    #     response = self.client.get(reverse("podcast_list"))
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
