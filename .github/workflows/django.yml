@@ -30,10 +30,9 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-              MYSQL_ROOT_PASSWORD: root
-              MYSQL_DATABASE: test_db
-              # MYSQL_USER: test_user
-              # MYSQL_PASSWORD: test_pass
+              DATABASE_PASS: root
+              DATABASE_NAME: test_db
+              DATABASE_USER: test_user
         ports:
           - 3306:3306
 
@@ -56,10 +55,12 @@ jobs:
     - name: Run Migrations
       run: python manage.py migrate
       env: 
-        DBENGINE: django.db.backends.mysql
-        DBNAME: test_db
-        DBUSER: root
-        DBPASSWORD: test_pass
+        # DBENGINE: django.db.backends.mysql
+        DATABASE_NAME: test_db
+        DATABASE_USER: root
+        DATABASE_PASS: test_pass
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_PORT: 3306
       
     - name: Run Tests
       run: |
