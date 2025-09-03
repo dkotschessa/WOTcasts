@@ -76,4 +76,4 @@ jobs:
         DATABASE_PASS: test_pass
         DATABASE_HOST: 127.0.0.1
         DATABASE_PORT: 3306
-        SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
