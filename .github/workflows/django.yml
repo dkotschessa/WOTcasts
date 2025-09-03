@@ -69,7 +69,7 @@ jobs:
       
     - name: Run Tests
       run: |
-        pytest
+        pytest -v
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
