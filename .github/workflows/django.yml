@@ -19,6 +19,9 @@ env:
   CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
   BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
 
+  # Settings
+  DJANGO_SETTINGS_MODULE: 'content_aggregator.settings.ci'
+
 
 jobs:
   build:
