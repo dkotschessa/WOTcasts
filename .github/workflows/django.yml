@@ -70,3 +70,5 @@ jobs:
     - name: Run Tests
       run: |
         pytest
+      env:
+        DATABASE_PORT: 3306
