@@ -11,7 +11,7 @@ env:
   # Environmental Variables
 
   # Secrets
-  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  DJANGO_SECRET_KEY: ${{ test.secrets.DJANGO_SECRET_KEY }}
   API_KEY: ${{ secrets.API_KEY }}
   API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}
   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
