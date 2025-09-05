@@ -69,7 +69,8 @@ jobs:
 
     - name: Run Tests
       run: |
-        pytest -c pytest_ci.ini -v --md-report  --cov=.  --cov-report=markdown podcasts accounts
+        pytest -c pytest_ci.ini --md-report  --self-contained-html --cov=.  podcasts accounts
+        coverage report --format=markdown
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
