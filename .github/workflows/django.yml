@@ -69,8 +69,8 @@ jobs:
 
     - name: Run Tests
       run: |
-        pytest -c pytest_ci.ini --md-report  --self-contained-html --cov=.  podcasts accounts
-        coverage report --format=markdown
+        pytest -c pytest_ci.ini --md-report  --self-contained-html --cov=.  podcasts accounts >> $GITHUB_STEP_SUMMARY.
+        coverage report --format=markdown >> $GITHUB_STEP_SUMMARY.
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
