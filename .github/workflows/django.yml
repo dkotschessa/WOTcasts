@@ -69,7 +69,7 @@ jobs:
 
     - name: Run Tests
       run: |
-        echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
+        echo "REPORT_FILE=${REPORT_OUTPUT}" >> $GITHUB_ENV
         pytest -c pytest_ci.ini -md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
         cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
         coverage report --format=markdown >> $GITHUB_STEP_SUMMARY >> $GITHUB_STEP_SUMMARY
