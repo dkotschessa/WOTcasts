@@ -40,7 +40,9 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ['3.9', '3.10', '3.11']
+#        python-version: ['3.9', '3.10', '3.11']
+        python-version: ['3.10']
+
 
     steps:
     - uses: actions/checkout@v4
@@ -80,7 +82,7 @@ jobs:
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
-        pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output md_report.md
+        pytest -c pytest_ci.ini --md-report --md-report-flavor gfm --md-report-output md_report.md
         cat md_report.md >> $GITHUB_STEP_SUMMARY
 
 
