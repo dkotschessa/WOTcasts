@@ -72,16 +72,6 @@ jobs:
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
         pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output "$REPORT_OUTPUT"
-
-      #        pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
-
-#        if [ -f "$REPORT_FILE" ]; then
-#          echo "<details><summTest Report</summary>" >> $GITHUB_STEP_SUMMARY
-#          echo "" >> $GITHUB_STEP_SUMMARY
-#          cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
-#          echo "" >> $GITHUB_STEP_SUMMARY
-#          echo "</details>" >> $GITHUB_STEP_SUMMARY
-#        fi
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
@@ -89,3 +79,12 @@ jobs:
         DATABASE_HOST: 127.0.0.1
         DATABASE_PORT: 3306
         DJANGO_SETTINGS_MODULE: content_aggregator.settings.ci
+
+    - name: Test output to summary
+      shell: bash
+      run: |
+            echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "</details>" >> $GITHUB_STEP_SUMMARY
