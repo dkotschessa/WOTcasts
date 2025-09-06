@@ -82,7 +82,7 @@ jobs:
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
-        pytest -c pytest_ci.ini --md-report --md-report-flavor gfm --md-report-output md_report.md
+        pytest -vv -c pytest_ci.ini --md-report --md-report-flavor gfm --md-report-output md_report.md
         cat md_report.md >> $GITHUB_STEP_SUMMARY
 
 
