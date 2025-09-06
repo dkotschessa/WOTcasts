@@ -88,7 +88,9 @@ jobs:
         cat md_report.md >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "<details><summary>Coverage Report</summary>" >> $GITHUB_STEP_SUMMARY
-        coverage report --format=markdown-append:${GITHUB_STEP_SUMMARY}
+        coverage report --format=markdown --data-file coverage.md
+        cat coverage.md >> $GITHUB_STEP_SUMMARY
+
 
 
 
