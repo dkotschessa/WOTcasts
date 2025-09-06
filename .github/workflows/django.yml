@@ -83,6 +83,8 @@ jobs:
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
         pytest -vv -c pytest_ci.ini --md-report --md-report-flavor gfm --md-report-output md_report.md --cov=.  podcasts accounts
+        echo "<details><summary>Test Report</summary>" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
         cat md_report.md >> $GITHUB_STEP_SUMMARY
         coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
 
