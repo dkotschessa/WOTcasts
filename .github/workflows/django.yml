@@ -84,6 +84,7 @@ jobs:
 
 
     - name: Test output to summary
+      shell: bash
       run: |
         echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
