@@ -70,8 +70,7 @@ jobs:
     - name: Run Tests
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
-        echo "REPORT_FILE=${REPORT_OUTPUT}" >> $GITHUB_ENV
-        pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output "$REPORT_OUTPUT"
+        pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output "$REPORT_FILE"
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
