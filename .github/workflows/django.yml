@@ -80,7 +80,8 @@ jobs:
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
-        pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
+        pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT"
+
 
 
 
@@ -92,3 +93,6 @@ jobs:
         cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "</details>" >> $GITHUB_STEP_SUMMARY
+
+
+    #       pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
