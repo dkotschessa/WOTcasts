@@ -71,17 +71,16 @@ jobs:
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
-        pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
-        if [ -f "$REPORT_FILE" ]; then
-            echo "<details><summTest Report</summary>" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "</details>" >> $GITHUB_STEP_SUMMARY
-          fi
+#        pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
+#         pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts >>  $GITHUB_STEP_SUMMARY
 
-#        cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
-#        coverage report --format=markdown >> $GITHUB_STEP_SUMMARY >> $GITHUB_STEP_SUMMARY
+#        if [ -f "$REPORT_FILE" ]; then
+#          echo "<details><summTest Report</summary>" >> $GITHUB_STEP_SUMMARY
+#          echo "" >> $GITHUB_STEP_SUMMARY
+#          cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
+#          echo "" >> $GITHUB_STEP_SUMMARY
+#          echo "</details>" >> $GITHUB_STEP_SUMMARY
+#        fi
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
