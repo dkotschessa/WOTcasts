@@ -1,9 +1,0 @@
-|                filepath                | passed | SUBTOTAL |
-| -------------------------------------- | -----: | -------: |
-| podcasts/tests/test_content_report.py  |      3 |        3 |
-| podcasts/tests/test_parser.py          |      4 |        4 |
-| podcasts/tests/test_tweet_scheduler.py |      1 |        1 |
-| podcasts/tests/test_views.py           |      5 |        5 |
-| podcasts/tests/test_youtube.py         |      8 |        8 |
-| accounts/tests.py                      |      2 |        2 |
-| TOTAL                                  |     23 |       23 |
