@@ -81,18 +81,13 @@ jobs:
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
         pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT"
-
-
-
-
-    - name: Test output to summary
-      shell: bash
-      run: |
-        echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
         cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "</details>" >> $GITHUB_STEP_SUMMARY
+
+
+
+
+
+
 
 
     #       pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts
