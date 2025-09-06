@@ -82,10 +82,8 @@ jobs:
     - name: Test output to summary
       shell: bash
       run: |
-        if [ -f "$REPORT_FILE" ]; then
-          echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "</details>" >> $GITHUB_STEP_SUMMARY
-        fi
+        echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "</details>" >> $GITHUB_STEP_SUMMARY
