@@ -1,0 +1,100 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+env:
+  # Environmental Variables
+
+  # Secrets
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  API_KEY: ${{ secrets.API_KEY }}
+  API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}
+  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+
+  # Settings
+  DJANGO_SETTINGS_MODULE: 'content_aggregator.settings.ci'
+
+
+jobs:
+  build:
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+              MYSQL_ROOT_PASSWORD: test_pass
+              MYSQL_DATABASE: test_db
+              # DATABASE_USER: test_user
+        ports:
+          - 3306:3306
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt --upgrade pip
+    - name: Wait for MySQL
+      run: |
+          until mysqladmin ping -h 127.0.0.1 -P 3306; do
+            sleep 1
+          done
+    - name: Run Migrations
+      run: python manage.py migrate
+      env:
+        # DBENGINE: django.db.backends.mysql
+        DATABASE_NAME: test_db
+        DATABASE_USER: root
+        DATABASE_PASS: test_pass
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_PORT: 3306
+
+    - name: Run Tests
+      env:
+        DATABASE_NAME: test_db
+        DATABASE_USER: root
+        DATABASE_PASS: test_pass
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_PORT: 3306
+        DJANGO_SETTINGS_MODULE: content_aggregator.settings.ci
+        REPORT_OUTPUT: md_report.md
+      shell: bash
+      run: |
+        echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
+        pytest -vv -c pytest_ci.ini --md-report --md-report-flavor gfm --md-report-output  md_report.md --cov=.  podcasts accounts
+        echo "<summary>Test Report</summary>" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat md_report.md >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        coverage report --format=markdown >> coverage.md
+        cat coverage.md >> $GITHUB_STEP_SUMMARY
+
+
+
+
+
+
+
+
+
+
+    #       pytest -c pytest_ci.ini --md-report-flavor gfm --md-report-output "$REPORT_OUTPUT" --cov=.  podcasts accounts

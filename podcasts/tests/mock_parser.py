@@ -21,6 +21,12 @@ class FeedItem:
         except KeyError:
             return opt_arg
 
+    def __iter__(self):
+        return self
+
+    def __getitem__(self, item):
+        return item
+
 
 @define
 class Channel:
