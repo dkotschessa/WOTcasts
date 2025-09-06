@@ -78,15 +78,15 @@ jobs:
         REPORT_OUTPUT: md_report.md
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
-        echo "REPORT_FILE=${report_file}" >> "$GITHUB_ENV"
-        pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output "$report_file"
-        cat "$report_file" >> $GITHUB_STEP_SUMMARY
+        echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
+        pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output "$REPORT_OUTPUT"
 
 
 
-#    - name: Test output to summary
-#      run: |
-#        echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
-#        echo "" >> $GITHUB_STEP_SUMMARY
-#        echo "" >> $GITHUB_STEP_SUMMARY
-#        echo "</details>" >> $GITHUB_STEP_SUMMARY
+    - name: Test output to summary
+      run: |
+        echo "<details><summary>Failed Test Report</summary>" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat "$REPORT_FILE" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "</details>" >> $GITHUB_STEP_SUMMARY
