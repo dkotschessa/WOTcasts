@@ -70,7 +70,7 @@ jobs:
     - name: Run Tests
       run: |
         echo "testing step summary" >> $GITHUB_STEP_SUMMARY
-        pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output "$report_file"
+        pytest -c pytest_ci.ini --md-report-flavor gfm --cov=.  podcasts accounts --md-report-output report.md
       env:
         DATABASE_NAME: test_db
         DATABASE_USER: root
@@ -84,6 +84,6 @@ jobs:
       run: |
             echo "<details><summary>Test Report</summary>" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            cat "$report_file" >> $GITHUB_STEP_SUMMARY
+            cat report.md >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "</details>" >> $GITHUB_STEP_SUMMARY
