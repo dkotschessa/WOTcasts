@@ -80,8 +80,8 @@ jobs:
         DATABASE_PORT: 3306
         DJANGO_SETTINGS_MODULE: content_aggregator.settings.ci
 
-    - name: Test output to summary
-      shell: bash
+#    - name: Test output to summary
+#      shell: bash
 #      run: |
 #            echo "<details><summary>Test Report</summary>" >> $GITHUB_STEP_SUMMARY
 #            echo "" >> $GITHUB_STEP_SUMMARY
