@@ -3,7 +3,7 @@ import logging
 from django.core.management import BaseCommand
 from podcasts.reports.content_report import save_report_to_file
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 class Command(BaseCommand):

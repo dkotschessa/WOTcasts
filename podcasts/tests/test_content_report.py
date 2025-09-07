@@ -12,7 +12,7 @@ from podcasts.tests.factories import (
 import datetime
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 @pytest.mark.django_db

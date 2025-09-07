@@ -7,7 +7,7 @@ from django.utils import timezone
 from podcasts.utils.helpers import get_twitter_tag
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def get_podcasts_channels_from_episode_list(episodes, videos):

@@ -3,7 +3,7 @@ import logging
 from django.core.management import BaseCommand
 from podcasts.tweet_scheduler.tweet import tweet_new_episodes
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 class Command(BaseCommand):

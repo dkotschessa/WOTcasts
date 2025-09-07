@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.management import BaseCommand
 from podcasts.management.commands.fetch_new import fetch_all_content
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def delete_old_job_executions(max_age=604_800):

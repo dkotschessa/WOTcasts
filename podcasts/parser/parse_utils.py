@@ -5,7 +5,7 @@ from feedparser import FeedParserDict
 
 from podcasts.models import Episode, Podcast
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def convert_duration(duration: str):

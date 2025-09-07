@@ -63,13 +63,23 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": env("LOGFILE"),
         },
     },
-    "root": {
-        "handlers": ["console"],
-        "level": "INFO",
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "wotcasts.aggregator": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
     },
 }
 # Application definition
