@@ -1,12 +1,25 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+from os import environ
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "content_aggregator.settings.base")
+
+    if environ("ENVIRONMENT") == "production":
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "content_aggregator.settings.base"
+        )
+    else:
+        os.environ.setdefault(
+            "DJANGO_SETTINGS_MODULE", "content_aggregator.settings.base"
+        )
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
