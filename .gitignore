@@ -10,3 +10,4 @@ testreportdata/pytest_report.html
 testreportdata
 node_modules/
 staticfiles/
+django.log

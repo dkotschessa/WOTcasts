@@ -2,6 +2,8 @@
 
 from .base import *
 
+SETTING = "production"  # for debut purposes
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
