@@ -12,7 +12,7 @@ def main():
 
     if os.environ.get("ENVIRONMENT") == "production":
         os.environ.setdefault(
-            "DJANGO_SETTINGS_MODULE", "content_aggregator.settings.base"
+            "DJANGO_SETTINGS_MODULE", "content_aggregator.settings.production"
         )
     else:
         os.environ.setdefault(
