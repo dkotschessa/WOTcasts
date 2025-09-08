@@ -7,7 +7,7 @@ import requests
 from podcasts.models import Episode, Podcast
 from podcasts.parser.parse_utils import convert_duration, passes_filter
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def populate_missing_fields():
@@ -67,8 +67,12 @@ def save_episode(podcast, feed, item):
         announced_to_twitter=False,
         guid=item.guid,
     )
-    logger.info(f"Episode added: {episode.title} \n")
-    episode.save()
+    try:
+        episode.save()
+        logger.info(f"Episode added: {episode.title} \n")
+    except Exception as e:
+        logger.info(f"ERROR for podcast {podcast.podcast_name}:")
+        logger.info(f"Exception: {e}")
 
 
 def save_new_episodes(feed):
@@ -95,6 +99,7 @@ def save_new_episodes(feed):
                     save_episode(podcast, feed, item)
 
         if podcast.requires_filter:
+            logger.info(f"{podcast.podcast_name} requires keyword filter")
             for item in feed.entries:
                 if not Episode.objects.filter(guid=item.guid).exists():
                     if passes_filter(item):

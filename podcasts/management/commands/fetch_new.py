@@ -9,7 +9,7 @@ from django.core.management import BaseCommand
 from podcasts.parser.episode_parser import fetch_new_episodes
 from podcasts.parser.youtube_parser import fetch_new_youtube_episodes
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def fetch_all_content():
@@ -27,9 +27,6 @@ class Command(BaseCommand):
 
         except KeyboardInterrupt:
             logger.info("Keyboard Interrupt")
-
-
-logger = logging.getLogger(__name__)
 
 
 def fetch_all_content():

@@ -9,7 +9,7 @@ from django.core.management import BaseCommand
 from podcasts.parser.episode_parser import fetch_new_episodes
 from podcasts.parser.youtube_parser import fetch_new_youtube_episodes
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def fetch_and_tweet_content():

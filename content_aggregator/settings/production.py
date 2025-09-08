@@ -2,6 +2,32 @@
 
 from .base import *
 
+SETTING = "production"  # for debut purposes
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": env("LOGFILE"),
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "wotcasts.aggregator": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
+# Application definition
 sentry_sdk.init(
     dsn=str(os.getenv("SENTRY_DSN")),
     integrations=[DjangoIntegration()],

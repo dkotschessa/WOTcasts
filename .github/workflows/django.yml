@@ -2,7 +2,7 @@ name: Django CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "**" ]
   pull_request:
     branches: [ "main" ]
 
@@ -77,6 +77,7 @@ jobs:
         DATABASE_PORT: 3306
         DJANGO_SETTINGS_MODULE: content_aggregator.settings.ci
         REPORT_OUTPUT: md_report.md
+        LOGFILE: django.log
       shell: bash
       run: |
         echo "REPORT_FILE=${REPORT_OUTPUT}" >> "$GITHUB_ENV"

@@ -1,5 +1,7 @@
 from .base import *
 
+SETTING = "ci"
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

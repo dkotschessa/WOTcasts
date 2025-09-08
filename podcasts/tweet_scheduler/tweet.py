@@ -15,7 +15,7 @@ load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 API_KEY = environ["API_KEY"]
 API_SECRET_KEY = environ["API_SECRET_KEY"]

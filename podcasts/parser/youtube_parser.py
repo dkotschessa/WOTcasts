@@ -10,7 +10,7 @@ from datetime import datetime
 
 from podcasts.parser.parse_utils import passes_filter
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("wotcasts.aggregator")
 
 
 def soup_tube(url):
