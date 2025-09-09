@@ -4,6 +4,8 @@ from django.urls.base import reverse
 from podcasts.models import Episode, Podcast
 from rest_framework import status
 
+from podcasts.views import get_episode_list
+
 
 class PodcastTests(TestCase):
     def setUp(self):
@@ -42,6 +44,20 @@ class PodcastTests(TestCase):
         response = self.client.get(reverse("homepage"))
         self.assertTemplateUsed(response, "podcasts/homepage.html")
 
+    def test_home_page_n_plus_one(self):
+        with self.assertNumQueries(1):
+            self.client.get(reverse("homepage"))
+
     def test_homepage_list_contents(self):
         response = self.client.get(reverse("homepage"))
         self.assertContains(response, "My Python Podcast")
+
+    def test_get_episode_list(self):
+        episode = get_episode_list(Episode.objects.filter(id=1))[0]
+        self.assertEquals(episode["episode_image"], "https://image.something.com")
+        self.assertEquals(episode["episode_title"], "My Awesome Podcast Episode")
+        ## todo episode name is not right. it is returning and object
+
+    def test_num_queries_not_n_plus_one(self):
+        with self.assertNumQueries(1):
+            get_episode_list(Episode.objects.filter(id=1))[0]
