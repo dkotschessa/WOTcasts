@@ -8,20 +8,21 @@ from podcasts.views import get_episode_list
 
 
 class PodcastTests(TestCase):
-    def setUp(self):
-        self.podcast = Podcast.objects.create(
+    @classmethod
+    def setUpTestData(cls):
+        cls.podcast = Podcast.objects.create(
             podcast_name="My Python Podcast",
             feed_href="http://something.rss/",
             podcast_summary="this is a summary",
             podcast_image="this is a link to an image",
         )
-        self.episode = Episode.objects.create(
+        cls.episode = Episode.objects.create(
             title="My Awesome Podcast Episode",
             description="hahah look",
             pub_date=timezone.now(),
             link="http://hahaha.com",
             image="https://image.something.com",
-            podcast_name=self.podcast,
+            podcast_name=cls.podcast,
             guid="de194720-7b4c-49e2-a05f-432436d3fetr",
             announced_to_twitter=True,
         )
@@ -53,11 +54,23 @@ class PodcastTests(TestCase):
         self.assertContains(response, "My Python Podcast")
 
     def test_get_episode_list(self):
-        episode = get_episode_list(Episode.objects.filter(id=1))[0]
-        self.assertEquals(episode["episode_image"], "https://image.something.com")
-        self.assertEquals(episode["episode_title"], "My Awesome Podcast Episode")
+        episodes = get_episode_list(Episode.objects.all())
+        self.assertEquals(episodes[0]["episode_image"], "https://image.something.com")
+        self.assertEquals(episodes[0]["episode_title"], "My Awesome Podcast Episode")
         ## todo episode name is not right. it is returning and object
 
-    def test_num_queries_not_n_plus_one(self):
+    def test_episode_list_n_plus_one(self):
+        with self.assertNumQueries(2):
+            get_episode_list(Episode.objects.all())
+
+    def test_podcast_gallery_n_plus_one(self):
         with self.assertNumQueries(1):
-            get_episode_list(Episode.objects.filter(id=1))[0]
+            self.client.get(reverse("podcast_gallery"))
+
+    def test_podcast_info_view(self):
+        response = self.client.get(reverse("podcast_info", args=[1]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_podcast_info_view_n_plus_one(self):
+        with self.assertNumQueries(2):
+            self.client.get(reverse("podcast_info", args=[1]))

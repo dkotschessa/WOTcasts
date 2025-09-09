@@ -14,7 +14,7 @@ from django.db.models import Q
 def homepage_view(request):
     episodes = (
         Episode.objects.filter()
-        .prefetch_related("podcast_name")
+        .select_related("podcast_name")
         .order_by("-pub_date")[:40]
     )
     # TODO one of each
@@ -34,9 +34,11 @@ def about_view(request):
 
 def podcast_info_view(request, podcast_id):
     podcast = Podcast.objects.get(pk=podcast_id)
-    episodes = Episode.objects.filter(podcast_name_id=podcast.id).order_by("-pub_date")[
-        :40
-    ]
+    episodes = (
+        Episode.objects.filter(podcast_name_id=podcast.id)
+        .select_related("podcast_name")
+        .order_by("-pub_date")[:40]
+    )
     context = {"podcast": podcast}
 
     episode_list = get_episode_list(episodes)
