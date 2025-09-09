@@ -68,9 +68,6 @@ def podcast_gallery_view(request):
 
 def podcast_search_results_view(request):
     query = request.GET.get("q")
-    if query == "trollocnips":
-        page = Podcast.objects.get(feed_href="https://media.rss.com/kpod/feed.xml")
-        return redirect(f"podcast/{page.id}")
 
     episodes = Episode.objects.filter(
         Q(description__icontains=query) | Q(title__icontains=query)
