@@ -77,3 +77,7 @@ class PodcastTests(TestCase):
     def test_podcast_info_view_n_plus_one(self):
         with self.assertNumQueries(2):
             self.client.get(reverse("podcast_info", args=[1]))
+
+    def test_get_pk_that_aint_there(self):
+        response = self.client.get(reverse("podcast_info", args=[234324]))
+        self.assertEqual(response.status_code, 404)

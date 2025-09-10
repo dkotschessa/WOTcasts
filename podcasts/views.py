@@ -1,7 +1,7 @@
 import datetime
 
 import dateutil.parser
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Episode, Podcast, Channel, YoutubeEpisode
 from podcasts.utils.helpers import get_twitter_tag
 
@@ -33,7 +33,7 @@ def about_view(request):
 
 
 def podcast_info_view(request, podcast_id):
-    podcast = Podcast.objects.get(pk=podcast_id)
+    podcast = get_object_or_404(Podcast, pk=podcast_id)
     episodes = (
         Episode.objects.filter(podcast_name_id=podcast.id)
         .select_related("podcast_name")
@@ -153,7 +153,7 @@ def youtube_episodes_view(request):
 
 
 def channel_info_view(request, channel_id):
-    channel = Channel.objects.get(pk=channel_id)
+    channel = get_object_or_404(Channel, pk=channel_id)
     episodes = YoutubeEpisode.objects.filter(channel_name=channel_id).order_by(
         "-pub_date"
     )[:40]
