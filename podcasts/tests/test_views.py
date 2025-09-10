@@ -8,24 +8,26 @@ from podcasts.views import get_episode_list
 
 
 class PodcastTests(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.podcast = Podcast.objects.create(
+    def setUp(self):
+        self.podcast = Podcast.objects.create(
             podcast_name="My Python Podcast",
             feed_href="http://something.rss/",
             podcast_summary="this is a summary",
             podcast_image="this is a link to an image",
+            id=1,
         )
-        cls.episode = Episode.objects.create(
+        self.podcast.save()
+        self.episode = Episode.objects.create(
             title="My Awesome Podcast Episode",
             description="hahah look",
             pub_date=timezone.now(),
             link="http://hahaha.com",
             image="https://image.something.com",
-            podcast_name=cls.podcast,
+            podcast_name=self.podcast,
             guid="de194720-7b4c-49e2-a05f-432436d3fetr",
             announced_to_twitter=True,
         )
+        self.episode.save()
 
     def test_episode_content(self):
         self.assertEqual(self.episode.description, "hahah look")
@@ -37,7 +39,7 @@ class PodcastTests(TestCase):
             str(self.episode), "My Python Podcast: My Awesome Podcast Episode"
         )
 
-    def test_episode_home_page_status_code(self):
+    def test_home_page_status_code(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
 
@@ -68,7 +70,8 @@ class PodcastTests(TestCase):
             self.client.get(reverse("podcast_gallery"))
 
     def test_podcast_info_view(self):
-        response = self.client.get(reverse("podcast_info", args=[1]))
+        page = reverse("podcast_info", args=[1])
+        response = self.client.get(page)
         self.assertEqual(response.status_code, 200)
 
     def test_podcast_info_view_n_plus_one(self):
