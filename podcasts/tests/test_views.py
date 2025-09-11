@@ -81,3 +81,9 @@ class PodcastTests(TestCase):
     def test_get_pk_that_aint_there(self):
         response = self.client.get(reverse("podcast_info", args=[234324]))
         self.assertEqual(response.status_code, 404)
+
+    # def test_podcast_search(self):
+    #     search_term = '?q=wheel'
+    #     page = reverse('search_results', kwargs={"?q": "wheel"})
+    #     response = self.client.get(page)
+    #     self.assertEqual(response.status_code, 200)

@@ -2,7 +2,7 @@ import datetime
 
 from podcasts.models import Episode, YoutubeEpisode
 from content_aggregator.settings.base import BASE_DIR
-from django.utils import timezone
+from datetime import timezone
 
 from podcasts.utils.helpers import get_twitter_tag
 import logging

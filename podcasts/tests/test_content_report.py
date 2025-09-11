@@ -1,4 +1,4 @@
-from django.utils import timezone
+from datetime import timezone
 
 from podcasts.reports.content_report import daily_report, get_twitter_tags
 import pytest

@@ -1,7 +1,7 @@
 import datetime
 
 import pytest
-from django.utils import timezone
+from datetime import timezone
 
 from podcasts.tests.test_content_report import logger
 from podcasts.tests.factories import (
