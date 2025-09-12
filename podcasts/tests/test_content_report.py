@@ -59,6 +59,18 @@ def test_get_twitter_tags():
 
 
 @pytest.mark.django_db
+def test_get_twitter_tags_no_tags():
+    podcast = PodcastFactory(
+        requires_filter=False,
+    )
+    channel = ChannelFactory(
+        requires_filter=False,
+    )
+    tags = get_twitter_tags([podcast], [channel])
+    assert tags == "Amazing podcast and Great youtube channel"
+
+
+@pytest.mark.django_db
 def test_get_twitter_tags_single_name():
     podcast = PodcastFactory(
         requires_filter=False,
@@ -66,4 +78,4 @@ def test_get_twitter_tags_single_name():
     )
     channel = ChannelFactory(requires_filter=False)
     tags = get_twitter_tags([podcast], [channel])
-    assert tags == "@oogabooga"
+    assert tags == "@oogabooga and Great youtube channel"
