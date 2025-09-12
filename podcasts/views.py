@@ -69,7 +69,7 @@ def podcast_gallery_view(request):
 
 
 def podcast_search_results_view(request):
-    query = request.GET.get("q")
+    query = request.GET.get("q", "")
 
     episodes = Episode.objects.filter(
         Q(description__icontains=query) | Q(title__icontains=query)
