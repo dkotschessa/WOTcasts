@@ -61,9 +61,13 @@ def get_twitter_tags(podcasts, channels):
     for podcast in podcasts:
         if podcast.podcast_twitter:
             twitter_tags.append(get_twitter_tag(podcast.podcast_twitter))
+        else:
+            twitter_tags.append(podcast.podcast_name)
     for channel in channels:
         if channel.channel_twitter:
             twitter_tags.append(get_twitter_tag(channel.channel_twitter))
+        else:
+            twitter_tags.append(channel.channel_name)
 
     if len(twitter_tags) == 1:
         tags = twitter_tags[0]
