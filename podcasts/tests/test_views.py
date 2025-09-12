@@ -82,8 +82,18 @@ class PodcastTests(TestCase):
         response = self.client.get(reverse("podcast_info", args=[234324]))
         self.assertEqual(response.status_code, 404)
 
-    # def test_podcast_search(self):
-    #     search_term = '?q=wheel'
-    #     page = reverse('search_results', kwargs={"?q": "wheel"})
+    # def test_podcast_search_query_response_200(self):
+    #     page = reverse('search_results', query={"q": "look"})
     #     response = self.client.get(page)
-    #     self.assertEqual(response.status_code, 200)
+    #     # self.assertEqual(response.status_code, 200)
+
+    def test_podcast_search_query(self):
+        page = reverse("search_results", query={"q": "look"})
+        response = self.client.get(page)
+        self.assertContains(response.text, "Python")
+
+    def test_podcast_search_none(self):
+        search_term = "?q=wheel"
+        page = reverse("search_results", query={"q": "awesome"})
+        response = self.client.get(page)
+        self.assertEqual(response.status_code, 200)
