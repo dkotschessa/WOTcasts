@@ -2,9 +2,11 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls.base import reverse
 from podcasts.models import Episode, Podcast
-from rest_framework import status
-
+from unittest import skipIf
+import django
 from podcasts.views import get_episode_list
+
+DJANGO_VERSION = float(django.get_version()[:2])
 
 
 class PodcastTests(TestCase):
@@ -82,12 +84,14 @@ class PodcastTests(TestCase):
         response = self.client.get(reverse("podcast_info", args=[234324]))
         self.assertEqual(response.status_code, 404)
 
+    @skipIf(DJANGO_VERSION < 5.0, "Django >= 5.0")
     def test_podcast_search_query(self):
         page = reverse("search_results", query={"q": "look"})
         response = self.client.get(page)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Python")
 
+    @skipIf(DJANGO_VERSION < 5.0, "Django >= 5.0")
     def test_podcast_search_none(self):
         search_term = "?q=wheel"
         page = reverse("search_results", query={})
