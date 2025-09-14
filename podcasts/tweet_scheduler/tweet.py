@@ -13,8 +13,6 @@ from podcasts.reports.content_report import (
 
 load_dotenv()
 
-logging.basicConfig(level=logging.INFO)
-
 logger = logging.getLogger("wotcasts.aggregator")
 
 API_KEY = environ["API_KEY"]
@@ -45,7 +43,7 @@ def set_content_announcement_flag_true(episodes, videos):
 
 
 def tweet_new_episodes():
-    logger.info("Checking for any unnannounced episodes")
+    logger.info("Checking for any unannounced episodes")
     episodes, videos = get_unannounced_episodes_and_videos()
     if episodes.exists():
         logging.info(f"Unannounced episodes to tweet: {episodes} ")
