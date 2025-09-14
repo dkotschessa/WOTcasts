@@ -12,7 +12,9 @@ logger = logging.getLogger("wotcasts.aggregator")
 
 def get_podcasts_channels_from_episode_list(episodes, videos):
     podcasts = set([episode.podcast_name for episode in episodes])
+    logger.info(f"Found {len(podcasts)} podcasts")
     channels = set([video.channel_name for video in videos])
+    logger.info(f"Found {len(channels)} youtube channels")
 
     return podcasts, channels
 
@@ -109,6 +111,7 @@ def daily_report(days=0):
     if len(shortest_format) > 279:
         logger.info("Tweet format exceeds twitter limit")
         return None
+
     return report_string
 
 
