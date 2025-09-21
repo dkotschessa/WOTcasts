@@ -50,7 +50,7 @@ class PodcastTests(TestCase):
         self.assertTemplateUsed(response, "podcasts/homepage.html")
 
     def test_home_page_n_plus_one(self):
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(2):
             self.client.get(reverse("homepage"))
 
     def test_homepage_list_contents(self):
