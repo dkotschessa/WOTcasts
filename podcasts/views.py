@@ -43,17 +43,13 @@ class AboutView(TemplateView):
 class HomePageView(ListView):
     model = Episode
     paginate_by = 40
-    ordering = "-pub_date"
+    ordering = ["-pub_date"]
     template_name = "podcasts/homepage.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["now"] = timezone.now()
-        episodes = (
-            Episode.objects.filter()
-            .select_related("podcast_name")
-            .order_by("-pub_date")
-        )
+        episodes = Episode.objects.filter().select_related("podcast_name")
 
         context["episodes"] = get_episode_list(episodes)
         return context
@@ -66,17 +62,14 @@ class ChannelEpisodeListView(ListView):
     model = Channel
     paginate_by = 40
     template_name = "podcasts/channels/channel_info.html"
+    ordering = ["-pub_date"]
 
     # ordering = '-pub_date'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["now"] = timezone.now()
-        episodes = (
-            YoutubeEpisode.objects.filter()
-            .select_related("channel_name")
-            .order_by("-pub_date")
-        )
+        episodes = YoutubeEpisode.objects.filter().select_related("channel_name")
 
         context["yt_episodes"] = get_youtube_episode_list(episodes)
         return context
@@ -88,8 +81,8 @@ class ChannelEpisodeListView(ListView):
 class PodcastEpisodeListView(DetailView):
     model = Podcast
     template_name = "podcasts/podcast_info.html"
+    ordering = ["-pub_date"]
     paginate_by = 40
-    ordering = "-pub_date"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
