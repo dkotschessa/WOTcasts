@@ -4,7 +4,7 @@ from .views import (
     HomepageView,
     youtube_episodes_view,
     channel_info_view,
-    podcast_info_view,
+    PodcastInfoView,
     podcast_gallery_view,
     podcast_search_results_view,
     AboutView,
@@ -35,7 +35,7 @@ urlpatterns = [
     ),
     path("podcasts", podcast_gallery_view, name="podcast_gallery"),
     path("about", AboutView.as_view(), name="about"),
-    path("podcast/<int:podcast_id>", podcast_info_view, name="podcast_info"),
+    path("podcast/<int:podcast_id>", PodcastInfoView.as_view(), name="podcast_info"),
     path("search_results", podcast_search_results_view, name="search_results"),
     path(
         "youtube_search_results",
