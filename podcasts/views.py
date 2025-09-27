@@ -97,23 +97,52 @@ class PodcastInfoView(DetailView):
 #     return render(request, "podcasts/podcast_info.html", context)
 
 
-def podcast_gallery_view(request):
-    podcasts = Podcast.objects.all()
-    podcast_list = []
-    context = {}
-    for podcast in podcasts:
-        context_dict = {
-            "podcast_name": podcast.podcast_name,
-            "podcast_summary": podcast.podcast_summary,
-            "podcast_twitter_url": podcast.podcast_twitter,
-            "podcast_twitter_tag": get_twitter_tag(podcast.podcast_twitter),
-            "podcast_image": podcast.podcast_image,
-            "podcast_id": podcast.id,
-        }
-        podcast_list.append(context_dict)
+class PodcastGalleryView(ListView):
+    """
+    Replaces podcast_gallery_view
+    """
 
-    context["podcasts"] = podcast_list
-    return render(request, "podcasts/podcast_gallery.html", context)
+    model = Podcast
+    template_name = "podcasts/podcast_gallery.html"
+    context_object_name = "podcasts"  # Will contain the formatted list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        podcast_list = []
+        # object_list is the queryset result (all Podcast objects)
+        for podcast in context["object_list"]:
+            context_dict = {
+                "podcast_name": podcast.podcast_name,
+                "podcast_summary": podcast.podcast_summary,
+                "podcast_twitter_url": podcast.podcast_twitter,
+                "podcast_twitter_tag": get_twitter_tag(podcast.podcast_twitter),
+                "podcast_image": podcast.podcast_image,
+                "podcast_id": podcast.id,
+            }
+            podcast_list.append(context_dict)
+
+        context["podcasts"] = podcast_list
+        return context
+
+
+#
+# def podcast_gallery_view(request):
+#     podcasts = Podcast.objects.all()
+#     podcast_list = []
+#     context = {}
+#     for podcast in podcasts:
+#         context_dict = {
+#             "podcast_name": podcast.podcast_name,
+#             "podcast_summary": podcast.podcast_summary,
+#             "podcast_twitter_url": podcast.podcast_twitter,
+#             "podcast_twitter_tag": get_twitter_tag(podcast.podcast_twitter),
+#             "podcast_image": podcast.podcast_image,
+#             "podcast_id": podcast.id,
+#         }
+#         podcast_list.append(context_dict)
+#
+#     context["podcasts"] = podcast_list
+#     return render(request, "podcasts/podcast_gallery.html", context)
 
 
 # Podcast search
