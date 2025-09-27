@@ -1,12 +1,13 @@
 from django.urls import path
 from .views import (
-    homepage_view,
+    # homepage_view,
+    HomepageView,
     youtube_episodes_view,
     channel_info_view,
     podcast_info_view,
     podcast_gallery_view,
     podcast_search_results_view,
-    about_view,
+    AboutView,
     youtube_gallery_view,
     youtube_search_results_view,
     get_content_by_date_view,
@@ -14,7 +15,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path("", homepage_view, name="homepage"),
+    path("", HomepageView.as_view(), name="homepage"),
     path(
         "content_by_date/<str:content_date>",
         get_content_by_date_view,
@@ -33,7 +34,7 @@ urlpatterns = [
         name="youtube_channel_info",
     ),
     path("podcasts", podcast_gallery_view, name="podcast_gallery"),
-    path("about", about_view, name="about"),
+    path("about", AboutView.as_view(), name="about"),
     path("podcast/<int:podcast_id>", podcast_info_view, name="podcast_info"),
     path("search_results", podcast_search_results_view, name="search_results"),
     path(

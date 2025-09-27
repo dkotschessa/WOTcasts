@@ -2,6 +2,9 @@ import datetime
 
 import dateutil.parser
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
+
 from .models import Episode, Podcast, Channel, YoutubeEpisode
 from podcasts.utils.helpers import get_twitter_tag
 
@@ -11,22 +14,46 @@ from django.db.models import Q
 # HOME and ABOUT views
 
 
-def homepage_view(request):
-    episodes = (
-        Episode.objects.filter()
-        .select_related("podcast_name")
-        .order_by("-pub_date")[:40]
-    )
-    # TODO one of each
-    context = {}
+class HomepageView(ListView):
+    """
+    Replaces homepage_view
+    """
 
-    episode_list = get_episode_list(episodes)
-    context["episodes"] = episode_list
-    return render(request, "podcasts/homepage.html", context)
+    model = Episode
+    template_name = "podcasts/homepage.html"
+    context_object_name = "episodes"  # By default it's object_list
+
+    def get_queryset(self):
+        # Fetch the episodes, similar to the original function
+        return (
+            Episode.objects.all()
+            .select_related("podcast_name")
+            .order_by("-pub_date")[:40]
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Apply the transformation logic from get_episode_list
+        context[self.context_object_name] = get_episode_list(context["object_list"])
+        return context
 
 
-def about_view(request):
-    return render(request, "podcasts/about.html")
+# def homepage_view(request):
+#     episodes = (
+#         Episode.objects.filter()
+#         .select_related("podcast_name")
+#         .order_by("-pub_date")[:40]
+#     )
+#     # TODO one of each
+#     context = {}
+#
+#     episode_list = get_episode_list(episodes)
+#     context["episodes"] = episode_list
+#     return render(request, "podcasts/homepage.html", context)
+
+
+class AboutView(TemplateView):
+    template_name = "podcasts/about.html"
 
 
 # PODCAST views
