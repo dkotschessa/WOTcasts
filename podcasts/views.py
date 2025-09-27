@@ -174,18 +174,31 @@ class PodcastSearchResultsView(ListView):
         return context
 
 
-def youtube_search_results_view(request):
-    query = request.GET.get("q")
+class YoutubeSearchResultsView(ListView):
+    """
+    Replaces youtube_search_results_view
+    """
 
-    episodes = YoutubeEpisode.objects.filter(
-        Q(description__icontains=query) | Q(title__icontains=query)
-    )
-    context = {}
+    model = YoutubeEpisode
+    template_name = "podcasts/channels/search_results.html"
+    context_object_name = "yt_episodes"
 
-    episode_list = get_youtube_episode_list(episodes)
-    context["yt_episodes"] = episode_list
-    context["query"] = query
-    return render(request, "podcasts/channels/search_results.html", context)
+    def get_queryset(self):
+        self.query = self.request.GET.get("q", "")
+        if self.query:
+            return YoutubeEpisode.objects.filter(
+                Q(description__icontains=self.query) | Q(title__icontains=self.query)
+            )
+        return YoutubeEpisode.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Apply the transformation logic from get_youtube_episode_list
+        context[self.context_object_name] = get_youtube_episode_list(
+            context["object_list"]
+        )
+        context["query"] = self.query
+        return context
 
 
 def get_episode_list(episodes):
