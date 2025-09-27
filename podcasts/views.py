@@ -221,40 +221,97 @@ def get_episode_list(episodes):
 ### YOUTUBE views
 
 
-def youtube_gallery_view(request):
-    channels = Channel.objects.all()
-    channel_list = []
-    context = {}
-    for channel in channels:
-        context_dict = {
-            "youtube_url": channel.youtube_url,
-            "feed_href": channel.feed_href,
-            "channel_name": channel.channel_name,
-            "channel_summary": channel.channel_summary,
-            "channel_image": channel.channel_image,
-            "channel_twitter_url": channel.channel_twitter,
-            "channel_twitter_tag": get_twitter_tag(channel.channel_twitter),
-            "host": channel.host,
-            "channel_id": channel.id,
-        }
-        channel_list.append(context_dict)
+class YoutubeGalleryView(ListView):
+    """
+    Replaces youtube_gallery_view
+    """
 
-    context["channels"] = channel_list
-    return render(request, "podcasts/channels/channel_gallery.html", context)
+    model = Channel
+    template_name = "podcasts/channels/channel_gallery.html"
+    context_object_name = "channels"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        channel_list = []
+        for channel in context["object_list"]:
+            context_dict = {
+                "youtube_url": channel.youtube_url,
+                "feed_href": channel.feed_href,
+                "channel_name": channel.channel_name,
+                "channel_summary": channel.channel_summary,
+                "channel_image": channel.channel_image,
+                "channel_twitter_url": channel.channel_twitter,
+                "channel_twitter_tag": get_twitter_tag(channel.channel_twitter),
+                "host": channel.host,
+                "channel_id": channel.id,
+            }
+            channel_list.append(context_dict)
+
+        context["channels"] = channel_list
+        return context
 
 
-def youtube_episodes_view(request):
-    yt_episodes = (
-        YoutubeEpisode.objects.filter()
-        .prefetch_related("channel_name")
-        .order_by("-pub_date")[:40]
-    )
+#
+# def youtube_gallery_view(request):
+#     channels = Channel.objects.all()
+#     channel_list = []
+#     context = {}
+#     for channel in channels:
+#         context_dict = {
+#             "youtube_url": channel.youtube_url,
+#             "feed_href": channel.feed_href,
+#             "channel_name": channel.channel_name,
+#             "channel_summary": channel.channel_summary,
+#             "channel_image": channel.channel_image,
+#             "channel_twitter_url": channel.channel_twitter,
+#             "channel_twitter_tag": get_twitter_tag(channel.channel_twitter),
+#             "host": channel.host,
+#             "channel_id": channel.id,
+#         }
+#         channel_list.append(context_dict)
+#
+#     context["channels"] = channel_list
+#     return render(request, "podcasts/channels/channel_gallery.html", context)
 
-    context = {}
 
-    episode_list = get_youtube_episode_list(yt_episodes)
-    context["yt_episodes"] = episode_list
-    return render(request, "podcasts/channels/youtube.html", context)
+class YoutubeEpisodesView(ListView):
+    """
+    Replaces youtube_episodes_view
+    """
+
+    model = YoutubeEpisode
+    template_name = "podcasts/channels/youtube.html"
+    context_object_name = "yt_episodes"
+
+    def get_queryset(self):
+        return (
+            YoutubeEpisode.objects.all()
+            .prefetch_related("channel_name")
+            .order_by("-pub_date")[:40]
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Apply the transformation logic from get_youtube_episode_list
+        context[self.context_object_name] = get_youtube_episode_list(
+            context["object_list"]
+        )
+        return context
+
+
+# def youtube_episodes_view(request):
+#     yt_episodes = (
+#         YoutubeEpisode.objects.filter()
+#         .prefetch_related("channel_name")
+#         .order_by("-pub_date")[:40]
+#     )
+#
+#     context = {}
+#
+#     episode_list = get_youtube_episode_list(yt_episodes)
+#     context["yt_episodes"] = episode_list
+#     return render(request, "podcasts/channels/youtube.html", context)
+#
 
 
 def channel_info_view(request, channel_id):
