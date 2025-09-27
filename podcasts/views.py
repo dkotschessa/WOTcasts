@@ -3,6 +3,7 @@ import datetime
 import dateutil.parser
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .models import Episode, Podcast, Channel, YoutubeEpisode
@@ -59,18 +60,41 @@ class AboutView(TemplateView):
 # PODCAST views
 
 
-def podcast_info_view(request, podcast_id):
-    podcast = get_object_or_404(Podcast, pk=podcast_id)
-    episodes = (
-        Episode.objects.filter(podcast_name_id=podcast.id)
-        .select_related("podcast_name")
-        .order_by("-pub_date")[:40]
-    )
-    context = {"podcast": podcast}
+class PodcastInfoView(DetailView):
+    """
+    Replaces podcast_info_view using DetailView for the main object (Podcast)
+    and custom logic for the related list (Episodes).
+    """
 
-    episode_list = get_episode_list(episodes)
-    context["episodes"] = episode_list
-    return render(request, "podcasts/podcast_info.html", context)
+    model = Podcast
+    pk_url_kwarg = "podcast_id"  # Expects 'podcast_id' from URLconf
+    template_name = "podcasts/podcast_info.html"
+    context_object_name = "podcast"  # By default it's object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        podcast = self.object  # The Podcast object fetched by DetailView
+        episodes = (
+            Episode.objects.filter(podcast_name_id=podcast.id)
+            .select_related("podcast_name")
+            .order_by("-pub_date")[:40]
+        )
+        context["episodes"] = get_episode_list(episodes)
+        return context
+
+
+# def podcast_info_view(request, podcast_id):
+#     podcast = get_object_or_404(Podcast, pk=podcast_id)
+#     episodes = (
+#         Episode.objects.filter(podcast_name_id=podcast.id)
+#         .select_related("podcast_name")
+#         .order_by("-pub_date")[:40]
+#     )
+#     context = {"podcast": podcast}
+#
+#     episode_list = get_episode_list(episodes)
+#     context["episodes"] = episode_list
+#     return render(request, "podcasts/podcast_info.html", context)
 
 
 def podcast_gallery_view(request):
