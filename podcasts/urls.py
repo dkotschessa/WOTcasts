@@ -9,7 +9,7 @@ from .views import (
     PodcastSearchResultsView,
     AboutView,
     youtube_gallery_view,
-    youtube_search_results_view,
+    YoutubeSearchResultsView,
     get_content_by_date_view,
     get_content_by_date_range_view,
 )
@@ -39,7 +39,7 @@ urlpatterns = [
     path("search_results", PodcastSearchResultsView.as_view(), name="search_results"),
     path(
         "youtube_search_results",
-        youtube_search_results_view,
+        YoutubeSearchResultsView.as_view(),
         name="youtube_search_results",
     ),
 ]
