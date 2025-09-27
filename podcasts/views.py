@@ -1,6 +1,7 @@
 import datetime
 
 import dateutil.parser
+from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
@@ -314,16 +315,37 @@ class YoutubeEpisodesView(ListView):
 #
 
 
-def channel_info_view(request, channel_id):
-    channel = get_object_or_404(Channel, pk=channel_id)
-    episodes = YoutubeEpisode.objects.filter(channel_name=channel_id).order_by(
-        "-pub_date"
-    )[:40]
-    context = {"channel": channel}
+class ChannelInfoView(DetailView):
+    """
+    Replaces channel_info_view
+    """
 
-    episode_list = get_youtube_episode_list(episodes)
-    context["yt_episodes"] = episode_list
-    return render(request, "podcasts/channels/channel_info.html", context)
+    model = Channel
+    pk_url_kwarg = "channel_id"
+    template_name = "podcasts/channels/channel_info.html"
+    context_object_name = "channel"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        channel = self.object
+        episodes = YoutubeEpisode.objects.filter(channel_name=channel.id).order_by(
+            "-pub_date"
+        )[:40]
+        context["yt_episodes"] = get_youtube_episode_list(episodes)
+        return context
+
+
+#
+# def channel_info_view(request, channel_id):
+#     channel = get_object_or_404(Channel, pk=channel_id)
+#     episodes = YoutubeEpisode.objects.filter(channel_name=channel_id).order_by(
+#         "-pub_date"
+#     )[:40]
+#     context = {"channel": channel}
+#
+#     episode_list = get_youtube_episode_list(episodes)
+#     context["yt_episodes"] = episode_list
+#     return render(request, "podcasts/channels/channel_info.html", context)
 
 
 def get_youtube_episode_list(episodes):
@@ -342,35 +364,106 @@ def get_youtube_episode_list(episodes):
     return episode_list
 
 
-def get_content_by_date_view(request, content_date: str):
-    date = dateutil.parser.parse(content_date)
-    podcast_episodes = Episode.objects.filter(pub_date__date=date)
-    yt_episodes = YoutubeEpisode.objects.filter(pub_date__date=date)
-    podcast_episode_list = get_episode_list(podcast_episodes)
-    youtube_episode_list = get_youtube_episode_list(yt_episodes)
-    context = {
-        "pub_date": content_date,
-        "podcast_episodes": podcast_episode_list,
-        "youtube_episodes": youtube_episode_list,
-    }
-    return render(request, "podcasts/content_by_date.html", context)
+class ContentByDateView(TemplateView):
+    """
+    Replaces get_content_by_date_view. Using TemplateView and overriding
+    get_context_data to handle the complex query logic.
+    """
+
+    template_name = "podcasts/content_by_date.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        content_date = self.kwargs["content_date"]  # Get from URL kwarg
+
+        try:
+            date = dateutil.parser.parse(content_date)
+        except dateutil.parser.ParserError:
+            # You might want to handle this error more gracefully
+            raise Http404("Invalid date format.")
+
+        podcast_episodes = Episode.objects.filter(pub_date__date=date)
+        yt_episodes = YoutubeEpisode.objects.filter(pub_date__date=date)
+
+        context.update(
+            {
+                "pub_date": content_date,
+                "podcast_episodes": get_episode_list(podcast_episodes),
+                "youtube_episodes": get_youtube_episode_list(yt_episodes),
+            }
+        )
+        return context
 
 
-def get_content_by_date_range_view(request, start_date: str, end_date: str):
-    content_start_date = dateutil.parser.parse(start_date)
-    content_end_date = dateutil.parser.parse(end_date)
-    podcast_episodes = Episode.objects.filter(
-        pub_date__date__gte=content_start_date
-    ).filter(pub_date__date__lte=content_end_date)
-    yt_episodes = YoutubeEpisode.objects.filter(
-        pub_date__date__gte=content_start_date
-    ).filter(pub_date__date__lte=content_end_date)
-    podcast_episode_list = get_episode_list(podcast_episodes)
-    youtube_episode_list = get_youtube_episode_list(yt_episodes)
-    context = {
-        "start_date": content_start_date.date,
-        "end_date": content_end_date.date,
-        "podcast_episodes": podcast_episode_list,
-        "youtube_episodes": youtube_episode_list,
-    }
-    return render(request, "podcasts/content_by_date.html", context)
+#
+# def get_content_by_date_view(request, content_date: str):
+#     date = dateutil.parser.parse(content_date)
+#     podcast_episodes = Episode.objects.filter(pub_date__date=date)
+#     yt_episodes = YoutubeEpisode.objects.filter(pub_date__date=date)
+#     podcast_episode_list = get_episode_list(podcast_episodes)
+#     youtube_episode_list = get_youtube_episode_list(yt_episodes)
+#     context = {
+#         "pub_date": content_date,
+#         "podcast_episodes": podcast_episode_list,
+#         "youtube_episodes": youtube_episode_list,
+#     }
+#     return render(request, "podcasts/content_by_date.html", context)
+
+
+class ContentByDateRangeView(TemplateView):
+    """
+    Replaces get_content_by_date_range_view
+    """
+
+    template_name = "podcasts/content_by_date.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        start_date_str = self.kwargs["start_date"]
+        end_date_str = self.kwargs["end_date"]
+
+        try:
+            content_start_date = dateutil.parser.parse(start_date_str)
+            content_end_date = dateutil.parser.parse(end_date_str)
+        except dateutil.parser.ParserError:
+            raise Http404("Invalid date format in range.")
+
+        podcast_episodes = Episode.objects.filter(
+            pub_date__date__gte=content_start_date.date(),
+            pub_date__date__lte=content_end_date.date(),
+        )
+        yt_episodes = YoutubeEpisode.objects.filter(
+            pub_date__date__gte=content_start_date.date(),
+            pub_date__date__lte=content_end_date.date(),
+        )
+
+        context.update(
+            {
+                "start_date": content_start_date.date(),
+                "end_date": content_end_date.date(),
+                "podcast_episodes": get_episode_list(podcast_episodes),
+                "youtube_episodes": get_youtube_episode_list(yt_episodes),
+            }
+        )
+        return context
+
+
+#
+# def get_content_by_date_range_view(request, start_date: str, end_date: str):
+#     content_start_date = dateutil.parser.parse(start_date)
+#     content_end_date = dateutil.parser.parse(end_date)
+#     podcast_episodes = Episode.objects.filter(
+#         pub_date__date__gte=content_start_date
+#     ).filter(pub_date__date__lte=content_end_date)
+#     yt_episodes = YoutubeEpisode.objects.filter(
+#         pub_date__date__gte=content_start_date
+#     ).filter(pub_date__date__lte=content_end_date)
+#     podcast_episode_list = get_episode_list(podcast_episodes)
+#     youtube_episode_list = get_youtube_episode_list(yt_episodes)
+#     context = {
+#         "start_date": content_start_date.date,
+#         "end_date": content_end_date.date,
+#         "podcast_episodes": podcast_episode_list,
+#         "youtube_episodes": youtube_episode_list,
+#     }
+#     return render(request, "podcasts/content_by_date.html", context)
