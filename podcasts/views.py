@@ -16,7 +16,63 @@ from django.db.models import Q
 # HOME and ABOUT views
 
 
-class HomepageView(ListView):
+class EpisodeListMixin:
+    """Mixin to transform an Episode queryset into the required dictionary format."""
+
+    context_object_name = "episodes"
+
+    def get_episode_list_data(self, queryset):
+        episode_list = []
+        for episode in queryset:
+            episode_list.append(
+                {
+                    "episode_image": episode.image,
+                    "podcast_name": episode.podcast_name,
+                    "episode_title": episode.title,
+                    "episode_description": episode.description,
+                    "episode_duration": episode.duration,
+                    "episode_link": episode.link,
+                    "podcast_id": episode.podcast_name_id,
+                    "published_date": episode.pub_date,
+                }
+            )
+        return episode_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Transform the object_list (queryset result) before passing to template
+        context[self.context_object_name] = self.get_episode_list_data(
+            context["object_list"]
+        )
+        return context
+
+
+class SearchQueryMixin:
+    """Mixin to handle the common 'q' query parameter for search views."""
+
+    def get_queryset(self):
+        # Store the query for use in get_context_data
+        self.query = self.request.GET.get("q", "")
+        if self.query:
+            # The actual filtering logic must be implemented by the inheriting class
+            # because the model changes (Episode or YoutubeEpisode).
+            return (
+                super()
+                .get_queryset()
+                .filter(
+                    Q(description__icontains=self.query)
+                    | Q(title__icontains=self.query)
+                )
+            )
+        return self.model.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.query
+        return context
+
+
+class HomepageView(EpisodeListMixin, ListView):
     """
     Replaces homepage_view
     """
@@ -33,11 +89,12 @@ class HomepageView(ListView):
             .order_by("-pub_date")[:40]
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Apply the transformation logic from get_episode_list
-        context[self.context_object_name] = get_episode_list(context["object_list"])
-        return context
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # Apply the transformation logic from get_episode_list
+    #     context[self.context_object_name] = get_episode_list(context["object_list"])
+    #     return context
 
 
 class AboutView(TemplateView):
@@ -73,7 +130,6 @@ class PodcastGalleryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         podcast_list = []
-        # object_list is the queryset result (all Podcast objects)
         for podcast in context["object_list"]:
             context_dict = {
                 "podcast_name": podcast.podcast_name,
@@ -92,53 +148,30 @@ class PodcastGalleryView(ListView):
 # Podcast search
 
 
-class PodcastSearchResultsView(ListView):
+class PodcastSearchResultsView(SearchQueryMixin, EpisodeListMixin, ListView):
     """
     Replaces podcast_search_results_view
     """
 
     model = Episode
     template_name = "podcasts/search_results.html"
-    context_object_name = "episodes"
-
-    def get_queryset(self):
-        # Get the 'q' query parameter from the URL
-        self.query = self.request.GET.get("q", "")
-        if self.query:
-            return Episode.objects.filter(
-                Q(description__icontains=self.query) | Q(title__icontains=self.query)
-            )
-        return Episode.objects.none()  # Return empty queryset if no query
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Apply the transformation logic from get_episode_list
-        context[self.context_object_name] = get_episode_list(context["object_list"])
-        context["query"] = self.query
-        return context
-
-
-class YoutubeSearchResultsView(ListView):
-    model = YoutubeEpisode
-    template_name = "podcasts/channels/search_results.html"
-    context_object_name = "yt_episodes"
-
-    def get_queryset(self):
-        self.query = self.request.GET.get("q", "")
-        if self.query:
-            return YoutubeEpisode.objects.filter(
-                Q(description__icontains=self.query) | Q(title__icontains=self.query)
-            )
-        return YoutubeEpisode.objects.none()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Apply the transformation logic from get_youtube_episode_list
-        context[self.context_object_name] = get_youtube_episode_list(
-            context["object_list"]
-        )
-        context["query"] = self.query
-        return context
+    # context_object_name = "episodes"
+    #
+    # def get_queryset(self):
+    #     # Get the 'q' query parameter from the URL
+    #     self.query = self.request.GET.get("q", "")
+    #     if self.query:
+    #         return Episode.objects.filter(
+    #             Q(description__icontains=self.query) | Q(title__icontains=self.query)
+    #         )
+    #     return Episode.objects.none()  # Return empty queryset if no query
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # Apply the transformation logic from get_episode_list
+    #     context[self.context_object_name] = get_episode_list(context["object_list"])
+    #     context["query"] = self.query
+    #     return context
 
 
 def get_episode_list(episodes):
@@ -156,37 +189,6 @@ def get_episode_list(episodes):
         }
         episode_list.append(context_dict)
     return episode_list
-
-
-class EpisodeListMixin:
-    """Mixin to transform an Episode queryset into the required dictionary format."""
-
-    context_object_name = "episodes"
-
-    def get_episode_list_data(self, queryset):
-        episode_list = []
-        for episode in queryset:
-            episode_list.append(
-                {
-                    "episode_image": episode.image,
-                    "podcast_name": episode.podcast_name,
-                    "episode_title": episode.title,
-                    "episode_description": episode.description,
-                    "episode_duration": episode.duration,
-                    "episode_link": episode.link,
-                    "podcast_id": episode.podcast_name_id,
-                    "published_date": episode.pub_date,
-                }
-            )
-        return episode_list
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Transform the object_list (queryset result) before passing to template
-        context[self.context_object_name] = self.get_episode_list_data(
-            context["object_list"]
-        )
-        return context
 
 
 # PODCAST VIEWS
@@ -252,6 +254,29 @@ class YoutubeEpisodeListMixin:
         return context
 
 
+class YoutubeSearchResultsView(SearchQueryMixin, YoutubeEpisodeListMixin, ListView):
+    model = YoutubeEpisode
+    template_name = "podcasts/channels/search_results.html"
+    # context_object_name = "yt_episodes"
+    #
+    # def get_queryset(self):
+    #     self.query = self.request.GET.get("q", "")
+    #     if self.query:
+    #         return YoutubeEpisode.objects.filter(
+    #             Q(description__icontains=self.query) | Q(title__icontains=self.query)
+    #         )
+    #     return YoutubeEpisode.objects.none()
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # Apply the transformation logic from get_youtube_episode_list
+    #     context[self.context_object_name] = get_youtube_episode_list(
+    #         context["object_list"]
+    #     )
+    #     context["query"] = self.query
+    #     return context
+
+
 class EpisodeListMixin:
     """Mixin to transform an Episode queryset into the required dictionary format."""
 
@@ -312,31 +337,6 @@ class YoutubeEpisodeListMixin:
         return context
 
 
-class SearchQueryMixin:
-    """Mixin to handle the common 'q' query parameter for search views."""
-
-    def get_queryset(self):
-        # Store the query for use in get_context_data
-        self.query = self.request.GET.get("q", "")
-        if self.query:
-            # The actual filtering logic must be implemented by the inheriting class
-            # because the model changes (Episode or YoutubeEpisode).
-            return (
-                super()
-                .get_queryset()
-                .filter(
-                    Q(description__icontains=self.query)
-                    | Q(title__icontains=self.query)
-                )
-            )
-        return self.model.objects.none()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["query"] = self.query
-        return context
-
-
 class YoutubeGalleryView(ListView):
     model = Channel
     template_name = "podcasts/channels/channel_gallery.html"
@@ -363,7 +363,7 @@ class YoutubeGalleryView(ListView):
         return context
 
 
-class YoutubeEpisodesView(ListView):
+class YoutubeEpisodesView(YoutubeEpisodeListMixin, ListView):
     model = YoutubeEpisode
     template_name = "podcasts/channels/youtube.html"
     context_object_name = "yt_episodes"
@@ -375,13 +375,14 @@ class YoutubeEpisodesView(ListView):
             .order_by("-pub_date")[:40]
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Apply the transformation logic from get_youtube_episode_list
-        context[self.context_object_name] = get_youtube_episode_list(
-            context["object_list"]
-        )
-        return context
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # Apply the transformation logic from get_youtube_episode_list
+    #     context[self.context_object_name] = get_youtube_episode_list(
+    #         context["object_list"]
+    #     )
+    #     return context
 
 
 class ChannelInfoView(DetailView):
