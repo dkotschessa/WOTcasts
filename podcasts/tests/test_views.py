@@ -91,10 +91,9 @@ class PodcastTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Python")
 
-
-@skipIf(DJANGO_VERSION < 5.0, "Django >= 5.0")
-def test_youtube_search_none(self):
-    search_term = "?q=wheel"
-    page = reverse("youtube_search_results", query={})
-    response = self.client.get(page)
-    self.assertEqual(response.status_code, 200)
+    @skipIf(DJANGO_VERSION < 5.0, "Django >= 5.0")
+    def test_youtube_search_none(self):
+        search_term = "?q=wheel"
+        page = reverse("youtube_search_results", query={})
+        response = self.client.get(page)
+        self.assertEqual(response.status_code, 200)

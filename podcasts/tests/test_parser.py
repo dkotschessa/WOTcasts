@@ -5,14 +5,14 @@ from podcasts.parser.episode_parser import (
     save_new_episodes,
     fetch_new_episodes,
 )
-from podcasts.parser.parse_utils import convert_duration
+from podcasts.parser.parse_utils import convert_duration, episode_rss_lookup
 from unittest.mock import patch
 from podcasts.models import Episode, Podcast
 from podcasts.tests.mock_parser import mock_feed
 import pytest
 from faker import Faker
 
-from .factories import PodcastFactory
+from .factories import PodcastFactory, EpisodeFactory
 
 fake = Faker()
 
@@ -63,6 +63,17 @@ def test_fetch_new_episodes():
             mock_feedparser.return_value = mock_feed
             fetch_new_episodes()
             assert Episode.objects.last().title == "some title"
+
+
+@pytest.mark.django_db
+def test_episode_rss_lookup():
+    EpisodeFactory.create(pub_date=datetime(2023, 4, 5, 1, 30, tzinfo=timezone.utc))
+    episode = Episode.objects.last()
+    rss = episode_rss_lookup(episode)
+    assert (
+        rss
+        == "https://www.buzzsprout.com/1986660/13295473-i-don-t-know-what-a-halsey-is.mp3"
+    )
 
 
 def test_convert_duration():
