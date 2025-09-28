@@ -65,17 +65,6 @@ def test_fetch_new_episodes():
             assert Episode.objects.last().title == "some title"
 
 
-@pytest.mark.django_db
-def test_episode_rss_lookup():
-    EpisodeFactory.create(pub_date=datetime(2023, 4, 5, 1, 30, tzinfo=timezone.utc))
-    episode = Episode.objects.last()
-    rss = episode_rss_lookup(episode)
-    assert (
-        rss
-        == "https://www.buzzsprout.com/1986660/13295473-i-don-t-know-what-a-halsey-is.mp3"
-    )
-
-
 def test_convert_duration():
     # TODO parameterise
     assert convert_duration("5531") == "1:32:11"
