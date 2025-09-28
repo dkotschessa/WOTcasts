@@ -2,7 +2,6 @@ import datetime
 
 import dateutil.parser
 from django.http.response import Http404
-from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -73,10 +72,6 @@ class SearchQueryMixin:
 
 
 class HomepageView(EpisodeListMixin, ListView):
-    """
-    Replaces homepage_view
-    """
-
     model = Episode
     template_name = "podcasts/homepage.html"
     context_object_name = "episodes"  # By default it's object_list
@@ -88,13 +83,6 @@ class HomepageView(EpisodeListMixin, ListView):
             .select_related("podcast_name")
             .order_by("-pub_date")[:40]
         )
-
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Apply the transformation logic from get_episode_list
-    #     context[self.context_object_name] = get_episode_list(context["object_list"])
-    #     return context
 
 
 class AboutView(TemplateView):
@@ -149,29 +137,8 @@ class PodcastGalleryView(ListView):
 
 
 class PodcastSearchResultsView(SearchQueryMixin, EpisodeListMixin, ListView):
-    """
-    Replaces podcast_search_results_view
-    """
-
     model = Episode
     template_name = "podcasts/search_results.html"
-    # context_object_name = "episodes"
-    #
-    # def get_queryset(self):
-    #     # Get the 'q' query parameter from the URL
-    #     self.query = self.request.GET.get("q", "")
-    #     if self.query:
-    #         return Episode.objects.filter(
-    #             Q(description__icontains=self.query) | Q(title__icontains=self.query)
-    #         )
-    #     return Episode.objects.none()  # Return empty queryset if no query
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Apply the transformation logic from get_episode_list
-    #     context[self.context_object_name] = get_episode_list(context["object_list"])
-    #     context["query"] = self.query
-    #     return context
 
 
 def get_episode_list(episodes):
@@ -257,24 +224,6 @@ class YoutubeEpisodeListMixin:
 class YoutubeSearchResultsView(SearchQueryMixin, YoutubeEpisodeListMixin, ListView):
     model = YoutubeEpisode
     template_name = "podcasts/channels/search_results.html"
-    # context_object_name = "yt_episodes"
-    #
-    # def get_queryset(self):
-    #     self.query = self.request.GET.get("q", "")
-    #     if self.query:
-    #         return YoutubeEpisode.objects.filter(
-    #             Q(description__icontains=self.query) | Q(title__icontains=self.query)
-    #         )
-    #     return YoutubeEpisode.objects.none()
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Apply the transformation logic from get_youtube_episode_list
-    #     context[self.context_object_name] = get_youtube_episode_list(
-    #         context["object_list"]
-    #     )
-    #     context["query"] = self.query
-    #     return context
 
 
 class EpisodeListMixin:
@@ -374,15 +323,6 @@ class YoutubeEpisodesView(YoutubeEpisodeListMixin, ListView):
             .prefetch_related("channel_name")
             .order_by("-pub_date")[:40]
         )
-
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Apply the transformation logic from get_youtube_episode_list
-    #     context[self.context_object_name] = get_youtube_episode_list(
-    #         context["object_list"]
-    #     )
-    #     return context
 
 
 class ChannelInfoView(DetailView):

@@ -5,14 +5,14 @@ from podcasts.parser.episode_parser import (
     save_new_episodes,
     fetch_new_episodes,
 )
-from podcasts.parser.parse_utils import convert_duration
+from podcasts.parser.parse_utils import convert_duration, episode_rss_lookup
 from unittest.mock import patch
 from podcasts.models import Episode, Podcast
 from podcasts.tests.mock_parser import mock_feed
 import pytest
 from faker import Faker
 
-from .factories import PodcastFactory
+from .factories import PodcastFactory, EpisodeFactory
 
 fake = Faker()
 
