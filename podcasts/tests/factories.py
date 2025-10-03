@@ -41,6 +41,13 @@ class EpisodeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Episode
 
-    title = "Another amazing episode"
-    guid = fake.url()
-    podcast_name = factory.SubFactory(PodcastFactory, feed_href="http://podcast.com")
+    title = fake.sentence()
+    description = fake.sentence()
+    pub_date = fake.date()
+    link = fake.url()
+    duration = "1000"
+    announced_to_twitter = "False"
+
+    guid = fake.uuid4()
+
+    podcast_name = factory.SubFactory(PodcastFactory, feed_href=fake.url())

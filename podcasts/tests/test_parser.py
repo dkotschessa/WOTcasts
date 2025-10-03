@@ -5,14 +5,19 @@ from podcasts.parser.episode_parser import (
     save_new_episodes,
     fetch_new_episodes,
 )
-from podcasts.parser.parse_utils import convert_duration
+from podcasts.parser.parse_utils import (
+    convert_duration,
+    episode_rss_lookup,
+    passes_filter,
+)
 from unittest.mock import patch
 from podcasts.models import Episode, Podcast
-from podcasts.tests.mock_parser import mock_feed
+from podcasts.tests.mock_parser import mock_feed, mock_wot_feed
 import pytest
 from faker import Faker
+import feedparser
 
-from .factories import PodcastFactory
+from .factories import PodcastFactory, EpisodeFactory
 
 fake = Faker()
 
@@ -52,6 +57,21 @@ def test_save_new_episodes():
 
 
 @pytest.mark.django_db
+def test_save_new_episodes_with_filter():
+    with patch("podcasts.parser.episode_parser.feedparser.parse") as mock_parse:
+        mock_parse.return_value = mock_wot_feed
+        podcast = Podcast.objects.get_or_create(
+            feed_href=mock_feed.href,
+            podcast_name=mock_feed.channel.title,
+            requires_filter=True,
+        )
+
+        save_new_episodes(mock_wot_feed)
+        episode = Episode.objects.last()
+        assert episode.description == "wheel of description"
+
+
+@pytest.mark.django_db
 def test_fetch_new_episodes():
     PodcastFactory.create(
         feed_href="https://anchor.fm/s/1e036b78/podcast/rss",
@@ -69,3 +89,44 @@ def test_convert_duration():
     # TODO parameterise
     assert convert_duration("5531") == "1:32:11"
     assert convert_duration("01:08:43") == "01:08:43"
+
+
+@pytest.mark.django_db
+def test_episode_rss_lookup():
+    EpisodeFactory.create(guid="a guid")
+    with patch("podcasts.parser.episode_parser.feedparser.parse") as mock_feedparser:
+        mock_feedparser.return_value = mock_feed
+        rss = episode_rss_lookup(Episode.objects.last())
+        assert rss.title == "some title"
+        assert rss.description == "some description"
+
+
+@pytest.mark.django_db
+def test_episode_rss_lookup_none():
+    EpisodeFactory.create(guid="bleh")
+    with patch("podcasts.parser.episode_parser.feedparser.parse") as mock_feedparser:
+        mock_feedparser.return_value = mock_feed
+        rss = episode_rss_lookup(Episode.objects.last())
+        assert rss is None
+
+
+@pytest.mark.django_db
+def test_passes_filter():
+    EpisodeFactory.create(title="Definitely wheel of time")
+    with patch("podcasts.parser.episode_parser.feedparser.parse") as mock_feedparser:
+        mock_feedparser.return_value = mock_wot_feed
+        episode = Episode.objects.last()
+        f = feedparser.parse(episode.link)
+        item = f.entries[0]
+        assert passes_filter(item) == True
+
+
+@pytest.mark.django_db
+def test_not_passes_filter():
+    EpisodeFactory.create(title="Definitely wheel of time")
+    with patch("podcasts.parser.episode_parser.feedparser.parse") as mock_feedparser:
+        mock_feedparser.return_value = mock_feed
+        episode = Episode.objects.last()
+        f = feedparser.parse(episode.link)
+        item = f.entries[0]
+        assert passes_filter(item) == False

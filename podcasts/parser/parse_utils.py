@@ -41,21 +41,22 @@ def episode_rss_lookup(episode: Episode):
     return None
 
 
-def populate_missing_episode_duration(episode: Episode):
-    """
-    get episode duration from RSS and save to model
-    """
-    logger.info(f"Looking up duration for{episode.title}")
-    rss_fields = episode_rss_lookup(episode)
-    try:
-        itunes_duration = rss_fields.itunes_duration
-    except AttributeError:
-        logger.info(f"Missing duration field in RSS for {episode.title}")
-        itunes_duration = "N/A"
-    duration = convert_duration(itunes_duration)
-    episode.duration = duration
-    episode.save()
-    logger.info(f"Duration saved as {duration}")
+#
+# def populate_missing_episode_duration(episode: Episode):
+#     """
+#     get episode duration from RSS and save to model
+#     """
+#     logger.info(f"Looking up duration for{episode.title}")
+#     rss_fields = episode_rss_lookup(episode)
+#     try:
+#         itunes_duration = rss_fields.itunes_duration
+#     except AttributeError:
+#         logger.info(f"Missing duration field in RSS for {episode.title}")
+#         itunes_duration = "N/A"
+#     duration = convert_duration(itunes_duration)
+#     episode.duration = duration
+#     episode.save()
+#     logger.info(f"Duration saved as {duration}")
 
 
 def passes_filter(item: FeedParserDict) -> bool:

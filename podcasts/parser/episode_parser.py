@@ -2,7 +2,6 @@ import logging
 from dateutil import parser
 from datetime import datetime
 import feedparser
-import requests
 
 from podcasts.models import Episode, Podcast
 from podcasts.parser.parse_utils import convert_duration, passes_filter
