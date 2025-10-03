@@ -8,9 +8,11 @@ omit =
     __init__.py
     content_aggregator/asgi.py
     content_aggregator/wsgi.py
-    manage.py
-    */migrations/* # omit migrations
+    */migrations/*
+    */migrations/*.py
     */tests/* # omit unit test files and directories
+    manage.py
+
 
 # exclude some methods we don't test from the report and stats
 [report]

@@ -69,6 +69,23 @@ feeditem = FeedItem(
     ],
 )
 
+wot_feeditem = FeedItem(
+    title="Some Wheel of time podcast",
+    description="wheel of description",
+    published="Tue, 04 Apr 2023 18:30:00 -0700",
+    podcast_name=Channel.title,
+    image={"href": "http://www.someimagehost/img.png"},
+    link="a link",
+    guid="a guid",
+    links=[
+        {
+            "length": "5",
+            "type": "audio/mpeg",
+            "href": "https://www.buzzsprout.com/1986660/13295473-i-don-t-know-what-a-halsey-is.mp3",
+            "rel": "enclosure",
+        }
+    ],
+)
 channel = Channel(
     title="Test & Code",
     summary="Topics include automated testing, testing strategy",
@@ -79,5 +96,24 @@ channel = Channel(
 )
 
 mock_feed = MockFeed(
-    href="http://www.something.com", channel=channel, entries=[feeditem], bozo=False
+    href="http://www.something.com",
+    channel=channel,
+    entries=[feeditem],
+    bozo=False,
+)
+
+wot_channel = Channel(
+    title="Definitely weheel of time",
+    summary="this is a show about wheel of time",
+    image={
+        "href": "https://assets.fireside.fm/file/fireside-images/podcasts/images/b/bc7f1faf-8aad-4135-bb12-83a8af679756/cover.jpg"
+    },
+    items=[wot_feeditem],
+)
+
+mock_wot_feed = MockFeed(
+    href="http://www.something.com",
+    channel=wot_channel,
+    entries=[wot_feeditem],
+    bozo=False,
 )
